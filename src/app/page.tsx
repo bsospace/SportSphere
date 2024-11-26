@@ -86,7 +86,7 @@ export default function HomePage() {
           transition={{ duration: 0.5 }}
           className="mt-6"
         >
-          {result && (
+          {(result && result.teamName != 'Unknown') && (
             <div className="w-full max-w-lg p-6 bg-white shadow-lg rounded-lg">
               <h3 className="text-xl font-bold mb-2 text-blue-500">
                 สวัสดี, {result.fullName}!
@@ -95,6 +95,10 @@ export default function HomePage() {
                 คุณอยู่ในทีม:{" "}
                 <span
                   className="font-semibold px-2 py-1 rounded"
+                  style={{
+                    backgroundColor: teamColor(result.teamColor),
+                    color: "white",
+                  }}
                 >
                   {result.teamName}
                 </span>
@@ -150,9 +154,37 @@ export default function HomePage() {
               </div>
             </div>
           )}
+
+          {(result && result.teamName === 'Unknown') && (
+            <div className="w-full max-w-lg p-6 bg-white shadow-lg rounded-lg">
+              <h3 className="text-xl font-bold mb-2 text-red-500">
+                ดูเหมือนคุณยังไม่ได้เข้าร่วมทีมใดๆ ใน IF Games 2024
+              </h3>
+              <p className="text-lg">
+                ลองติดต่อทีมงานหากพบปัญหาหรือต้องการข้อมูลเพิ่มเติม
+              </p>
+            </div>
+          )}
         </motion.div>
     </div>
   );
+}
+
+function teamColor(teamColor: string) {
+  switch (teamColor) {
+    case "แดง":
+      return "red";
+    case "น้ำเงิน":
+      return "blue";
+    case "เขียว":
+      return "green";
+    case "เหลือง":
+      return "yellow";
+    case "ชมพู":
+      return "pink";
+    default:
+      return "gray";
+  }
 }
 
 function teamImg(teamColor: string) {

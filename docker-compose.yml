@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: nextjs-app
+    container_name: sport-sphere
     ports:
       - "5056:3000"
     environment:
