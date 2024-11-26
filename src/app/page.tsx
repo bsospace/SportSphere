@@ -39,7 +39,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 m-6">
       <h1 className="text-4xl font-extrabold text-blue-600 mb-6 text-center">
         Welcome to IF Games 2024 🏅
       </h1>
