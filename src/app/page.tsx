@@ -224,16 +224,16 @@ function teamLine(teamColor: string) {
 function teamLineQR(teamColor: string) {
   switch (teamColor) {
     case "แดง":
-      return "/images/red-qr.png";
+      return "/images/red-qr.jpg";
     case "น้ำเงิน":
-      return "/images/blue-qr.png";
+      return "/images/blue-qr.jpg";
     case "เขียว":
-      return "/images/green-qr.png";
+      return "/images/green-qr.jpg";
     case "เหลือง":
-      return "/images/yellow-qr.png";
+      return "/images/yellow-qr.jpg";
     case "ชมพู":
-      return "/images/pink-qr.png";
+      return "/images/pink-qr.jpg";
     default:
-      return "/images/gray-qr.png";
+      return "/images/gray-qr.jpg";
   }
 }
