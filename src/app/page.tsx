@@ -2,6 +2,12 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs"
 
 const variants = {
   hidden: { opacity: 0, height: 0 },
@@ -9,6 +15,7 @@ const variants = {
 };
 
 export default function HomePage() {
+  const [userNumber, setUserNumber] = useState("");
   const [username, setUsername] = useState("");
   interface TeamResult {
     username: string;
@@ -23,12 +30,27 @@ export default function HomePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSearch = async () => {
+  const handleSearchForStudent = async () => {
     setLoading(true);
     setResult(null);
     setError("");
 
-    const response = await fetch(`/api/search?username=${username}`);
+    const response = await fetch(`/api/search?username=${userNumber}`);
+    if (response.ok) {
+      const data = await response.json();
+      setResult(data.data);
+    } else {
+      setError("ไม่พบผู้ใช้งาน กรุณาตรวจสอบรหัสนิสิตของคุณ.");
+    }
+    setLoading(false);
+  };
+
+  const handleSearchForTeacher = async () => {
+    setLoading(true);
+    setResult(null);
+    setError("");
+
+    const response = await fetch(`/api/searchTeacher?username=${username}`);
     if (response.ok) {
       const data = await response.json();
       setResult(data.data);
@@ -48,24 +70,51 @@ export default function HomePage() {
         <h2 className="text-2xl font-semibold mb-4 text-center text-gray-800">
           ค้นหาสีของคุณ
         </h2>
-        <input
-          type="text"
-          className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring focus:ring-blue-300"
-          placeholder="กรอกรหัสนิสิต"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <button
-          onClick={handleSearch}
-          className={`w-full py-3 rounded-lg text-white font-bold transition ${
-            loading
-              ? "bg-blue-300 cursor-not-allowed"
-              : "bg-blue-500 hover:bg-blue-600"
-          }`}
-          disabled={loading}
-        >
-          {loading ? "กำลังค้นหา..." : "ค้นหา"}
-        </button>
+        <Tabs defaultValue="account" className="w-full">
+          <TabsList>
+            <TabsTrigger value="account">นิสิต</TabsTrigger>
+            <TabsTrigger value="password">อาจารย์หรือบุคคลากร</TabsTrigger>
+          </TabsList>
+          <TabsContent value="account">
+            <input
+              type="text"
+              className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring focus:ring-blue-300"
+              placeholder="ค้นหารหัสนิสิต"
+              value={userNumber}
+              onChange={(e) => setUserNumber(e.target.value)}
+            />
+            <button
+              onClick={handleSearchForStudent}
+              className={`w-full py-3 rounded-lg text-white font-bold transition ${loading
+                ? "bg-blue-300 cursor-not-allowed"
+                : "bg-blue-500 hover:bg-blue-600"
+                }`}
+              disabled={loading}
+            >
+              {loading ? "กำลังค้นหา..." : "ค้นหา"}
+            </button>
+          </TabsContent>
+          <TabsContent value="password">
+            <input
+              type="text"
+              className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring focus:ring-blue-300"
+              placeholder="ค้นหาด้วยชื่อ"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <button
+              onClick={handleSearchForTeacher}
+              className={`w-full py-3 rounded-lg text-white font-bold transition ${loading
+                ? "bg-blue-300 cursor-not-allowed"
+                : "bg-blue-500 hover:bg-blue-600"
+                }`}
+              disabled={loading}
+            >
+              {loading ? "กำลังค้นหา..." : "ค้นหา"}
+            </button>
+          </TabsContent>
+        </Tabs>
+
 
         {error && (
           <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
@@ -77,50 +126,50 @@ export default function HomePage() {
             </ul>
           </div>
         )}
-        </div>
+      </div>
 
-        <motion.div
-          initial="hidden"
-          animate={result ? "visible" : "hidden"}
-          variants={variants}
-          transition={{ duration: 0.5 }}
-          className="mt-6"
-        >
-          {(result && result.teamName != 'Unknown') && (
-            <div className="w-full max-w-lg p-6 bg-white shadow-lg rounded-lg">
-              <h3 className="text-xl font-bold mb-2 text-blue-500">
-                สวัสดี, {result.fullName}!
-              </h3>
-              <p className="text-lg mb-4">
-                คุณอยู่ในทีม:{" "}
-                <span
-                  className="font-semibold px-2 py-1 rounded"
-                  style={{
-                    backgroundColor: teamColor(result.teamColor),
-                    color: "white",
-                  }}
-                >
-                  {result.teamName}
-                </span>
-              </p>
-              <img src={teamImg(result.teamColor)} alt={result.teamName} />
+      <motion.div
+        initial="hidden"
+        animate={result ? "visible" : "hidden"}
+        variants={variants}
+        transition={{ duration: 0.5 }}
+        className="mt-6"
+      >
+        {(result && result.teamName != 'Unknown') && (
+          <div className="w-full max-w-lg p-6 bg-white shadow-lg rounded-lg">
+            <h3 className="text-xl font-bold mb-2 text-blue-500">
+              สวัสดี, {result.fullName}!
+            </h3>
+            <p className="text-lg mb-4">
+              คุณอยู่ในทีม:{" "}
+              <span
+                className="font-semibold px-2 py-1 rounded"
+                style={{
+                  backgroundColor: teamColor(result.teamColor),
+                  color: "white",
+                }}
+              >
+                {result.teamName}
+              </span>
+            </p>
+            <img src={teamImg(result.teamColor)} alt={result.teamName} />
 
-              <h4 className="mt-4 font-semibold text-gray-800">อาจารย์ภายในทีม:</h4>
-              <ul className="list-disc pl-6 text-gray-700">
-                {result.members
-                  .filter(
-                    (user) =>
-                      user.position === "อาจารย์/บุคลากร" ||
-                      user.position === "แม่สี"
-                  )
-                  .map((member) => (
-                    <li key={member.username} className="text-sm">
-                      {member.name} ({member.position})
-                    </li>
-                  ))}
-              </ul>
+            <h4 className="mt-4 font-semibold text-gray-800">อาจารย์ภายในทีม:</h4>
+            <ul className="list-disc pl-6 text-gray-700">
+              {result.members
+                .filter(
+                  (user) =>
+                    user.position === "อาจารย์/บุคลากร" ||
+                    user.position === "แม่สี"
+                )
+                .map((member) => (
+                  <li key={member.username} className="text-sm">
+                    {member.name} ({member.position})
+                  </li>
+                ))}
+            </ul>
 
-              {/* <h4 className="mt-4 font-semibold text-gray-800">นิสิตภายในทีม:</h4>
+            {/* <h4 className="mt-4 font-semibold text-gray-800">นิสิตภายในทีม:</h4>
               <ul className="list-disc pl-6 text-gray-700">
                 {result.members
                   .filter((user) => user.position === "นิสิต")
@@ -131,41 +180,41 @@ export default function HomePage() {
                   ))}
               </ul> */}
 
-              <div className="text-center mt-6">
-                <p className="text-lg font-medium text-gray-700">
-                  เข้าร่วมกลุ่มไลน์ OpenChat{" "}
-                  <a
-                    href={teamLine(result.teamColor)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-500 underline hover:text-blue-700"
-                  >
-                    คลิกที่นี่
-                  </a>
-                </p>
-                <p className="text-sm text-gray-600 mt-2">
-                  หรือ สแกน QR Code ด้านล่าง
-                </p>
-                <img
-                  src={teamLineQR(result.teamColor)}
-                  alt="Line QR Code"
-                  className="w-1/2 mx-auto mt-4 border border-gray-300 rounded-lg shadow-md"
-                />
-              </div>
-            </div>
-          )}
-
-          {(result && result.teamName === 'Unknown') && (
-            <div className="w-full max-w-lg p-6 bg-white shadow-lg rounded-lg">
-              <h3 className="text-xl font-bold mb-2 text-red-500">
-                ดูเหมือนคุณยังไม่ได้เข้าร่วมทีมใดๆ ใน IF Games 2024
-              </h3>
-              <p className="text-lg">
-                ลองติดต่อทีมงานหากพบปัญหาหรือต้องการข้อมูลเพิ่มเติม
+            <div className="text-center mt-6">
+              <p className="text-lg font-medium text-gray-700">
+                เข้าร่วมกลุ่มไลน์ OpenChat{" "}
+                <a
+                  href={teamLine(result.teamColor)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 underline hover:text-blue-700"
+                >
+                  คลิกที่นี่
+                </a>
               </p>
+              <p className="text-sm text-gray-600 mt-2">
+                หรือ สแกน QR Code ด้านล่าง
+              </p>
+              <img
+                src={teamLineQR(result.teamColor)}
+                alt="Line QR Code"
+                className="w-1/2 mx-auto mt-4 border border-gray-300 rounded-lg shadow-md"
+              />
             </div>
-          )}
-        </motion.div>
+          </div>
+        )}
+
+        {(result && result.teamName === 'Unknown') && (
+          <div className="w-full max-w-lg p-6 bg-white shadow-lg rounded-lg">
+            <h3 className="text-xl font-bold mb-2 text-red-500">
+              ดูเหมือนคุณยังไม่ได้เข้าร่วมทีมใดๆ ใน IF Games 2024
+            </h3>
+            <p className="text-lg">
+              ลองติดต่อทีมงานหากพบปัญหาหรือต้องการข้อมูลเพิ่มเติม
+            </p>
+          </div>
+        )}
+      </motion.div>
     </div>
   );
 }
@@ -188,20 +237,20 @@ function teamColor(teamColor: string) {
 }
 
 function teamImg(teamColor: string) {
-    switch (teamColor) {
-      case "แดง":
-        return "/images/red-team.png";
-      case "น้ำเงิน":
-        return "/images/blue-team.png";
-      case "เขียว":
-        return "/images/green-team.png";
-      case "เหลือง":
-        return "/images/yellow-team.png";
-      case "ชมพู":
-        return "/images/pink-team.png";
-      default:
-        return "/images/gray-team.png";
-    }
+  switch (teamColor) {
+    case "แดง":
+      return "/images/red-team.png";
+    case "น้ำเงิน":
+      return "/images/blue-team.png";
+    case "เขียว":
+      return "/images/green-team.png";
+    case "เหลือง":
+      return "/images/yellow-team.png";
+    case "ชมพู":
+      return "/images/pink-team.png";
+    default:
+      return "/images/gray-team.png";
+  }
 }
 
 function teamLine(teamColor: string) {
