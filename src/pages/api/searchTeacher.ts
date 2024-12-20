@@ -12,9 +12,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // const { username } = { username: ภูสิต };
 
         try {
-            const user = await mockUserData.find((user) => user.name.includes(username));
+            let user = await mockUserData.find((user) => user.name.includes(username));
             const team_members = await mockUserData.filter((data) => data.team == user?.team);
-
+            
+            if(user?.position == 'นิสิต') res.status(404).json({ success: false, message: 'ไม่พบข้อมูล' });
+            
             res.status(200).json({
                 success: true,
                 data: {

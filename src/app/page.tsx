@@ -7,7 +7,10 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/tabs"
+} from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const variants = {
   hidden: { opacity: 0, height: 0 },
@@ -31,6 +34,10 @@ export default function HomePage() {
   const [error, setError] = useState("");
 
   const handleSearchForStudent = async () => {
+    if (!userNumber.trim()) {
+      setError("กรุณากรอกรหัสนิสิตก่อนทำการค้นหา");
+      return;
+    }
     setLoading(true);
     setResult(null);
     setError("");
@@ -46,6 +53,10 @@ export default function HomePage() {
   };
 
   const handleSearchForTeacher = async () => {
+    if (!username.trim()) {
+      setError("กรุณากรอกชื่อผู้ใช้งานก่อนทำการค้นหา");
+      return;
+    }
     setLoading(true);
     setResult(null);
     setError("");
@@ -55,13 +66,25 @@ export default function HomePage() {
       const data = await response.json();
       setResult(data.data);
     } else {
-      setError("ไม่พบผู้ใช้งาน กรุณาตรวจสอบรหัสนิสิตของคุณ.");
+      setError("ไม่พบผู้ใช้งาน กรุณาตรวจสอบชื่อของคุณ.");
     }
     setLoading(false);
   };
 
+  const handleKeyDownStudent = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleSearchForStudent();
+    }
+  };
+
+  const handleKeyDownTeacher = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleSearchForTeacher();
+    }
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 m-6">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
       <h1 className="text-4xl font-extrabold text-blue-600 mb-6 text-center">
         Welcome to IF Games 2024 🏅
       </h1>
@@ -71,60 +94,55 @@ export default function HomePage() {
           ค้นหาสีของคุณ
         </h2>
         <Tabs defaultValue="account" className="w-full">
-          <TabsList>
+          <TabsList className="mb-4">
             <TabsTrigger value="account">นิสิต</TabsTrigger>
             <TabsTrigger value="password">อาจารย์หรือบุคคลากร</TabsTrigger>
           </TabsList>
           <TabsContent value="account">
-            <input
+            <Input
               type="text"
-              className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring focus:ring-blue-300"
               placeholder="ค้นหารหัสนิสิต"
               value={userNumber}
               onChange={(e) => setUserNumber(e.target.value)}
+              onKeyDown={handleKeyDownStudent}
+              required
+              className="mb-4"
             />
-            <button
+            <Button
               onClick={handleSearchForStudent}
-              className={`w-full py-3 rounded-lg text-white font-bold transition ${loading
-                ? "bg-blue-300 cursor-not-allowed"
-                : "bg-blue-500 hover:bg-blue-600"
-                }`}
-              disabled={loading}
+              disabled={loading || !userNumber.trim()}
+              className="w-full"
             >
               {loading ? "กำลังค้นหา..." : "ค้นหา"}
-            </button>
+            </Button>
           </TabsContent>
           <TabsContent value="password">
-            <input
+            <Input
               type="text"
-              className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring focus:ring-blue-300"
               placeholder="ค้นหาด้วยชื่อ"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              onKeyDown={handleKeyDownTeacher}
+              required
+              className="mb-4"
             />
-            <button
+            <Button
               onClick={handleSearchForTeacher}
-              className={`w-full py-3 rounded-lg text-white font-bold transition ${loading
-                ? "bg-blue-300 cursor-not-allowed"
-                : "bg-blue-500 hover:bg-blue-600"
-                }`}
-              disabled={loading}
+              disabled={loading || !username.trim()}
+              className="w-full"
             >
               {loading ? "กำลังค้นหา..." : "ค้นหา"}
-            </button>
+            </Button>
           </TabsContent>
         </Tabs>
 
-
         {error && (
-          <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-            <p className="font-semibold">{error}</p>
-            <ul className="mt-2 list-disc pl-6 text-sm text-gray-700">
-              <li>ตรวจสอบรหัสนิสิตของคุณ.</li>
-              <li>สอบถามเพิ่มเติมจากทีมงานหากพบปัญหา.</li>
-              <li>ลองใหม่อีกครั้งหรือแจ้งผู้ดูแลระบบ.</li>
-            </ul>
-          </div>
+          <Alert variant="destructive" className="mt-4">
+            <AlertTitle>เกิดข้อผิดพลาด</AlertTitle>
+            <AlertDescription>
+              {error}
+            </AlertDescription>
+          </Alert>
         )}
       </div>
 
@@ -133,85 +151,37 @@ export default function HomePage() {
         animate={result ? "visible" : "hidden"}
         variants={variants}
         transition={{ duration: 0.5 }}
-        className="mt-6"
+        className="mt-6 w-full max-w-lg"
       >
-        {(result && result.teamName != 'Unknown') && (
-          <div className="w-full max-w-lg p-6 bg-white shadow-lg rounded-lg">
-            <h3 className="text-xl font-bold mb-2 text-blue-500">
-              สวัสดี, {result.fullName}!
-            </h3>
-            <p className="text-lg mb-4">
-              คุณอยู่ในทีม:{" "}
-              <span
-                className="font-semibold px-2 py-1 rounded"
-                style={{
-                  backgroundColor: teamColor(result.teamColor),
-                  color: "white",
-                }}
-              >
-                {result.teamName}
-              </span>
-            </p>
-            <img src={teamImg(result.teamColor)} alt={result.teamName} />
-
-            <h4 className="mt-4 font-semibold text-gray-800">อาจารย์ภายในทีม:</h4>
-            <ul className="list-disc pl-6 text-gray-700">
-              {result.members
-                .filter(
-                  (user) =>
-                    user.position === "อาจารย์/บุคลากร" ||
-                    user.position === "แม่สี"
-                )
-                .map((member) => (
-                  <li key={member.username} className="text-sm">
-                    {member.name} ({member.position})
-                  </li>
-                ))}
-            </ul>
-
-            {/* <h4 className="mt-4 font-semibold text-gray-800">นิสิตภายในทีม:</h4>
-              <ul className="list-disc pl-6 text-gray-700">
-                {result.members
-                  .filter((user) => user.position === "นิสิต")
-                  .map((member) => (
-                    <li key={member.username} className="text-sm">
-                      {member.username} ({member.name})
-                    </li>
-                  ))}
-              </ul> */}
-
-            <div className="text-center mt-6">
-              <p className="text-lg font-medium text-gray-700">
-                เข้าร่วมกลุ่มไลน์ OpenChat{" "}
-                <a
-                  href={teamLine(result.teamColor)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-500 underline hover:text-blue-700"
-                >
-                  คลิกที่นี่
-                </a>
-              </p>
-              <p className="text-sm text-gray-600 mt-2">
-                หรือ สแกน QR Code ด้านล่าง
-              </p>
-              <img
-                src={teamLineQR(result.teamColor)}
-                alt="Line QR Code"
-                className="w-1/2 mx-auto mt-4 border border-gray-300 rounded-lg shadow-md"
-              />
-            </div>
-          </div>
-        )}
-
-        {(result && result.teamName === 'Unknown') && (
-          <div className="w-full max-w-lg p-6 bg-white shadow-lg rounded-lg">
-            <h3 className="text-xl font-bold mb-2 text-red-500">
-              ดูเหมือนคุณยังไม่ได้เข้าร่วมทีมใดๆ ใน IF Games 2024
-            </h3>
-            <p className="text-lg">
-              ลองติดต่อทีมงานหากพบปัญหาหรือต้องการข้อมูลเพิ่มเติม
-            </p>
+        {result && (
+          <div className="p-6 bg-white shadow-lg rounded-lg">
+            {result.teamName !== "Unknown" ? (
+              <>
+                <h3 className="text-xl font-bold mb-2 text-blue-500">
+                  สวัสดี, {result.fullName}!
+                </h3>
+                <p className="text-lg mb-4">
+                  คุณอยู่ในทีม:{" "}
+                  <span
+                    className="font-semibold px-2 py-1 rounded"
+                    style={{
+                      backgroundColor: teamColor(result.teamColor),
+                      color: "white",
+                    }}
+                  >
+                    {result.teamName}
+                  </span>
+                </p>
+                <img src={teamImg(result.teamColor)} alt={result.teamName} />
+              </>
+            ) : (
+              <>
+              <h3 className="text-xl font-bold text-red-500">
+                ดูเหมือนคุณยังไม่ได้เข้าร่วมทีมใดๆ ใน IF Games 2024
+              </h3>
+              <p>โปรดติดต่อทีมงานหากพบปัญหาหรือต้องการข้อมูลเพิ่มเติม</p>
+              </>
+            )}
           </div>
         )}
       </motion.div>
@@ -219,70 +189,25 @@ export default function HomePage() {
   );
 }
 
+// Helper functions for team details
 function teamColor(teamColor: string) {
-  switch (teamColor) {
-    case "แดง":
-      return "red";
-    case "น้ำเงิน":
-      return "blue";
-    case "เขียว":
-      return "green";
-    case "เหลือง":
-      return "yellow";
-    case "ชมพู":
-      return "pink";
-    default:
-      return "gray";
-  }
+  const colors: Record<string, string> = {
+    แดง: "red",
+    น้ำเงิน: "blue",
+    เขียว: "green",
+    เหลือง: "yellow",
+    ชมพู: "pink",
+  };
+  return colors[teamColor] || "gray";
 }
 
 function teamImg(teamColor: string) {
-  switch (teamColor) {
-    case "แดง":
-      return "/images/red-team.png";
-    case "น้ำเงิน":
-      return "/images/blue-team.png";
-    case "เขียว":
-      return "/images/green-team.png";
-    case "เหลือง":
-      return "/images/yellow-team.png";
-    case "ชมพู":
-      return "/images/pink-team.png";
-    default:
-      return "/images/gray-team.png";
-  }
-}
-
-function teamLine(teamColor: string) {
-  switch (teamColor) {
-    case "แดง":
-      return "https://line.me/ti/g2/GA9IjFdq3Jb19D7N4kpNvzPpnUwtpectOZBvXg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default";
-    case "น้ำเงิน":
-      return "https://line.me/ti/g2/scK-7rTJdAH0GpNms4oBHdqlVth869vxHyVbpg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default";
-    case "เขียว":
-      return "https://line.me/ti/g2/zTxtILh8LEeHR_-d_l7jNeGlitr_XR6az5emJA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default";
-    case "เหลือง":
-      return "https://line.me/ti/g2/PzKYfhXSF2kYf7wX9wjIQA_vjKxp0b0cIMVdpw?utm_source=invitation&utm_medium=link_copy&utm_campaign=default";
-    case "ชมพู":
-      return "https://line.me/ti/g2/faS7QJuHk6ljU6Jyz2gb3Z4QcHyWSVErFG6BFQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default";
-    default:
-      return "https://line.me/R/ti/g/1J9Z9Z9z9Z";
-  }
-};
-
-function teamLineQR(teamColor: string) {
-  switch (teamColor) {
-    case "แดง":
-      return "/images/red-qr.jpg";
-    case "น้ำเงิน":
-      return "/images/blue-qr.jpg";
-    case "เขียว":
-      return "/images/green-qr.jpg";
-    case "เหลือง":
-      return "/images/yellow-qr.jpg";
-    case "ชมพู":
-      return "/images/pink-qr.jpg";
-    default:
-      return "/images/gray-qr.jpg";
-  }
+  const images: Record<string, string> = {
+    แดง: "/images/red-team.png",
+    น้ำเงิน: "/images/blue-team.png",
+    เขียว: "/images/green-team.png",
+    เหลือง: "/images/yellow-team.png",
+    ชมพู: "/images/pink-team.png",
+  };
+  return images[teamColor] || "/images/gray-team.png";
 }
