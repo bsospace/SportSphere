@@ -96,7 +96,7 @@ export default function HomePage() {
         <Tabs defaultValue="account" className="w-full">
           <TabsList className="mb-4">
             <TabsTrigger value="account">นิสิต</TabsTrigger>
-            <TabsTrigger value="password">อาจารย์หรือบุคคลากร</TabsTrigger>
+            <TabsTrigger value="password">อาจารย์หรือบุคลากร</TabsTrigger>
           </TabsList>
           <TabsContent value="account">
             <Input
