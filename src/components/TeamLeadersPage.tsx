@@ -69,7 +69,7 @@ export default function TeamLeadersPage() {
                         whileHover={{ scale: 1.05 }}
                         onClick={() => router.push(`/team/${leader.name.toLowerCase()}`)}
                         style={{
-                            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.9), ${leader.gradient}, ${leader.gradient}), url(${leader.bg})`,
+                            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.5), ${leader.gradient}, ${leader.gradient}, rgba(0,0,0,0.8)), url(${leader.bg})`,
                             backgroundSize: "cover",
                             backgroundPosition: "center",
                         }}
