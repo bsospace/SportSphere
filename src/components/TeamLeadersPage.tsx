@@ -61,7 +61,7 @@ export default function TeamLeadersPage() {
                 {leaders.map((leader, index) => (
                     <motion.div
                         key={index}
-                        className="w-64 flex flex-col items-center justify-center rounded-xl shadow-xl p-6 text-center text-white cursor-pointer"
+                        className="md:w-64 w-full flex flex-col items-center justify-center rounded-xl shadow-xl p-6 text-center text-white cursor-pointer"
                         variants={cardVariants}
                         initial="hidden"
                         whileInView="visible"

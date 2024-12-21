@@ -95,6 +95,7 @@ export default function HomePage() {
     >
       {/* Header Section */}
       <div className="min-h-screen justify-center items-center flex flex-col px-4 text-center bg-black w-full bg-opacity-40">
+        <p className="text-3xl text-white">Welcome to</p>
         <div
           className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-cover bg-center mb-6 flex flex-wrap justify-center items-center text-black"
           style={{
@@ -103,7 +104,6 @@ export default function HomePage() {
             WebkitTextStroke: "2px white",
           }}
         >
-          Welcome to 
           <p className="text-blue-700 mx-2">Informatics</p> 
           Games 2024 
           <p className="text-white">🏅</p>
@@ -111,14 +111,7 @@ export default function HomePage() {
         <Navigation />
       </div>
 
-
-
-      {/* Team Colors Section */}
-      <div id="team-color" className="p-12 min-h-screen mb-12 bg-white bg-opacity-90">
-        <TeamLeadersPage />
-      </div>
-
-      <div className="w-full flex flex-col items-center justify-center md:min-h-screen">
+      <div className="w-full flex flex-col items-center justify-center md:min-h-screen mt-12">
       {/* Search Section */}
       <div
         id="search"
@@ -191,7 +184,7 @@ export default function HomePage() {
           className="flex flex-col items-center justify-center w-full max-w-lg mt-8"
         >
           {result && (
-            <div className="p-6 bg-white shadow-lg rounded-lg mb-12">
+            <div className="p-6 bg-white shadow-lg rounded-lg">
               {result.teamName !== "Unknown" ? (
                 <>
                 <h3 className="text-xl font-bold mb-2 text-blue-700">
@@ -272,6 +265,11 @@ export default function HomePage() {
             </div>
           )}
         </motion.div>
+      </div>
+
+      {/* Team Colors Section */}
+      <div id="team-color" className="p-12 min-h-screen mt-12 bg-white bg-opacity-90">
+        <TeamLeadersPage />
       </div>
     </div>
   );
