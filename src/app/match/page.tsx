@@ -5,6 +5,8 @@ import {
     TabsList,
     TabsTrigger,
 } from "@/components/ui/tabs";
+import TournamentBracket from "@/components/TournamentBracket";
+import { tournamentData } from "@/mock/tournamentData";
 
 export default function MatchPage() {
     return (
@@ -65,6 +67,7 @@ export default function MatchPage() {
                 <div className="mt-8 flex flex-col items-center bg-white shadow-md rounded-lg p-4 w-full sm:w-[80%] mx-auto">
                     <TabsContent value="rov">
                         <p className="text-center sm:text-left">This is RoV</p>
+                        <TournamentBracket rounds={tournamentData} />
                     </TabsContent>
 
                     <TabsContent value="valorant">

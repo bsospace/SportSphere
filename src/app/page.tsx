@@ -13,8 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import TeamLeadersPage from "@/components/TeamLeadersPage";
 import Navigation from "@/components/Navigation";
-import TournamentBracket from "@/components/TournamentBracket";
-import { tournamentData } from "@/mock/tournamentData";
+import Image from "next/image";
 
 const variants = {
   hidden: { opacity: 0, height: 0 },
@@ -204,7 +203,7 @@ export default function HomePage() {
                     {result.teamName}
                   </span>
                 </p>
-                <img src={teamImg(result.teamColor)} alt={result.teamName} />
+                <Image src={teamImg(result.teamColor)} alt={result.teamName} width={512} height={512} />
 
                 <h4 className="mt-4 font-semibold text-gray-800">อาจารย์ภายในทีม:</h4>
                 <ul className="list-disc pl-6 text-gray-700">
@@ -247,8 +246,10 @@ export default function HomePage() {
                   <p className="text-sm text-gray-600 mt-2">
                     หรือ สแกน QR Code ด้านล่าง
                   </p>
-                  <img
+                  <Image
                     src={teamLineQR(result.teamColor)}
+                    width={512}
+                    height={512}
                     alt="Line QR Code"
                     className="w-1/2 mx-auto mt-4 border border-gray-300 rounded-lg shadow-md"
                   />
