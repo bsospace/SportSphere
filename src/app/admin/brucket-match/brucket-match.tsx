@@ -1,14 +1,17 @@
+"use client";
+
 import { Handle, Position } from "reactflow";
 import React from "react";
 
 interface BrucketProps {
   id: string;
   data: {
-    matchName: string | null; // Match name
+    matchName: string | null;
     team1: string | null;
     team2: string | null;
     score1: number | null;
     score2: number | null;
+    winner: string | null;
     onTeamDrop?: (team: string, target: "team1" | "team2") => void;
     onDeleteTeam?: (nodeId: string, target: "team1" | "team2") => void;
     onUpdateTeamName?: (
@@ -21,7 +24,8 @@ interface BrucketProps {
       team: "team1" | "team2",
       score: number
     ) => void;
-    onUpdateMatchName?: (nodeId: string, name: string) => void; // Function to update match name
+    onUpdateMatchName?: (nodeId: string, name: string) => void;
+    onUpdateWinner?: (nodeId: string, winner: string | null) => void;
   };
 }
 
@@ -32,19 +36,22 @@ const Brucket: React.FC<BrucketProps> = ({ id, data }) => {
     team2,
     score1,
     score2,
+    winner,
     onTeamDrop,
     onDeleteTeam,
     onUpdateTeamName,
     onUpdateScore,
     onUpdateMatchName,
+    onUpdateWinner, // Callback for winner update
   } = data;
 
-  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+  // Handles drag-and-drop functionality
+  const handleDragOver = (event: React.DragEvent<HTMLTableRowElement>) => {
     event.preventDefault();
   };
 
   const handleDrop = (
-    event: React.DragEvent<HTMLDivElement>,
+    event: React.DragEvent<HTMLTableRowElement>,
     target: "team1" | "team2"
   ) => {
     event.preventDefault();
@@ -55,7 +62,8 @@ const Brucket: React.FC<BrucketProps> = ({ id, data }) => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md border border-gray-300 w-full max-w-md mx-auto">
+    <div className="bg-white p-4 rounded-lg shadow-md w-full max-w-md mx-auto">
+      {/* Handles for ReactFlow connections */}
       <Handle
         position={Position.Right}
         type="source"
@@ -67,99 +75,146 @@ const Brucket: React.FC<BrucketProps> = ({ id, data }) => {
         className="handle bg-gray-400 w-4 h-4"
       />
 
-      {/* Match Name */}
-      <div className="text-center text-base font-medium mb-4 text-gray-700">
-        <input
-          type="text"
-          value={matchName ?? ""}
-          placeholder="Match Name"
-          className="w-full bg-transparent text-center font-semibold focus:outline-none"
-          onChange={(e) =>
-            onUpdateMatchName && onUpdateMatchName(id, e.target.value)
-          }
-        />
-      </div>
-
-      {/* Team 1 */}
-      <div
-        className="flex justify-between items-center py-2 px-4 bg-gray-100 border border-gray-300 rounded-md mb-2"
-        onDragOver={handleDragOver}
-        onDrop={(event) => handleDrop(event, "team1")}
-      >
-        {team1 ? (
-          <>
-            <span className="text-gray-700 font-medium flex-1">
-              {team1 || "Team 1"}
-            </span>
-            <input
-              type="number"
-              value={score1 ?? ""}
-              placeholder="--"
-              className="w-10 bg-transparent text-center border border-gray-300 rounded focus:outline-none focus:ring focus:ring-indigo-200"
-              onChange={(e) =>
-                onUpdateScore &&
-                onUpdateScore(id, "team1", Number(e.target.value))
-              }
-            />
-            <button
-              className="text-red-500 font-bold ml-2 hover:text-red-700"
-              onClick={() => onDeleteTeam && onDeleteTeam(id, "team1")}
+      {/* Match Table */}
+      <div className="overflow-x-auto">
+        <table className="table-auto w-full border-collapse border border-gray-300 rounded-md">
+          {/* Match Name */}
+          <thead>
+            <tr className="bg-gray-100">
+              <th
+                colSpan={3}
+                className="py-2 px-4 text-center text-base font-medium text-gray-700"
+              >
+                <input
+                  type="text"
+                  value={matchName ?? ""}
+                  placeholder="Match Name"
+                  className="w-full bg-transparent text-center font-semibold focus:outline-none"
+                  onChange={(e) =>
+                    onUpdateMatchName && onUpdateMatchName(id, e.target.value)
+                  }
+                />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* Team 1 Row */}
+            <tr
+              className="hover:bg-gray-200"
+              onDragOver={handleDragOver}
+              onDrop={(event) => handleDrop(event, "team1")}
             >
-              ❌
-            </button>
-          </>
-        ) : (
-          <input
-            type="text"
-            placeholder="Enter team name"
-            className="w-full bg-gray-200 rounded px-3 py-1 text-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-            onChange={(e) =>
-              onUpdateTeamName &&
-              onUpdateTeamName(id, "team1", e.target.value)
-            }
-          />
-        )}
-      </div>
+              <td className="py-2 px-4">
+                {team1 ? (
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-700 font-medium flex-1">
+                      {team1}
+                    </span>
+                  </div>
+                ) : (
+                  <input
+                    type="text"
+                    placeholder="Enter team name"
+                    className="w-full bg-gray-200 rounded px-3 py-1 text-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    onChange={(e) =>
+                      onUpdateTeamName &&
+                      onUpdateTeamName(id, "team1", e.target.value)
+                    }
+                  />
+                )}
+              </td>
+              <td className="py-2 px-4 text-center border-x border-gray-300">
+                <input
+                  type="number"
+                  value={score1 ?? ""}
+                  placeholder="--"
+                  className="w-16 bg-transparent text-center border border-gray-300 rounded focus:outline-none focus:ring focus:ring-indigo-200"
+                  onChange={(e) =>
+                    onUpdateScore &&
+                    onUpdateScore(id, "team1", Number(e.target.value))
+                  }
+                />
+              </td>
+              <td className="py-2 px-4 text-center">
+                <button
+                  className="text-red-500 font-bold hover:text-red-700"
+                  onClick={() => onDeleteTeam && onDeleteTeam(id, "team1")}
+                >
+                  ❌
+                </button>
+              </td>
+            </tr>
 
-      {/* Team 2 */}
-      <div
-        className="flex justify-between items-center py-2 px-4 bg-gray-100 border border-gray-300 rounded-md"
-        onDragOver={handleDragOver}
-        onDrop={(event) => handleDrop(event, "team2")}
-      >
-        {team2 ? (
-          <>
-            <span className="text-gray-700 font-medium flex-1">
-              {team2 || "Team 2"}
-            </span>
-            <input
-              type="number"
-              value={score2 ?? ""}
-              placeholder="--"
-              className="w-10 bg-transparent text-center border border-gray-300 rounded focus:outline-none focus:ring focus:ring-indigo-200"
-              onChange={(e) =>
-                onUpdateScore &&
-                onUpdateScore(id, "team2", Number(e.target.value))
-              }
-            />
-            <button
-              className="text-red-500 font-bold ml-2 hover:text-red-700"
-              onClick={() => onDeleteTeam && onDeleteTeam(id, "team2")}
+            {/* Team 2 Row */}
+            <tr
+              className="hover:bg-gray-200"
+              onDragOver={handleDragOver}
+              onDrop={(event) => handleDrop(event, "team2")}
             >
-              ❌
-            </button>
-          </>
-        ) : (
-          <input
-            type="text"
-            placeholder="Enter team name"
-            className="w-full bg-gray-200 rounded px-3 py-1 text-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-            onChange={(e) =>
-              onUpdateTeamName &&
-              onUpdateTeamName(id, "team2", e.target.value)
-            }
-          />
-        )}
+              <td className="py-2 px-4">
+                {team2 ? (
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-700 font-medium flex-1">
+                      {team2}
+                    </span>
+                  </div>
+                ) : (
+                  <input
+                    type="text"
+                    placeholder="Enter team name"
+                    className="w-full bg-gray-200 rounded px-3 py-1 text-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    onChange={(e) =>
+                      onUpdateTeamName &&
+                      onUpdateTeamName(id, "team2", e.target.value)
+                    }
+                  />
+                )}
+              </td>
+              <td className="py-2 px-4 text-center border-x border-gray-300">
+                <input
+                  type="number"
+                  value={score2 ?? ""}
+                  placeholder="--"
+                  className="w-16 bg-transparent text-center border border-gray-300 rounded focus:outline-none focus:ring focus:ring-indigo-200"
+                  onChange={(e) =>
+                    onUpdateScore &&
+                    onUpdateScore(id, "team2", Number(e.target.value))
+                  }
+                />
+              </td>
+              <td className="py-2 px-4 text-center">
+                <button
+                  className="text-red-500 font-bold hover:text-red-700"
+                  onClick={() => onDeleteTeam && onDeleteTeam(id, "team2")}
+                >
+                  ❌
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr className="bg-gray-100">
+              <td colSpan={4} className="py-2 px-4 text-center">
+                <label htmlFor={`winner-select-${id}`} className="mr-2">
+                  Winner:
+                </label>
+                <select
+                  id={`winner-select-${id}`}
+                  value={winner ?? ""}
+                  onChange={(e) =>
+                    onUpdateWinner && onUpdateWinner(id, e.target.value)
+                  }
+                  className="border border-gray-300 rounded px-2 py-1"
+                >
+                  <option value="Waiting">Waiting</option>
+                  <option value="TBD">TBD</option>
+                  {team1 && <option value={team1}>{team1}</option>}
+                  {team2 && <option value={team2}>{team2}</option>}
+                </select>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
       </div>
     </div>
   );
