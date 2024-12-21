@@ -96,8 +96,8 @@ export default function HomePage() {
       }}
     >
       {/* Header Section */}
-      <div className="min-h-screen justify-center items-center flex flex-col px-4 text-center bg-black w-full bg-opacity-40">
-        <p className="text-3xl text-white">Welcome to</p>
+      <div className="min-h-screen justify-center items-center flex flex-col px-4 text-center bg-white w-full bg-opacity-90">
+        <p className="text-3xl text-black">Welcome to</p>
         <div
           className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-cover bg-center mb-6 flex flex-wrap justify-center items-center text-black"
           style={{
@@ -272,11 +272,6 @@ export default function HomePage() {
       {/* Team Colors Section */}
       <div id="team-color" className="p-12 min-h-screen mt-12 bg-white bg-opacity-90 w-full">
         <TeamLeadersPage />
-      </div>
-      
-      {/* Tournament Bracket Section */}
-      <div id="tournament-bracket" className="flex flex-col items-center justify-center min-h-screen mt-12 w-full bg-white bg-opacity-90">
-        <TournamentBracket rounds={tournamentData} />
       </div>
     </div>
   );

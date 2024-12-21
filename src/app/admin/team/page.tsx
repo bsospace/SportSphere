@@ -6,10 +6,10 @@ import { useState } from "react";
 export default function TeamManagement() {
     const [name, setName] = useState("");
     const [color, setColor] = useState("");
-    const [members, setMembers] = useState([{ username: "", fullName: "", position: "" }]);
+    const [members, setMembers] = useState([{ id: Date.now(), username: "", fullName: "", position: "" }]);
 
     const handleAddMember = () => {
-        setMembers([...members, { username: "", fullName: "", position: "" }]);
+        setMembers([...members, { id: Date.now(), username: "", fullName: "", position: "" }]);
     };
 
     const handleSubmit = async () => {
@@ -43,7 +43,7 @@ export default function TeamManagement() {
             onChange={(e) => setColor(e.target.value)}
             />
             {members.map((member, index) => (
-            <div key={index}>
+            <div key={member.id}>
                 <input
                 type="text"
                 placeholder="Username"

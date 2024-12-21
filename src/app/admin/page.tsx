@@ -1,35 +1,8 @@
 "use client";
 
-// import { useEffect } from "react";
-// import { useSession } from "next-auth/react";
-// import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function AdminDashboard() {
-    // const { data: session, status } = useSession();
-    // const router = useRouter();
-
-    // Redirect if the user is not an admin
-    // useEffect(() => {
-    //     if (status === "authenticated" && session?.role !== "admin") {
-    //     router.push("/");
-    //     }
-    // }, [session, status, router]);
-
-    // Show loading state while checking session
-    // if (status === "loading") {
-    //     return (
-    //     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-    //         <p className="text-lg text-gray-500">Loading...</p>
-    //     </div>
-    //     );
-    // }
-
-    // Prevent rendering if user is being redirected
-    // if (status === "authenticated" && session?.role !== "admin") {
-    //     return null;
-    // }
-
     return (
         <div className="min-h-screen flex flex-col items-center bg-gray-50">
         <header className="w-full bg-blue-600 py-6 text-white text-center">
