@@ -4,6 +4,9 @@ FROM node:20-alpine
 # Set the working directory inside the container
 WORKDIR /app
 
+# Change the owner of /app to smart (optional if needed)
+RUN chown -R smart:smart /app
+
 # Copy package.json and package-lock.json for dependency installation
 COPY package.json package-lock.json ./
 
