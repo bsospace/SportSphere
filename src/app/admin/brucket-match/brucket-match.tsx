@@ -45,7 +45,6 @@ const Brucket: React.FC<BrucketProps> = ({ id, data }) => {
     onUpdateWinner,
   } = data;
 
-  // Handles drag-and-drop functionality
   const handleDragOver = (event: React.DragEvent<HTMLTableRowElement>) => {
     event.preventDefault();
   };
@@ -62,17 +61,17 @@ const Brucket: React.FC<BrucketProps> = ({ id, data }) => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md w-[30rem] max-w-md mx-auto">
+    <div className="bg-white p-1 rounded-lg shadow-md w-[16rem] max-w-sm text-xs">
       {/* Handles for ReactFlow connections */}
       <Handle
         position={Position.Right}
         type="source"
-        className="handle bg-gray-400 w-4 h-4"
+        className="handle bg-gray-400 w-2.5 h-2.5"
       />
       <Handle
         position={Position.Left}
         type="target"
-        className="handle bg-gray-400 w-4 h-4"
+        className="handle bg-gray-400 w-2.5 h-2.5"
       />
 
       {/* Match Table */}
@@ -83,13 +82,13 @@ const Brucket: React.FC<BrucketProps> = ({ id, data }) => {
             <tr className="bg-gray-100">
               <th
                 colSpan={3}
-                className="py-2 px-4 text-center text-base font-medium text-gray-700"
+                className="py-1 px-2 text-center font-medium text-gray-700"
               >
                 <input
                   type="text"
                   value={matchName ?? ""}
                   placeholder="Match Name"
-                  className="w-full bg-transparent text-center font-semibold focus:outline-none"
+                  className="w-full bg-transparent text-center font-medium focus:outline-none"
                   onChange={(e) =>
                     onUpdateMatchName && onUpdateMatchName(id, e.target.value)
                   }
@@ -104,18 +103,14 @@ const Brucket: React.FC<BrucketProps> = ({ id, data }) => {
               onDragOver={handleDragOver}
               onDrop={(event) => handleDrop(event, "team1")}
             >
-              <td className="py-2 px-4">
+              <td className="py-1 px-2">
                 {team1 ? (
-                  <div className="flex items-center gap-2">
-                    <span className="text-gray-700 font-medium flex-1">
-                      {team1}
-                    </span>
-                  </div>
+                  <span className="text-gray-700 font-medium">{team1}</span>
                 ) : (
                   <input
                     type="text"
                     placeholder="Enter team name"
-                    className="w-full bg-gray-200 rounded px-3 py-1 text-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    className="w-full bg-gray-200 rounded px-1 py-0.5 text-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                     onChange={(e) =>
                       onUpdateTeamName &&
                       onUpdateTeamName(id, "team1", e.target.value)
@@ -123,19 +118,19 @@ const Brucket: React.FC<BrucketProps> = ({ id, data }) => {
                   />
                 )}
               </td>
-              <td className="py-2 px-4 text-center border-x border-gray-300">
+              <td className="py-1 px-2 text-center border-x border-gray-300">
                 <input
                   type="number"
                   value={score1 ?? ""}
                   placeholder="--"
-                  className="w-16 bg-transparent text-center border border-gray-300 rounded focus:outline-none focus:ring focus:ring-indigo-200"
+                  className="w-10 bg-transparent text-center border border-gray-300 rounded focus:outline-none focus:ring focus:ring-indigo-200"
                   onChange={(e) =>
                     onUpdateScore &&
                     onUpdateScore(id, "team1", Number(e.target.value))
                   }
                 />
               </td>
-              <td className="py-2 px-4 text-center">
+              <td className="py-1 px-2 text-center">
                 <button
                   className="text-red-500 font-bold hover:text-red-700"
                   onClick={() => onDeleteTeam && onDeleteTeam(id, "team1")}
@@ -151,18 +146,14 @@ const Brucket: React.FC<BrucketProps> = ({ id, data }) => {
               onDragOver={handleDragOver}
               onDrop={(event) => handleDrop(event, "team2")}
             >
-              <td className="py-2 px-4">
+              <td className="py-1 px-2">
                 {team2 ? (
-                  <div className="flex items-center gap-2">
-                    <span className="text-gray-700 font-medium flex-1">
-                      {team2}
-                    </span>
-                  </div>
+                  <span className="text-gray-700 font-medium">{team2}</span>
                 ) : (
                   <input
                     type="text"
                     placeholder="Enter team name"
-                    className="w-full bg-gray-200 rounded px-3 py-1 text-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    className="w-full bg-gray-200 rounded px-1 py-0.5 text-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                     onChange={(e) =>
                       onUpdateTeamName &&
                       onUpdateTeamName(id, "team2", e.target.value)
@@ -170,19 +161,19 @@ const Brucket: React.FC<BrucketProps> = ({ id, data }) => {
                   />
                 )}
               </td>
-              <td className="py-2 px-4 text-center border-x border-gray-300">
+              <td className="py-1 px-2 text-center border-x border-gray-300">
                 <input
                   type="number"
                   value={score2 ?? ""}
                   placeholder="--"
-                  className="w-16 bg-transparent text-center border border-gray-300 rounded focus:outline-none focus:ring focus:ring-indigo-200"
+                  className="w-10 bg-transparent text-center border border-gray-300 rounded focus:outline-none focus:ring focus:ring-indigo-200"
                   onChange={(e) =>
                     onUpdateScore &&
                     onUpdateScore(id, "team2", Number(e.target.value))
                   }
                 />
               </td>
-              <td className="py-2 px-4 text-center">
+              <td className="py-1 px-2 text-center">
                 <button
                   className="text-red-500 font-bold hover:text-red-700"
                   onClick={() => onDeleteTeam && onDeleteTeam(id, "team2")}
@@ -194,7 +185,7 @@ const Brucket: React.FC<BrucketProps> = ({ id, data }) => {
           </tbody>
           <tfoot>
             <tr className="bg-gray-100">
-              <td colSpan={4} className="py-2 px-4 text-center">
+              <td colSpan={4} className="py-1 px-2 text-center">
                 <label htmlFor={`winner-select-${id}`} className="mr-2">
                   Winner:
                 </label>
@@ -204,7 +195,7 @@ const Brucket: React.FC<BrucketProps> = ({ id, data }) => {
                   onChange={(e) =>
                     onUpdateWinner && onUpdateWinner(id, e.target.value)
                   }
-                  className="border border-gray-300 rounded px-2 py-1"
+                  className="border border-gray-300 rounded px-1 py-0.5"
                 >
                   <option value="Waiting">Waiting</option>
                   <option value="TBD">TBD</option>
