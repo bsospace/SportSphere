@@ -1,7 +1,4 @@
-// src/pages/api/search.ts
-// import dbConnect from '@/lib/mongodb';
 import { mockUserData } from '@/mock/mock_user_data';
-// import Team from '@/models/Team';
 
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -9,10 +6,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     if (req.method === 'GET') {        
         const { username } = (req.query) as { username: string };
-        // const { username } = { username: ภูสิต };
 
         try {
-            let user = await mockUserData.find((user) => user.name.includes(username));
+            const user = await mockUserData.find((user) => user.name.includes(username));
             const team_members = await mockUserData.filter((data) => data.team == user?.team);
             
             if(user?.position == 'นิสิต') res.status(404).json({ success: false, message: 'ไม่พบข้อมูล' });
