@@ -1,4 +1,4 @@
-// @ts-nocheck
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import React, { useState } from 'react'
@@ -26,6 +26,7 @@ interface NodeData {
   team1: string | null
   team2: string | null
   winner: string | null
+  matchName: string
   onTeamDrop: (team: string, target: 'team1' | 'team2') => void
   onDeleteTeam: (nodeId: string, target: 'team1' | 'team2') => void
   onUpdateTeamName: (
@@ -40,6 +41,7 @@ interface NodeData {
   ) => void
   onUpdateMatchName: (nodeId: string, name: string) => void,
   onChangeLabel: (newLabel: string) => void
+  onUpdateWinner: (nodeId: string, winner: string | null) => void
 }
 
 const Page: React.FC = () => {
@@ -145,11 +147,12 @@ const Page: React.FC = () => {
         onUpdateTeamName: updateTeamName,
         onUpdateScore: updateScore,
         onUpdateMatchName: updateMatchName,
-        onUpdateWinner: updateWinner
+        onUpdateWinner: updateWinner,
+        onChangeLabel: () => {}
       }
     }
 
-    setNodes(nds => [...nds, newNode])
+    setNodes(nds => [...nds, newNode as any])
     setIdCounter(id => id + 1)
   }
 
@@ -201,7 +204,7 @@ const Page: React.FC = () => {
         try {
           const data = JSON.parse(e.target?.result as string)
           if (Array.isArray(data.nodes) && Array.isArray(data.edges)) {
-            const loadedNodes = data.nodes.map(node => ({
+            const loadedNodes = data.nodes.map((node: { data: any; id: string }) => ({
               ...node,
               data: {
                 ...node.data,
@@ -345,6 +348,7 @@ const Page: React.FC = () => {
           <TabsList>
             {teamLists.map(sport => (
               <TabsTrigger
+                value={sport.sport}
                 key={sport.sport}
                 onClick={() => setSelectedSport(sport.sport)}
               >
@@ -352,9 +356,9 @@ const Page: React.FC = () => {
               </TabsTrigger>
             ))}
           </TabsList>
-          <TabsContent>
+          <TabsContent value="">
             <div className='overflow-x-auto flex gap-4 py-4'>
-              {getTeams().map((team, index) => (
+              {getTeams().map((team) => (
                 <div
                   key={team.name}
                   className='bg-white p-2 rounded cursor-pointer min-w-fit'

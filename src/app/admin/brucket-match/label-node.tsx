@@ -1,8 +1,8 @@
-// @ts-nocheck
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React from 'react';
-import { Handle } from 'reactflow';
+import { Handle, Position } from 'reactflow';
 
 const LabelNode: React.FC<{ data: { label: string; onChangeLabel: (label: string) => void } }> = ({ data }) => {
   return (
@@ -10,7 +10,7 @@ const LabelNode: React.FC<{ data: { label: string; onChangeLabel: (label: string
       className="relative p-4 border border-gray-300 rounded-lg bg-white shadow-md"
     >
       {/* Input Handle */}
-      <Handle type="target" position="left" className="w-3 h-3 bg-gray-700" />
+      <Handle type="target" position={Position.Left} className="w-3 h-3 bg-gray-700" />
       
       {/* Label Input */}
       <input
@@ -21,7 +21,7 @@ const LabelNode: React.FC<{ data: { label: string; onChangeLabel: (label: string
       />
       
       {/* Output Handle */}
-      <Handle type="source" position="right" className="w-3 h-3 bg-gray-700" />
+      <Handle type="source" position={Position.Right} className="w-3 h-3 bg-gray-700" />
     </div>
   );
 };

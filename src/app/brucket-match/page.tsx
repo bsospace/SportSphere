@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import React, { useEffect, useState } from 'react'
@@ -5,7 +6,6 @@ import ReactFlow, { Background, MiniMap } from 'reactflow'
 import 'reactflow/dist/style.css'
 import BrucketDisplay from '@/components/RenderBracket'
 import LabelNode from '../admin/brucket-match/label-node'
-// import Brucket from '../admin/brucket-match/brucket-match'
 
 // Define the node type for the brackets
 const nodeTypes = { brucket: BrucketDisplay,label: LabelNode }

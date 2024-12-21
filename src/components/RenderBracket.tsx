@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import React from 'react';
 import { Handle, Position } from 'reactflow';
 import { Crown, Trophy } from 'lucide-react';
@@ -14,7 +16,7 @@ interface BracketProps {
   };
 }
 
-const BracketDisplay: React.FC<BracketProps> = ({ id, data }) => {
+const BracketDisplay: React.FC<BracketProps> = ({ data }) => {
   const { matchName, team1, team2, score1, score2, winner } = data;
 
   const isWinner = (team: string | null) => {
