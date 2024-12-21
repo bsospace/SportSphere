@@ -1,7 +1,7 @@
 // @ts-nocheck
-'use client';
+'use client'
 
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import ReactFlow, {
   Background,
   Controls,
@@ -11,97 +11,125 @@ import ReactFlow, {
   useEdgesState,
   Connection,
   Edge,
-  Node,
-} from 'reactflow';
-import 'reactflow/dist/style.css';
-import { teamLists } from '@/mock/teams';
-import Brucket from './brucket-match';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+  Node
+} from 'reactflow'
+import 'reactflow/dist/style.css'
+import { teamLists } from '@/mock/teams'
+import Brucket from './brucket-match'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+import LabelNode from './label-node'
 
 // Define custom node types
-const nodeTypes = { brucket: Brucket };
+const nodeTypes = { brucket: Brucket, label: LabelNode }
 
 interface NodeData {
-  team1: string | null;
-  team2: string | null;
-  winner: string | null;
-  onTeamDrop: (team: string, target: 'team1' | 'team2') => void;
-  onDeleteTeam: (nodeId: string, target: 'team1' | 'team2') => void;
-  onUpdateTeamName: (nodeId: string, team: 'team1' | 'team2', name: string) => void;
-  onUpdateScore: (nodeId: string, team: 'team1' | 'team2', score: number) => void;
-  onUpdateMatchName: (nodeId: string, name: string) => void;
+  team1: string | null
+  team2: string | null
+  winner: string | null
+  onTeamDrop: (team: string, target: 'team1' | 'team2') => void
+  onDeleteTeam: (nodeId: string, target: 'team1' | 'team2') => void
+  onUpdateTeamName: (
+    nodeId: string,
+    team: 'team1' | 'team2',
+    name: string
+  ) => void
+  onUpdateScore: (
+    nodeId: string,
+    team: 'team1' | 'team2',
+    score: number
+  ) => void
+  onUpdateMatchName: (nodeId: string, name: string) => void,
+  onChangeLabel: (newLabel: string) => void
 }
 
 const Page: React.FC = () => {
-  const [nodes, setNodes, onNodesChange] = useNodesState<Node<NodeData>>([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
-  const [idCounter, setIdCounter] = useState<number>(1);
+  const [nodes, setNodes, onNodesChange] = useNodesState<Node<NodeData>>([])
+  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([])
+  const [idCounter, setIdCounter] = useState<number>(1)
+  const [selectedSport, setSelectedSport] = useState('IF-Games')
+  const [gridSize, setGridSize] = useState<number>(10)
 
   // Update team name
-  const updateTeamName = (nodeId: string, team: 'team1' | 'team2', name: string) => {
-    setNodes((nds) =>
-      nds.map((node) =>
+  const updateTeamName = (
+    nodeId: string,
+    team: 'team1' | 'team2',
+    name: string
+  ) => {
+    setNodes(nds =>
+      nds.map(node =>
         node.id === nodeId
           ? { ...node, data: { ...node.data, [team]: name } }
           : node
       )
-    );
-  };
+    )
+  }
 
   // Update score
-  const updateScore = (nodeId: string, team: 'team1' | 'team2', score: number) => {
-    setNodes((nds) =>
-      nds.map((node) =>
+  const updateScore = (
+    nodeId: string,
+    team: 'team1' | 'team2',
+    score: number
+  ) => {
+    setNodes(nds =>
+      nds.map(node =>
         node.id === nodeId
-          ? { ...node, data: { ...node.data, [`score${team === 'team1' ? 1 : 2}`]: score } }
+          ? {
+              ...node,
+              data: {
+                ...node.data,
+                [`score${team === 'team1' ? 1 : 2}`]: score
+              }
+            }
           : node
       )
-    );
-  };
+    )
+  }
 
   // Update match name
   const updateMatchName = (nodeId: string, name: string) => {
-    setNodes((nds) =>
-      nds.map((node) =>
+    setNodes(nds =>
+      nds.map(node =>
         node.id === nodeId
           ? { ...node, data: { ...node.data, matchName: name } }
           : node
       )
-    );
-  };
+    )
+  }
 
   // Delete team
   const deleteTeam = (nodeId: string, target: 'team1' | 'team2') => {
-    setNodes((nds) =>
-      nds.map((node) =>
+    setNodes(nds =>
+      nds.map(node =>
         node.id === nodeId
           ? { ...node, data: { ...node.data, [target]: null } }
           : node
       )
-    );
-  };
+    )
+  }
 
   const updateWinner = (nodeId: string, winner: string | null) => {
-    setNodes((nds) =>
-      nds.map((node) =>
-        node.id === nodeId
-          ? { ...node, data: { ...node.data, winner } }
-          : node
+    setNodes(nds =>
+      nds.map(node =>
+        node.id === nodeId ? { ...node, data: { ...node.data, winner } } : node
       )
-    );
+    )
   }
 
   // Add a new match node
   const addMatchNode = () => {
-    const onTeamDrop = (team: string, target: 'team1' | 'team2', nodeId: string) => {
-      setNodes((nds) =>
-        nds.map((node) =>
+    const onTeamDrop = (
+      team: string,
+      target: 'team1' | 'team2',
+      nodeId: string
+    ) => {
+      setNodes(nds =>
+        nds.map(node =>
           node.id === nodeId
             ? { ...node, data: { ...node.data, [target]: team } }
             : node
         )
-      );
-    };
+      )
+    }
 
     const newNode: Node<NodeData> = {
       id: `${idCounter}`,
@@ -117,43 +145,69 @@ const Page: React.FC = () => {
         onUpdateTeamName: updateTeamName,
         onUpdateScore: updateScore,
         onUpdateMatchName: updateMatchName,
-        onUpdateWinner: updateWinner,
-      },
-    };
+        onUpdateWinner: updateWinner
+      }
+    }
 
-    setNodes((nds) => [...nds, newNode]);
-    setIdCounter((id) => id + 1);
-  };
+    setNodes(nds => [...nds, newNode])
+    setIdCounter(id => id + 1)
+  }
+
+  // Update label text
+  const updateLabel = (nodeId: string, label: string) => {
+    setNodes(nds =>
+      nds.map(node =>
+        node.id === nodeId ? { ...node, data: { ...node.data, label } } : node
+      )
+    )
+  }
+
+  // Add a new label node
+  const addLabelNode = () => {
+    const newNode: Node = {
+      id: `label-${idCounter}`,
+      type: 'label',
+      position: { x: Math.random() * 400, y: Math.random() * 400 },
+      data: {
+        label: `Label ${idCounter}`,
+        onChangeLabel: (newLabel: string) =>
+          updateLabel(`label-${idCounter}`, newLabel)
+      }
+    }
+
+    setNodes(nds => [...nds, newNode])
+    setIdCounter(id => id + 1)
+  }
 
   // Save current flow to JSON
   const saveToJSON = () => {
-    const data = { nodes, edges };
+    const data = { nodes, edges }
     const blob = new Blob([JSON.stringify(data, null, 2)], {
-      type: 'application/json',
-    });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'flow-data.json';
-    link.click();
-  };
+      type: 'application/json'
+    })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'flow-data.json'
+    link.click()
+  }
 
   // Load flow from JSON and reattach handlers
   const loadFromJSON = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+    const file = event.target.files?.[0]
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
+      const reader = new FileReader()
+      reader.onload = e => {
         try {
-          const data = JSON.parse(e.target?.result as string);
+          const data = JSON.parse(e.target?.result as string)
           if (Array.isArray(data.nodes) && Array.isArray(data.edges)) {
-            const loadedNodes = data.nodes.map((node) => ({
+            const loadedNodes = data.nodes.map(node => ({
               ...node,
               data: {
                 ...node.data,
                 onTeamDrop: (team: string, target: 'team1' | 'team2') =>
-                  setNodes((nds) =>
-                    nds.map((n) =>
+                  setNodes(nds =>
+                    nds.map(n =>
                       n.id === node.id
                         ? { ...n, data: { ...n.data, [target]: team } }
                         : n
@@ -163,66 +217,95 @@ const Page: React.FC = () => {
                 onUpdateTeamName: updateTeamName,
                 onUpdateScore: updateScore,
                 onUpdateMatchName: updateMatchName,
-                onUpdateWinner: updateWinner,
-              },
-            }));
+                onUpdateWinner: updateWinner
+              }
+            }))
 
-            setNodes(loadedNodes);
-            setEdges(data.edges);
-            setIdCounter(data.nodes.length + 1);
+            setNodes(loadedNodes)
+            setEdges(data.edges)
+            setIdCounter(data.nodes.length + 1)
           } else {
-            alert('Invalid JSON structure!');
+            alert('Invalid JSON structure!')
           }
         } catch (error) {
-          console.error('Failed to load JSON:', error);
-          alert('Failed to load JSON file.');
+          console.error('Failed to load JSON:', error)
+          alert('Failed to load JSON file.')
         }
-      };
-      reader.readAsText(file);
+      }
+      reader.readAsText(file)
     }
-  };
+  }
 
   // Handle connections
-  const onConnect = (connection: Connection) => setEdges((eds) => addEdge(connection, eds));
-
-    const [selectedSport, setSelectedSport] = useState('IF-Games');
+  const onConnect = (connection: Connection) =>
+    setEdges((eds) =>
+      addEdge(
+        {
+          ...connection,
+          animated: true,
+          style: { strokeDasharray: '5,5', strokeWidth: 2, stroke: '#555' },
+        },
+        eds
+      )
+    );
   
-    // Get teams for the selected sport
-    const getTeams = () => {
-      const sportData = teamLists.find((sport) => sport.sport === selectedSport);
-      return sportData ? sportData.team : [];
-    };
+  // Get teams for the selected sport
+  const getTeams = () => {
+    const sportData = teamLists.find(sport => sport.sport === selectedSport)
+    return sportData ? sportData.team : []
+  }
+
+  const handleGridSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const size = parseInt(e.target.value, 10)
+    if (!isNaN(size) && size > 0) {
+      setGridSize(size)
+    }
+  }
 
   return (
-    <div
-      style={{
-        height: '100vh',
-        backgroundColor: '#f4f4f4',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
+    <div className="h-screen bg-gray-200 flex flex-col">
       {/* Top Controls */}
       <div
         style={{ padding: '1rem', backgroundColor: '#1e293b', color: 'white' }}
       >
         <button
           onClick={addMatchNode}
-          className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold py-2 px-4 rounded"
+          className='bg-yellow-500 hover:bg-yellow-400 text-black font-bold py-2 px-4 rounded'
         >
           Add Match
         </button>
         <button
+          onClick={addLabelNode}
+          className='bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 rounded ml-2'
+        >
+          Add Label
+        </button>
+
+        <label htmlFor='grid-size' className='mr-2'>
+          Grid Size:
+        </label>
+        <input
+          id='grid-size'
+          type='number'
+          min='10'
+          value={gridSize}
+          onChange={handleGridSizeChange}
+          className='text-black px-2 py-1 rounded'
+          style={{ width: '60px' }}
+        />
+        <span className='ml-2'>px</span>
+
+        <button
           onClick={saveToJSON}
-          className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded ml-2"
+          className='bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded ml-2'
         >
           Save as JSON
         </button>
         <input
-          type="file"
-          accept="application/json"
+          type='file'
+          accept='application/json'
           onChange={loadFromJSON}
-          className="ml-2 text-white"
+          className='ml-2 text-white'
           style={{ cursor: 'pointer' }}
         />
       </div>
@@ -236,6 +319,8 @@ const Page: React.FC = () => {
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
           fitView
+          snapToGrid={true}
+          snapGrid={[gridSize, gridSize]}
           nodeTypes={nodeTypes}
         >
           <MiniMap />
@@ -249,30 +334,36 @@ const Page: React.FC = () => {
         style={{
           backgroundColor: '#1e293b',
           padding: '1rem',
-          overflowX: 'auto',
+          overflowX: 'auto'
         }}
       >
-        <h2 className="flex text-white font-bold">Drag Teams Here&nbsp; <p className="text-blue-200">{`${selectedSport}`}</p></h2>
+        <h2 className='flex text-white font-bold'>
+          Drag Teams Here&nbsp;{' '}
+          <p className='text-blue-200'>{`${selectedSport}`}</p>
+        </h2>
         <Tabs>
           <TabsList>
-            {teamLists.map((sport) => (
-              <TabsTrigger key={sport.sport} onClick={() => setSelectedSport(sport.sport)}>
+            {teamLists.map(sport => (
+              <TabsTrigger
+                key={sport.sport}
+                onClick={() => setSelectedSport(sport.sport)}
+              >
                 {sport.sport}
               </TabsTrigger>
             ))}
           </TabsList>
           <TabsContent>
-            <div className="overflow-x-auto flex gap-4 py-4">
+            <div className='overflow-x-auto flex gap-4 py-4'>
               {getTeams().map((team, index) => (
                 <div
                   key={team.name}
-                  className="bg-white p-2 rounded cursor-pointer min-w-fit"
+                  className='bg-white p-2 rounded cursor-pointer min-w-fit'
                   draggable
-                  onDragStart={(event) => {
-                    event.dataTransfer.setData('team', team.name);
+                  onDragStart={event => {
+                    event.dataTransfer.setData('team', team.name)
                   }}
                 >
-                  <p className="text-center font-bold">{team.name}</p>
+                  <p className='text-center font-bold'>{team.name}</p>
                 </div>
               ))}
             </div>
@@ -280,7 +371,7 @@ const Page: React.FC = () => {
         </Tabs>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

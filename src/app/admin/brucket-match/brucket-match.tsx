@@ -62,7 +62,7 @@ const Brucket: React.FC<BrucketProps> = ({ id, data }) => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md w-full max-w-md mx-auto">
+    <div className="bg-white p-4 rounded-lg shadow-md w-[30rem] max-w-md mx-auto">
       {/* Handles for ReactFlow connections */}
       <Handle
         position={Position.Right}
