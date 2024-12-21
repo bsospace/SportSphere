@@ -1,19 +1,24 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import {
     Tabs,
     TabsContent,
     TabsList,
     TabsTrigger,
 } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 import TournamentBracket from "@/components/TournamentBracket";
 import { tournamentData } from "@/mock/tournamentData";
 import BrucketDisplay from '@/components/RenderBracket';
 import "reactflow/dist/style.css";
 import ReactFlow, { Background, MiniMap } from 'reactflow';
+import { Home } from "lucide-react";
 
 export default function MatchPage() {
+    const router = useRouter();
+    
     const nodeTypes = { brucket:BrucketDisplay };
 
     const [nodes, setNodes] = useState([]);
@@ -87,11 +92,18 @@ export default function MatchPage() {
             {/* Tabs */}
             <Tabs className="w-full" defaultValue="rov">
                 <div className="flex justify-center">
-                <div className="overflow-x-auto rounded-lg flex lg:w-[90%]">
-                    <TabsList>
+                <div className="overflow-x-auto overflow-hidden rounded-full flex lg:justify-center lg:w-[90%]">
+                    <Button 
+                        variant="outline" 
+                        className="me-2 rounded-full"
+                        onClick={() => router.push("/")}
+                    >
+                        <Home size={24} />
+                    </Button>
+                    <TabsList className="rounded-full">
                         {(
                             sport.map((item) => (
-                                <TabsTrigger key={item.name} value={item.name} onClick={() => setSportData(item.name)} disabled={item.disabled}>
+                                <TabsTrigger className="rounded-full" key={item.name} value={item.name} onClick={() => setSportData(item.name)} disabled={item.disabled}>
                                     {item.label}
                                 </TabsTrigger>
                             ))
@@ -110,6 +122,9 @@ export default function MatchPage() {
                                 fitView
                                 nodeTypes={nodeTypes}
                                 proOptions={{ hideAttribution: true }}
+                                panOnScroll={true}
+                                nodesDraggable={false}
+                                panOnDrag={true}
                             >
                                 <MiniMap />
                                 <Background />

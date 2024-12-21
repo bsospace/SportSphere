@@ -3,11 +3,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export default function Navigation() {
+    const router = useRouter();
+
     const navItems = [
-        { name: "ข้อมูลสี", path: "#team-color" },
-        { name: "กำหนดการแข่งขัน", path: "", hide: true },
+        { name: "ข้อมูลสี", path: "#team-color", hide: false },
+        { name: "กำหนดการแข่งขัน", path: "/match" },
         { name: "ค้นหาสีของคุณ", path: "#search" },
     ];
 
@@ -33,7 +36,12 @@ export default function Navigation() {
                     <Button
                         key={index}
                         variant="default"
-                        onClick={() => handleScroll(item.path)}
+                        onClick={() => {
+                            if (item.path.startsWith("/")) {
+                                router.push(item.path);
+                            }
+                            handleScroll(item.path);
+                        }}
                         className={item.hide ? "hidden" : "w-full px-3 py-2 rounded-full text-sm font-medium bg-blue-700 text-white"}
                     >
                         {item.name}
