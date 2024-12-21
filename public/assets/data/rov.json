@@ -1,0 +1,1322 @@
+{
+  "nodes": [
+    {
+      "id": "1",
+      "type": "brucket",
+      "position": {
+        "x": -260,
+        "y": 150
+      },
+      "data": {
+        "team1": "โดดเรียนมาตีป้อม",
+        "team2": "นักอสังหา",
+        "matchName": "รอบเก็บคะแนน 1 คู่ที่ 1",
+        "winner": null
+      },
+      "width": 335,
+      "height": 203,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -260,
+        "y": 150
+      },
+      "dragging": false
+    },
+    {
+      "id": "2",
+      "type": "brucket",
+      "position": {
+        "x": -260,
+        "y": 300
+      },
+      "data": {
+        "team1": "GG No Re",
+        "team2": "SE สยองกึ้ม",
+        "matchName": "รอบเก็บคะแนน 1 คู่ที่ 2",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -260,
+        "y": 300
+      },
+      "dragging": false
+    },
+    {
+      "id": "3",
+      "type": "brucket",
+      "position": {
+        "x": -260,
+        "y": 450
+      },
+      "data": {
+        "team1": "The nut พเนจร",
+        "team2": "มาเอาฟีล",
+        "matchName": "รอบเก็บคะแนน 1 คู่ที่ 3",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -260,
+        "y": 450
+      },
+      "dragging": false
+    },
+    {
+      "id": "4",
+      "type": "brucket",
+      "position": {
+        "x": -260,
+        "y": 600
+      },
+      "data": {
+        "team1": "หมูกรอบขอบชีส",
+        "team2": "บุ้งกี๋แบรนด์",
+        "matchName": "รอบเก็บคะแนน 1 คู่ที่ 4",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -260,
+        "y": 600
+      },
+      "dragging": false
+    },
+    {
+      "id": "5",
+      "type": "brucket",
+      "position": {
+        "x": -260,
+        "y": 750
+      },
+      "data": {
+        "team1": "ชินจังชอบกินบล็อคโคลี่",
+        "team2": "DESPARADO",
+        "matchName": "รอบเก็บคะแนน 1 คู่ที่ 5",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -260,
+        "y": 750
+      },
+      "dragging": false
+    },
+    {
+      "id": "6",
+      "type": "brucket",
+      "position": {
+        "x": -260,
+        "y": 890
+      },
+      "data": {
+        "team1": "ป้อมอยู่นี่พี่อยู่ไหน",
+        "team2": "เด็กเกษตรมารัน",
+        "matchName": "รอบเก็บคะแนน 1 คู่ที่ 6",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -260,
+        "y": 890
+      },
+      "dragging": false
+    },
+    {
+      "id": "7",
+      "type": "brucket",
+      "position": {
+        "x": -260,
+        "y": 1030
+      },
+      "data": {
+        "team1": "สยองกึ๋ม",
+        "team2": "ไม่หล่อแต่แฟนคุณรู้จัก",
+        "matchName": "รอบเก็บคะแนน 1 คู่ที่ 7",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -260,
+        "y": 1030
+      },
+      "dragging": false
+    },
+    {
+      "id": "8",
+      "type": "brucket",
+      "position": {
+        "x": -260,
+        "y": 1170
+      },
+      "data": {
+        "team1": "Love Pushsay",
+        "team2": "อุกะก่ะ",
+        "matchName": "รอบเก็บคะแนน 1 คู่ที่ 8",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -260,
+        "y": 1170
+      },
+      "dragging": false
+    },
+    {
+      "id": "9",
+      "type": "brucket",
+      "position": {
+        "x": -260,
+        "y": 1310
+      },
+      "data": {
+        "team1": "คนจริงโอวัลตินต้องละลาย",
+        "team2": "สีหัก",
+        "matchName": "รอบเก็บคะแนน 1 คู่ที่ 9",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -260,
+        "y": 1310
+      },
+      "dragging": false
+    },
+    {
+      "id": "10",
+      "type": "brucket",
+      "position": {
+        "x": 40,
+        "y": 1310
+      },
+      "data": {
+        "team1": "โดดเรียนมาตีป้อม",
+        "team2": "GG No Re",
+        "matchName": "รอบเก็บคะแนน 2 คู่ที่ 9",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 40,
+        "y": 1310
+      },
+      "dragging": false
+    },
+    {
+      "id": "11",
+      "type": "brucket",
+      "position": {
+        "x": 40,
+        "y": 300
+      },
+      "data": {
+        "team1": "The nut พเนจร",
+        "team2": "หมูกรอบขอบชีส",
+        "matchName": "รอบเก็บคะแนน 2 คู่ที่ 2",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 40,
+        "y": 300
+      },
+      "dragging": false
+    },
+    {
+      "id": "12",
+      "type": "brucket",
+      "position": {
+        "x": 40,
+        "y": 450
+      },
+      "data": {
+        "team1": "ชินจังชอบกินบล็อคโคลี่",
+        "team2": "ป้อมอยู่นี่พี่อยู่ไหน",
+        "matchName": "รอบเก็บคะแนน 2 คู่ที่ 3",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 40,
+        "y": 450
+      },
+      "dragging": false
+    },
+    {
+      "id": "13",
+      "type": "brucket",
+      "position": {
+        "x": 40,
+        "y": 600
+      },
+      "data": {
+        "team1": "สยองกึ๋ม",
+        "team2": "Love Pushsay",
+        "matchName": "รอบเก็บคะแนน 2 คู่ที่ 4",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 40,
+        "y": 600
+      },
+      "dragging": false
+    },
+    {
+      "id": "14",
+      "type": "brucket",
+      "position": {
+        "x": 40,
+        "y": 750
+      },
+      "data": {
+        "team1": "คนจริงโอวัลตินต้องละลาย",
+        "team2": "นักอสังหา",
+        "matchName": "รอบเก็บคะแนน 2 คู่ที่ 5",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 40,
+        "y": 750
+      },
+      "dragging": false
+    },
+    {
+      "id": "15",
+      "type": "brucket",
+      "position": {
+        "x": 40,
+        "y": 890
+      },
+      "data": {
+        "team1": "SE สยองกึ้ม",
+        "team2": "มาเอาฟีล",
+        "matchName": "รอบเก็บคะแนน 2 คู่ที่ 6",
+        "winner": null,
+        "score1": 17
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 40,
+        "y": 890
+      },
+      "dragging": false
+    },
+    {
+      "id": "16",
+      "type": "brucket",
+      "position": {
+        "x": 40,
+        "y": 1030
+      },
+      "data": {
+        "team1": "บุ้งกี๋แบรนด์",
+        "team2": "DESPARADO",
+        "matchName": "รอบเก็บคะแนน 2 คู่ที่ 7",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 40,
+        "y": 1030
+      },
+      "dragging": false
+    },
+    {
+      "id": "17",
+      "type": "brucket",
+      "position": {
+        "x": 40,
+        "y": 1170
+      },
+      "data": {
+        "team1": "เด็กเกษตรมารัน",
+        "team2": "ไม่หล่อแต่แฟนคุณรู้จัก",
+        "matchName": "รอบเก็บคะแนน 2 คู่ที่ 8",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 40,
+        "y": 1170
+      },
+      "dragging": false
+    },
+    {
+      "id": "18",
+      "type": "brucket",
+      "position": {
+        "x": 40,
+        "y": 150
+      },
+      "data": {
+        "team1": "อุกะก่ะ",
+        "team2": "สีหัก",
+        "matchName": "รอบเก็บคะแนน 2 คู่ที่ 1",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 40,
+        "y": 150
+      },
+      "dragging": false
+    },
+    {
+      "id": "19",
+      "type": "brucket",
+      "position": {
+        "x": 330,
+        "y": 150
+      },
+      "data": {
+        "team1": "GG No Re",
+        "team2": "เด็กเกษตรมารัน",
+        "matchName": "รอบเก็บคะแนน 3 คู่ที่ 1",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 330,
+        "y": 150
+      },
+      "dragging": false
+    },
+    {
+      "id": "20",
+      "type": "brucket",
+      "position": {
+        "x": 330,
+        "y": 300
+      },
+      "data": {
+        "team1": "นักอสังหา",
+        "team2": "ป้อมอยู่นี่พี่อยู่ไหน",
+        "matchName": "รอบเก็บคะแนน 3 คู่ที่ 2",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 330,
+        "y": 300
+      },
+      "dragging": false
+    },
+    {
+      "id": "21",
+      "type": "brucket",
+      "position": {
+        "x": 330,
+        "y": 450
+      },
+      "data": {
+        "team1": "ชินจังชอบกินบล็อคโคลี่",
+        "team2": "สีหัก",
+        "matchName": "รอบเก็บคะแนน 3 คู่ที่ 3",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 330,
+        "y": 450
+      },
+      "dragging": false
+    },
+    {
+      "id": "22",
+      "type": "brucket",
+      "position": {
+        "x": 330,
+        "y": 600
+      },
+      "data": {
+        "team1": "SE สยองกึ้ม",
+        "team2": "สยองกึ๋ม",
+        "matchName": "รอบเก็บคะแนน 3 คู่ที่ 4",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 330,
+        "y": 600
+      },
+      "dragging": false
+    },
+    {
+      "id": "23",
+      "type": "brucket",
+      "position": {
+        "x": 330,
+        "y": 750
+      },
+      "data": {
+        "team1": "มาเอาฟีล",
+        "team2": "Love Pushsay",
+        "matchName": "รอบเก็บคะแนน 3 คู่ที่ 5",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 330,
+        "y": 750
+      },
+      "dragging": false
+    },
+    {
+      "id": "24",
+      "type": "brucket",
+      "position": {
+        "x": 330,
+        "y": 890
+      },
+      "data": {
+        "team1": "The nut พเนจร",
+        "team2": "ไม่หล่อแต่แฟนคุณรู้จัก",
+        "matchName": "รอบเก็บคะแนน 3 คู่ที่ 6",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 330,
+        "y": 890
+      },
+      "dragging": false
+    },
+    {
+      "id": "25",
+      "type": "brucket",
+      "position": {
+        "x": 330,
+        "y": 1030
+      },
+      "data": {
+        "team1": "โดดเรียนมาตีป้อม",
+        "team2": "DESPARADO",
+        "matchName": "รอบเก็บคะแนน 3 คู่ที่ 7",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 330,
+        "y": 1030
+      },
+      "dragging": false
+    },
+    {
+      "id": "26",
+      "type": "brucket",
+      "position": {
+        "x": 330,
+        "y": 1170
+      },
+      "data": {
+        "team1": "บุ้งกี๋แบรนด์",
+        "team2": "คนจริงโอวัลตินต้องละลาย",
+        "matchName": "รอบเก็บคะแนน 3 คู่ที่ 8",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 330,
+        "y": 1170
+      },
+      "dragging": false
+    },
+    {
+      "id": "27",
+      "type": "brucket",
+      "position": {
+        "x": 330,
+        "y": 1310
+      },
+      "data": {
+        "team1": "หมูกรอบขอบชีส",
+        "team2": "อุกะก่ะ",
+        "matchName": "รอบเก็บคะแนน 3 คู่ที่ 9",
+        "winner": null
+      },
+      "width": 256,
+      "height": 116,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 330,
+        "y": 1310
+      },
+      "dragging": false
+    },
+    {
+      "id": "28",
+      "type": "brucket",
+      "position": {
+        "x": 780,
+        "y": 380
+      },
+      "data": {
+        "team1": null,
+        "team2": null,
+        "matchName": "รอบ 8 ทีมสุดท้าย คู่ที่ 1",
+        "winner": null
+      },
+      "width": 256,
+      "height": 120,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 780,
+        "y": 380
+      },
+      "dragging": false
+    },
+    {
+      "id": "29",
+      "type": "brucket",
+      "position": {
+        "x": 780,
+        "y": 660
+      },
+      "data": {
+        "team1": null,
+        "team2": null,
+        "matchName": "รอบ 8 ทีมสุดท้าย คู่ที่ 2",
+        "winner": null
+      },
+      "width": 256,
+      "height": 120,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 780,
+        "y": 660
+      },
+      "dragging": false
+    },
+    {
+      "id": "30",
+      "type": "brucket",
+      "position": {
+        "x": 780,
+        "y": 920
+      },
+      "data": {
+        "team1": null,
+        "team2": null,
+        "matchName": "รอบ 8 ทีมสุดท้าย คู่ที่ 3",
+        "winner": null
+      },
+      "width": 256,
+      "height": 120,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 780,
+        "y": 920
+      },
+      "dragging": false
+    },
+    {
+      "id": "31",
+      "type": "brucket",
+      "position": {
+        "x": 780,
+        "y": 1170
+      },
+      "data": {
+        "team1": null,
+        "team2": null,
+        "matchName": "รอบ 8 ทีมสุดท้าย คู่ที่ ",
+        "winner": null
+      },
+      "width": 256,
+      "height": 120,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 780,
+        "y": 1170
+      },
+      "dragging": false
+    },
+    {
+      "id": "32",
+      "type": "brucket",
+      "position": {
+        "x": 1470,
+        "y": 650
+      },
+      "data": {
+        "team1": null,
+        "team2": null,
+        "matchName": "Semifinals คู่ที่ 1",
+        "winner": null
+      },
+      "width": 256,
+      "height": 120,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1470,
+        "y": 650
+      },
+      "dragging": false
+    },
+    {
+      "id": "33",
+      "type": "brucket",
+      "position": {
+        "x": 1470,
+        "y": 910
+      },
+      "data": {
+        "team1": null,
+        "team2": null,
+        "matchName": "Semifinals คู่ที่ 2",
+        "winner": null
+      },
+      "width": 256,
+      "height": 120,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1470,
+        "y": 910
+      },
+      "dragging": false
+    },
+    {
+      "id": "34",
+      "type": "brucket",
+      "position": {
+        "x": 2100,
+        "y": 640
+      },
+      "data": {
+        "team1": null,
+        "team2": null,
+        "matchName": "รอบชิงชนะเลิศ",
+        "winner": null
+      },
+      "width": 256,
+      "height": 120,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 2100,
+        "y": 640
+      },
+      "dragging": false
+    },
+    {
+      "id": "35",
+      "type": "brucket",
+      "position": {
+        "x": 2100,
+        "y": 910
+      },
+      "data": {
+        "team1": null,
+        "team2": null,
+        "matchName": "รอบชิงชนะเลิศอันดับที่ 3",
+        "winner": null
+      },
+      "width": 256,
+      "height": 120,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 2100,
+        "y": 910
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-36",
+      "type": "label",
+      "position": {
+        "x": -240,
+        "y": 60
+      },
+      "data": {
+        "label": "รอบเก็บคะแนน 1"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -240,
+        "y": 60
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-37",
+      "type": "label",
+      "position": {
+        "x": 60,
+        "y": 60
+      },
+      "data": {
+        "label": "รอบเก็บคะแนน 2"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 60,
+        "y": 60
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-38",
+      "type": "label",
+      "position": {
+        "x": 350,
+        "y": 60
+      },
+      "data": {
+        "label": "รอบเก็บคะแนน 3"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 350,
+        "y": 60
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-39",
+      "type": "label",
+      "position": {
+        "x": 1130,
+        "y": 410
+      },
+      "data": {
+        "label": "ผู้ชนะ รอบ 8 ทีม คู่ที่ 1"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1130,
+        "y": 410
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-40",
+      "type": "label",
+      "position": {
+        "x": 1120,
+        "y": 680
+      },
+      "data": {
+        "label": "ผู้ชนะ รอบ 8 ทีม คู่ที่ 2"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1120,
+        "y": 680
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-41",
+      "type": "label",
+      "position": {
+        "x": 1120,
+        "y": 940
+      },
+      "data": {
+        "label": "ผู้ชนะ รอบ 8 ทีม คู่ที่ 3"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1120,
+        "y": 940
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-42",
+      "type": "label",
+      "position": {
+        "x": 1120,
+        "y": 1190
+      },
+      "data": {
+        "label": "ผู้ชนะ รอบ 8 ทีม คู่ที่ 4"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1120,
+        "y": 1190
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-43",
+      "type": "label",
+      "position": {
+        "x": 1800,
+        "y": 600
+      },
+      "data": {
+        "label": "ผู้ชนะ Semifinals คู่ที่ 1"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1800,
+        "y": 600
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-45",
+      "type": "label",
+      "position": {
+        "x": 1800,
+        "y": 880
+      },
+      "data": {
+        "label": "ผู้ชนะ Semifinals คู่ที่ 2"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1800,
+        "y": 880
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-46",
+      "type": "label",
+      "position": {
+        "x": 1800,
+        "y": 720
+      },
+      "data": {
+        "label": "ผู้แพ้ Semifinals คู่ที่ 1"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1800,
+        "y": 720
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-47",
+      "type": "label",
+      "position": {
+        "x": 1800,
+        "y": 1010
+      },
+      "data": {
+        "label": "ผู้แพ้ Semifinals คู่ที่ 2"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1800,
+        "y": 1010
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-48",
+      "type": "label",
+      "position": {
+        "x": 2460,
+        "y": 570
+      },
+      "data": {
+        "label": "ชนะเลิศอันดับที่ 1"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 2460,
+        "y": 570
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-49",
+      "type": "label",
+      "position": {
+        "x": 2460,
+        "y": 730
+      },
+      "data": {
+        "label": "รองชนะเลิศอันดับที่ 1"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 2460,
+        "y": 730
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-50",
+      "type": "label",
+      "position": {
+        "x": 2460,
+        "y": 880
+      },
+      "data": {
+        "label": "รองชนะเลิศอันดับที่ 2"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 2460,
+        "y": 880
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-51",
+      "type": "label",
+      "position": {
+        "x": 2460,
+        "y": 1040
+      },
+      "data": {
+        "label": "รองชนะเลิศอันดับที่ 3"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 2460,
+        "y": 1040
+      },
+      "dragging": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "28",
+      "sourceHandle": null,
+      "target": "label-39",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-28-label-39"
+    },
+    {
+      "source": "29",
+      "sourceHandle": null,
+      "target": "label-40",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-29-label-40"
+    },
+    {
+      "source": "30",
+      "sourceHandle": null,
+      "target": "label-41",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-30-label-41"
+    },
+    {
+      "source": "31",
+      "sourceHandle": null,
+      "target": "label-42",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-31-label-42"
+    },
+    {
+      "source": "label-42",
+      "sourceHandle": null,
+      "target": "33",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-42-33"
+    },
+    {
+      "source": "label-41",
+      "sourceHandle": null,
+      "target": "33",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-41-33"
+    },
+    {
+      "source": "label-40",
+      "sourceHandle": null,
+      "target": "32",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-40-32"
+    },
+    {
+      "source": "label-39",
+      "sourceHandle": null,
+      "target": "32",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-39-32"
+    },
+    {
+      "source": "32",
+      "sourceHandle": null,
+      "target": "label-43",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-32-label-43"
+    },
+    {
+      "source": "32",
+      "sourceHandle": null,
+      "target": "label-46",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-32-label-46"
+    },
+    {
+      "source": "33",
+      "sourceHandle": null,
+      "target": "label-47",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-33-label-47"
+    },
+    {
+      "source": "33",
+      "sourceHandle": null,
+      "target": "label-45",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-33-label-45"
+    },
+    {
+      "source": "label-46",
+      "sourceHandle": null,
+      "target": "35",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-46-35"
+    },
+    {
+      "source": "label-47",
+      "sourceHandle": null,
+      "target": "35",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-47-35"
+    },
+    {
+      "source": "label-45",
+      "sourceHandle": null,
+      "target": "34",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-45-34"
+    },
+    {
+      "source": "label-43",
+      "sourceHandle": null,
+      "target": "34",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-43-34"
+    },
+    {
+      "source": "35",
+      "sourceHandle": null,
+      "target": "label-51",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-35-label-51"
+    },
+    {
+      "source": "35",
+      "sourceHandle": null,
+      "target": "label-50",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-35-label-50"
+    },
+    {
+      "source": "34",
+      "sourceHandle": null,
+      "target": "label-49",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-34-label-49"
+    },
+    {
+      "source": "34",
+      "sourceHandle": null,
+      "target": "label-48",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-34-label-48"
+    }
+  ]
+}

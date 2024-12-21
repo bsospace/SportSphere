@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { Home } from "lucide-react";
 
 export default function RedPage() {
     const router = useRouter();
@@ -52,9 +53,9 @@ export default function RedPage() {
     return (
         <div className="p-12 min-h-screen bg-white">
 
-            <div className="mb-6 flex justify-start">
+            <div className="mb-6 flex justify-center">
                 <Button variant="secondary" onClick={() => router.push("/")}>
-                    Back to Home
+                    <Home className="h-6 w-6" />
                 </Button>
             </div>
 
