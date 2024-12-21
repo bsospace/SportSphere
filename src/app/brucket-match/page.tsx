@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import ReactFlow, { Background, Controls, MiniMap } from 'reactflow'
+import ReactFlow, { Background, MiniMap } from 'reactflow'
 import 'reactflow/dist/style.css'
 import BrucketDisplay from '@/components/RenderBracket'
 // import Brucket from '../admin/brucket-match/brucket-match'
