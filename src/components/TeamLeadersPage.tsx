@@ -1,37 +1,45 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 export default function TeamLeadersPage() {
+    const router = useRouter();
+
     const leaders = [
         {
             name: "Naka",
-            title: "ผศ.ภูสิต กุลเกษม",
-            gradient: "bg-gradient-to-r from-green-600 to-green-200",
+            title: "สีเขียว นาคา",
+            gradient: "rgba(34, 139, 34, 0.6)",
             image: "/images/teachers/pusit.png",
+            bg: "/images/mascot/naka.png",
         },
         {
             name: "SuBunatee",
-            title: "ผศ.ดร.โกเมศ อัมพวัน",
-            gradient: "bg-gradient-to-r from-blue-600 to-blue-200",
+            title: "สีน้ำเงิน สุบรรณนที",
+            gradient: "rgba(0, 0, 205, 0.6)",
             image: "/images/teachers/gomate.png",
+            bg: "/images/mascot/subunatee.png",
         },
         {
             name: "Erawan",
-            title: "ผศ.ดร.อธิตา อ่อนเอื้อน",
-            gradient: "bg-gradient-to-r from-pink-600 to-pink-200",
+            title: "สีชมพู เอราวัณ",
+            gradient: "rgba(255, 20, 147, 0.6)",
             image: "/images/teachers/jane.png",
+            bg: "/images/mascot/erawan.png",
         },
         {
             name: "Pheonix",
-            title: "ผศ.ดร.ณัฐพร ภักดี",
-            gradient: "bg-gradient-to-r from-red-600 to-red-200",
+            title: "สีแดง หงส์เพลิง",
+            gradient: "rgba(180, 0, 0, 0.6)",
             image: "/images/teachers/wan.png",
+            bg: "/images/mascot/pheonix.png",
         },
         {
             name: "Gilen",
-            title: "ผศ.เบญจวรรณ จันทรทองกุล",
-            gradient: "bg-gradient-to-r from-yellow-600 to-yellow-200",
+            title: "สีเหลือง กิเลนทองคำ",
+            gradient: "rgba(255, 215, 0, 0.6)",
             image: "/images/teachers/ben.png",
+            bg: "/images/mascot/gilen.png",
         },
     ];
 
@@ -42,30 +50,37 @@ export default function TeamLeadersPage() {
     };
 
     return (
-        <div className="bg-gray-100 p-12">
-            <h1 className="text-4xl font-extrabold mb-8 text-center text-gray-900">
+        <div className="flex justify-center items-center flex-col min-h-screen">
+            <h1 
+                className="text-4xl font-extrabold mb-8 text-center"
+            >
                 Team Color
             </h1>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
+            <div className="flex flex-wrap justify-center gap-12">
                 {leaders.map((leader, index) => (
                     <motion.div
                         key={index}
-                        className={`flex flex-col items-center justify-center rounded-xl shadow-xl p-6 text-center text-white ${leader.gradient} cursor-pointer`}
+                        className="w-64 flex flex-col items-center justify-center rounded-xl shadow-xl p-6 text-center text-white cursor-pointer"
                         variants={cardVariants}
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
                         whileHover={{ scale: 1.05 }}
-                        onClick={() => window.open(`https://www.google.com/search?q=${leader.name}`)}
+                        onClick={() => router.push(`/team/${leader.name.toLowerCase()}`)}
+                        style={{
+                            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.9), ${leader.gradient}, ${leader.gradient}), url(${leader.bg})`,
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                        }}
                     >
                         {/* Image Section */}
                         <motion.div className="flex h-36 w-36 items-center justify-center mb-4">
                             <motion.img
                                 src={leader.image}
                                 alt={leader.name}
-                                className="w-36 h-36 rounded-full border-4 border-white"
-                                whileHover={{ rotate: [0, 10, -10, 10, -10, 0] }}
+                                className="w-36 h-36 rounded-full"
+                                whileHover={{ rotate: [0, 5, -5, 5, -5, 0] }}
                             />
                         </motion.div>
                         {/* Text Section */}
