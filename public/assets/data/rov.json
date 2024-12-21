@@ -1,0 +1,212 @@
+{
+  "nodes": [
+    {
+      "id": "1",
+      "type": "brucket",
+      "position": {
+        "x": -129.05476468425542,
+        "y": 287.73882259973954
+      },
+      "data": {
+        "team1": "โดดเรียนมาตีป้อม",
+        "team2": "นักอสังหาร",
+        "matchName": "Match 1",
+        "winner": null,
+        "score1": 0,
+        "score2": 0
+      },
+      "width": 333,
+      "height": 203,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -129.05476468425542,
+        "y": 287.73882259973954
+      },
+      "dragging": false
+    },
+    {
+      "id": "2",
+      "type": "brucket",
+      "position": {
+        "x": -116.92555809109206,
+        "y": 548.0267127985481
+      },
+      "data": {
+        "team1": "GG No Re",
+        "team2": "SE สยองกึ้ม",
+        "matchName": "Match 2",
+        "winner": null,
+        "score1": 0,
+        "score2": 0
+      },
+      "width": 299,
+      "height": 203,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -116.92555809109206,
+        "y": 548.0267127985481
+      },
+      "dragging": false
+    },
+    {
+      "id": "3",
+      "type": "brucket",
+      "position": {
+        "x": -142.24337462677045,
+        "y": 926.2311803185462
+      },
+      "data": {
+        "team1": "The nut พเนจร",
+        "team2": "มาเอาฟีล",
+        "matchName": "Match 3",
+        "winner": null,
+        "score1": 0,
+        "score2": 0
+      },
+      "width": 319,
+      "height": 203,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -142.24337462677045,
+        "y": 926.2311803185462
+      },
+      "dragging": false
+    },
+    {
+      "id": "4",
+      "type": "brucket",
+      "position": {
+        "x": -146.76629337501888,
+        "y": 1196.7964546761764
+      },
+      "data": {
+        "team1": "หมูกรอบขอบชีท",
+        "team2": "บุ้งกี๋แบรนด์",
+        "matchName": "Match 4",
+        "winner": null,
+        "score1": 0,
+        "score2": 0
+      },
+      "width": 325,
+      "height": 203,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -146.76629337501888,
+        "y": 1196.7964546761764
+      },
+      "dragging": false
+    },
+    {
+      "id": "6",
+      "type": "brucket",
+      "position": {
+        "x": 466.1347506239133,
+        "y": 414.25805700381346
+      },
+      "data": {
+        "team1": "?",
+        "team2": "?",
+        "matchName": "Match 6",
+        "winner": null
+      },
+      "width": 279,
+      "height": 203,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 466.1347506239133,
+        "y": 414.25805700381346
+      },
+      "dragging": false
+    },
+    {
+      "id": "7",
+      "type": "brucket",
+      "position": {
+        "x": 468.1336112470332,
+        "y": 1033.179834224956
+      },
+      "data": {
+        "team1": "?",
+        "team2": "?",
+        "matchName": "Match 7",
+        "winner": null
+      },
+      "width": 279,
+      "height": 203,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 468.1336112470332,
+        "y": 1033.179834224956
+      },
+      "dragging": false
+    },
+    {
+      "id": "8",
+      "type": "brucket",
+      "position": {
+        "x": 886.9402877189029,
+        "y": 735.4108690644857
+      },
+      "data": {
+        "team1": "?",
+        "team2": "?",
+        "matchName": "Match 8",
+        "winner": null,
+        "score1": 0,
+        "score2": 0
+      },
+      "width": 279,
+      "height": 203,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 886.9402877189029,
+        "y": 735.4108690644857
+      },
+      "dragging": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "1",
+      "sourceHandle": null,
+      "target": "6",
+      "targetHandle": null,
+      "id": "reactflow__edge-1-6"
+    },
+    {
+      "source": "2",
+      "sourceHandle": null,
+      "target": "6",
+      "targetHandle": null,
+      "id": "reactflow__edge-2-6"
+    },
+    {
+      "source": "3",
+      "sourceHandle": null,
+      "target": "7",
+      "targetHandle": null,
+      "id": "reactflow__edge-3-7"
+    },
+    {
+      "source": "4",
+      "sourceHandle": null,
+      "target": "7",
+      "targetHandle": null,
+      "id": "reactflow__edge-4-7"
+    },
+    {
+      "source": "6",
+      "sourceHandle": null,
+      "target": "8",
+      "targetHandle": null,
+      "id": "reactflow__edge-6-8"
+    },
+    {
+      "source": "7",
+      "sourceHandle": null,
+      "target": "8",
+      "targetHandle": null,
+      "id": "reactflow__edge-7-8"
+    }
+  ]
+}
