@@ -1,4 +1,4 @@
-// @ts-nocheck
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React, { useState } from 'react';
@@ -24,11 +24,13 @@ interface NodeData {
   team1: string | null;
   team2: string | null;
   winner: string | null;
+  matchName: string | null;
   onTeamDrop: (team: string, target: 'team1' | 'team2') => void;
   onDeleteTeam: (nodeId: string, target: 'team1' | 'team2') => void;
   onUpdateTeamName: (nodeId: string, team: 'team1' | 'team2', name: string) => void;
   onUpdateScore: (nodeId: string, team: 'team1' | 'team2', score: number) => void;
   onUpdateMatchName: (nodeId: string, name: string) => void;
+  onUpdateWinner: (nodeId: string, winner: string) => void;
 }
 
 const Page: React.FC = () => {
@@ -120,7 +122,7 @@ const Page: React.FC = () => {
       },
     };
 
-    setNodes((nds) => [...nds, newNode]);
+    setNodes((nds) => [...nds, newNode as any]);
     setIdCounter((id) => id + 1);
   };
 
@@ -146,7 +148,7 @@ const Page: React.FC = () => {
         try {
           const data = JSON.parse(e.target?.result as string);
           if (Array.isArray(data.nodes) && Array.isArray(data.edges)) {
-            const loadedNodes = data.nodes.map((node) => ({
+            const loadedNodes = data.nodes.map((node: { data: any; id: string; }) => ({
               ...node,
               data: {
                 ...node.data,
