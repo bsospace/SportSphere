@@ -1,0 +1,90 @@
+.bracket {
+  display: flex;
+  justify-content: space-between; /* Arrange rounds horizontally */
+  gap: 50px; /* Space between rounds */
+  margin: 20px auto;
+  padding: 10px;
+  width: 100%;
+  overflow-x: auto; /* Allow horizontal scrolling */
+  position: relative;
+}
+
+.roundName {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column; /* Stack matches vertically */
+  gap: 40px; /* Space between matches */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+.match {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 150px;
+  text-align: center;
+}
+
+/* Lines connecting to the next round */
+.match::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 100%; /* Line goes to the right */
+  width: 50px; /* Horizontal line length */
+  height: 2px;
+  background-color: #000;
+}
+
+.match::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 100%; /* Line comes from the left */
+  width: 50px; /* Horizontal line length */
+  height: 2px;
+  background-color: #000;
+  transform: translateY(-50%);
+}
+
+/* Vertical lines to link matches */
+.list > li:nth-child(odd) .match::after {
+  border-top: 2px solid #000;
+  border-top-right-radius: 5px;
+}
+
+.list > li:nth-child(even) .match::after {
+  border-bottom: 2px solid #000;
+  border-bottom-right-radius: 5px;
+}
+
+.player {
+  font-weight: bold;
+  text-decoration: none;
+  color: #007bff;
+  transition: color 0.3s;
+}
+
+.player:hover {
+  color: #0056b3;
+}
+
+.date {
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-top: 5px;
+}

@@ -13,6 +13,8 @@ import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import TeamLeadersPage from "@/components/TeamLeadersPage";
 import Navigation from "@/components/Navigation";
+import TournamentBracket from "@/components/TournamentBracket";
+import { tournamentData } from "@/mock/tournamentData";
 
 const variants = {
   hidden: { opacity: 0, height: 0 },
@@ -268,8 +270,13 @@ export default function HomePage() {
       </div>
 
       {/* Team Colors Section */}
-      <div id="team-color" className="p-12 min-h-screen mt-12 bg-white bg-opacity-90">
+      <div id="team-color" className="p-12 min-h-screen mt-12 bg-white bg-opacity-90 w-full">
         <TeamLeadersPage />
+      </div>
+      
+      {/* Tournament Bracket Section */}
+      <div id="tournament-bracket" className="flex flex-col items-center justify-center min-h-screen mt-12 w-full bg-white bg-opacity-90">
+        <TournamentBracket rounds={tournamentData} />
       </div>
     </div>
   );
