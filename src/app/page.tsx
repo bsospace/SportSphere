@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import TeamLeadersPage from "../components/TeamLeadersPage";
 
 const variants = {
   hidden: { opacity: 0, height: 0 },
@@ -88,16 +89,19 @@ export default function HomePage() {
       <h1 className="text-4xl font-extrabold text-blue-600 mb-6 text-center">
         Welcome to IF Games 2024 🏅
       </h1>
+      <TeamLeadersPage />
 
       <div className="w-full max-w-lg p-6 bg-white shadow-lg rounded-lg">
         <h2 className="text-2xl font-semibold mb-4 text-center text-gray-800">
           ค้นหาสีของคุณ
         </h2>
         <Tabs defaultValue="account" className="w-full">
-          <TabsList className="mb-4">
-            <TabsTrigger value="account">นิสิต</TabsTrigger>
-            <TabsTrigger value="password">อาจารย์หรือบุคลากร</TabsTrigger>
-          </TabsList>
+          <div className="flex justify-center">
+            <TabsList>
+              <TabsTrigger value="account">นิสิต</TabsTrigger>
+              <TabsTrigger value="password">อาจารย์หรือบุคคลากร</TabsTrigger>
+            </TabsList>
+          </div>
           <TabsContent value="account">
             <Input
               type="text"
