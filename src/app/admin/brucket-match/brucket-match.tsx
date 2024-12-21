@@ -42,7 +42,7 @@ const Brucket: React.FC<BrucketProps> = ({ id, data }) => {
     onUpdateTeamName,
     onUpdateScore,
     onUpdateMatchName,
-    onUpdateWinner, // Callback for winner update
+    onUpdateWinner,
   } = data;
 
   // Handles drag-and-drop functionality

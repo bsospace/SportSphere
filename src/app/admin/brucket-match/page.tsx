@@ -16,6 +16,7 @@ import ReactFlow, {
 import 'reactflow/dist/style.css';
 import { teamLists } from '@/mock/teams';
 import Brucket from './brucket-match';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
 // Define custom node types
 const nodeTypes = { brucket: Brucket };
@@ -184,6 +185,14 @@ const Page: React.FC = () => {
   // Handle connections
   const onConnect = (connection: Connection) => setEdges((eds) => addEdge(connection, eds));
 
+    const [selectedSport, setSelectedSport] = useState('IF-Games');
+  
+    // Get teams for the selected sport
+    const getTeams = () => {
+      const sportData = teamLists.find((sport) => sport.sport === selectedSport);
+      return sportData ? sportData.team : [];
+    };
+
   return (
     <div
       style={{
@@ -243,20 +252,32 @@ const Page: React.FC = () => {
           overflowX: 'auto',
         }}
       >
-        <div className="flex space-x-4">
-          {teamLists.map((team, index) => (
-            <div
-              key={index}
-              className="bg-gray-800 text-white py-2 px-4 rounded-lg shadow-md"
-              draggable
-              onDragStart={(event) => {
-                event.dataTransfer.setData('team', team.name);
-              }}
-            >
-              <p className="text-center font-bold">{team.name}</p>
+        <h2 className="flex text-white font-bold">Drag Teams Here&nbsp; <p className="text-blue-200">{`${selectedSport}`}</p></h2>
+        <Tabs>
+          <TabsList>
+            {teamLists.map((sport) => (
+              <TabsTrigger key={sport.sport} onClick={() => setSelectedSport(sport.sport)}>
+                {sport.sport}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          <TabsContent>
+            <div className="overflow-x-auto flex gap-4 py-4">
+              {getTeams().map((team, index) => (
+                <div
+                  key={team.name}
+                  className="bg-white p-2 rounded cursor-pointer min-w-fit"
+                  draggable
+                  onDragStart={(event) => {
+                    event.dataTransfer.setData('team', team.name);
+                  }}
+                >
+                  <p className="text-center font-bold">{team.name}</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
