@@ -4,10 +4,11 @@ import React, { useEffect, useState } from 'react'
 import ReactFlow, { Background, MiniMap } from 'reactflow'
 import 'reactflow/dist/style.css'
 import BrucketDisplay from '@/components/RenderBracket'
+import LabelNode from '../admin/brucket-match/label-node'
 // import Brucket from '../admin/brucket-match/brucket-match'
 
 // Define the node type for the brackets
-const nodeTypes = { brucket:BrucketDisplay }
+const nodeTypes = { brucket: BrucketDisplay,label: LabelNode }
 
 const RenderBracket: React.FC = () => {
   const [nodes, setNodes] = useState([])
@@ -27,10 +28,6 @@ const RenderBracket: React.FC = () => {
         const response = await fetch(`/assets/data/${sport}.json`)
         if (!response.ok) throw new Error(`Failed to load ${sport}.json`)
         const data = await response.json()
-
-        // Debug the data structure
-        console.log('Fetched Nodes:', data.nodes)
-        console.log('Fetched Edges:', data.edges)
 
         setNodes(data.nodes || [])
         setEdges(data.edges || [])

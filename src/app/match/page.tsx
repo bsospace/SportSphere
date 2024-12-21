@@ -15,11 +15,12 @@ import BrucketDisplay from '@/components/RenderBracket';
 import "reactflow/dist/style.css";
 import ReactFlow, { Background, MiniMap } from 'reactflow';
 import { Home } from "lucide-react";
+import LabelNode from '@/app/admin/brucket-match/label-node';
 
 export default function MatchPage() {
     const router = useRouter();
     
-    const nodeTypes = { brucket:BrucketDisplay };
+    const nodeTypes = { brucket:BrucketDisplay, label: LabelNode };
 
     const [nodes, setNodes] = useState([]);
     const [edges, setEdges] = useState([]);

@@ -22,7 +22,7 @@ const BracketDisplay: React.FC<BracketProps> = ({ id, data }) => {
   };
 
   return (
-    <div className="relative w-80 border-2 rounded-lg shadow-md">
+    <div className="relative w-64 border-2 rounded-md shadow-md">
       <Handle
         position={Position.Right}
         type="source"
@@ -34,13 +34,13 @@ const BracketDisplay: React.FC<BracketProps> = ({ id, data }) => {
         className="handle"
       />
       
-      <div className="overflow-hidden rounded-lg">
+      <div className="overflow-hidden rounded-md">
         <table className="w-full border-collapse bg-white">
           <thead>
             <tr className="">
               <th
                 colSpan={3}
-                className="py-4 px-6 text-center text-lg font-bold text-black shadow-sm"
+                className="py-4 px-6 text-center text-md font-bold text-black shadow-sm"
               >
                 <div className="flex items-center justify-center gap-2">
                   <Trophy className="w-6 h-6" />
@@ -67,7 +67,7 @@ const BracketDisplay: React.FC<BracketProps> = ({ id, data }) => {
                 </span>
               </td>
               <td className="py-6 px-6 text-center border-l-2 border-gray-100">
-                <span className={`text-lg font-bold ${
+                <span className={`text-md font-bold ${
                   isWinner(team1) ? 'text-yellow-500' : 'text-gray-600'
                 }`}>
                   {score1 ?? '--'}
@@ -97,7 +97,7 @@ const BracketDisplay: React.FC<BracketProps> = ({ id, data }) => {
                 </span>
               </td>
               <td className="py-6 px-6 text-center border-l-2 border-gray-100">
-                <span className={`text-lg font-bold ${
+                <span className={`text-md font-bold ${
                   isWinner(team2) ? 'text-yellow-500' : 'text-gray-600'
                 }`}>
                   {score2 ?? '--'}
