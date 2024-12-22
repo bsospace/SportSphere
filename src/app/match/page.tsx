@@ -135,8 +135,23 @@ export default function MatchPage() {
                         </div>
                     </TabsContent>
 
-                    <TabsContent value="valorant">
+                    <TabsContent value="valorant" className="w-full items-center">
                         <p className="text-center sm:text-left">This is Valorant</p>
+                        <div className="w-full h-[500px]">
+                            <ReactFlow
+                                nodes={nodes}
+                                edges={edges}
+                                fitView
+                                nodeTypes={nodeTypes}
+                                proOptions={{ hideAttribution: true }}
+                                panOnScroll={true}
+                                nodesDraggable={false}
+                                panOnDrag={true}
+                            >
+                                <MiniMap />
+                                <Background />
+                            </ReactFlow>
+                        </div>
                     </TabsContent>
 
                     <TabsContent value="football">

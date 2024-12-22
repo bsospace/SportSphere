@@ -18,6 +18,7 @@ import { teamLists } from '@/mock/teams'
 import Brucket from './brucket-match'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import LabelNode from './label-node'
+import { on } from 'events';
 
 // Define custom node types
 const nodeTypes = { brucket: Brucket, label: LabelNode }
@@ -26,7 +27,11 @@ interface NodeData {
   team1: string | null
   team2: string | null
   winner: string | null
-  matchName: string
+  matchName: string | null
+  score1: number | null
+  score2: number | null
+  location?: string | null
+  dateTime?: string | null
   onTeamDrop: (team: string, target: 'team1' | 'team2') => void
   onDeleteTeam: (nodeId: string, target: 'team1' | 'team2') => void
   onUpdateTeamName: (
@@ -42,6 +47,8 @@ interface NodeData {
   onUpdateMatchName: (nodeId: string, name: string) => void,
   onChangeLabel: (newLabel: string) => void
   onUpdateWinner: (nodeId: string, winner: string | null) => void
+  onUpdateLocation?: (nodeId: string, location: string) => void
+  onUpdateDateTime?: (nodeId: string, dateTime: string) => void
 }
 
 const Page: React.FC = () => {
@@ -142,13 +149,19 @@ const Page: React.FC = () => {
         team2: null,
         matchName: `Match ${idCounter}`,
         winner: null,
+        score1: null,
+        score2: null,
+        location: null,
+        dateTime: null,
         onTeamDrop: (team, target) => onTeamDrop(team, target, `${idCounter}`),
         onDeleteTeam: deleteTeam,
         onUpdateTeamName: updateTeamName,
         onUpdateScore: updateScore,
         onUpdateMatchName: updateMatchName,
         onUpdateWinner: updateWinner,
-        onChangeLabel: () => {}
+        onChangeLabel: () => {},
+        onUpdateLocation: updateLocation,
+        onUpdateDateTime: updateDateTime,
       }
     }
 
@@ -182,6 +195,22 @@ const Page: React.FC = () => {
     setIdCounter(id => id + 1)
   }
 
+  const updateLocation = (nodeId: string, location: string) => {
+    setNodes(nds =>
+      nds.map(node =>
+        node.id === nodeId ? { ...node, data: { ...node.data, location } } : node
+      )
+    )
+  }
+
+  const updateDateTime = (nodeId: string, dateTime: string) => {
+    setNodes(nds =>
+      nds.map(node =>
+        node.id === nodeId ? { ...node, data: { ...node.data, dateTime } } : node
+      )
+    )
+  }
+
   // Save current flow to JSON
   const saveToJSON = () => {
     const data = { nodes, edges }
@@ -190,27 +219,28 @@ const Page: React.FC = () => {
     })
     const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
+    const date = new Date().toISOString().replace(/[-:.]/g, '').replace('T', '-').split('.')[0]
     link.href = url
-    link.download = 'flow-data.json'
+    link.download = `match-${selectedSport}-${date}.json`
     link.click()
   }
 
   // Load flow from JSON and reattach handlers
   const loadFromJSON = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
+    const file = event.target.files?.[0];
     if (file) {
-      const reader = new FileReader()
-      reader.onload = e => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
         try {
-          const data = JSON.parse(e.target?.result as string)
+          const data = JSON.parse(e.target?.result as string);
           if (Array.isArray(data.nodes) && Array.isArray(data.edges)) {
-            const loadedNodes = data.nodes.map((node: { data: any; id: string; }) => ({
+            const loadedNodes = data.nodes.map((node: Node<NodeData>) => ({
               ...node,
               data: {
                 ...node.data,
                 onTeamDrop: (team: string, target: 'team1' | 'team2') =>
-                  setNodes(nds =>
-                    nds.map(n =>
+                  setNodes((nds) =>
+                    nds.map((n) =>
                       n.id === node.id
                         ? { ...n, data: { ...n.data, [target]: team } }
                         : n
@@ -220,24 +250,26 @@ const Page: React.FC = () => {
                 onUpdateTeamName: updateTeamName,
                 onUpdateScore: updateScore,
                 onUpdateMatchName: updateMatchName,
-                onUpdateWinner: updateWinner
-              }
-            }))
-
-            setNodes(loadedNodes)
-            setEdges(data.edges)
-            setIdCounter(data.nodes.length + 1)
+                onUpdateWinner: updateWinner,
+                onUpdateLocation: updateLocation,
+                onUpdateDateTime: updateDateTime,
+              },
+            }));
+  
+            setNodes(loadedNodes);
+            setEdges(data.edges);
+            setIdCounter(loadedNodes.length + 1); // Adjust the counter
           } else {
-            alert('Invalid JSON structure!')
+            alert('Invalid JSON structure!');
           }
         } catch (error) {
-          console.error('Failed to load JSON:', error)
-          alert('Failed to load JSON file.')
+          console.error('Failed to load JSON:', error);
+          alert('Failed to load JSON file.');
         }
-      }
-      reader.readAsText(file)
+      };
+      reader.readAsText(file);
     }
-  }
+  };
 
   // Handle connections
   const onConnect = (connection: Connection) =>
@@ -356,15 +388,27 @@ const Page: React.FC = () => {
               </TabsTrigger>
             ))}
           </TabsList>
-          <TabsContent value="">
+          {teamLists.map((sport) => (
+          <TabsContent key={sport.sport} value={sport.sport}>
             <div className='overflow-x-auto flex gap-4 py-4'>
               {getTeams().map((team) => (
                 <div
                   key={team.name}
-                  className='bg-white p-2 rounded cursor-pointer min-w-fit'
+                  className='bg-white p-2 rounded cursor-grab min-w-fit'
                   draggable
                   onDragStart={event => {
                     event.dataTransfer.setData('team', team.name)
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={event => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      const dragEvent = new DragEvent('dragstart', {
+                        dataTransfer: new DataTransfer()
+                      });
+                      dragEvent.dataTransfer?.setData('team', team.name);
+                      event.currentTarget.dispatchEvent(dragEvent);
+                    }
                   }}
                 >
                   <p className='text-center font-bold'>{team.name}</p>
@@ -372,6 +416,7 @@ const Page: React.FC = () => {
               ))}
             </div>
           </TabsContent>
+          ))}
         </Tabs>
       </div>
     </div>

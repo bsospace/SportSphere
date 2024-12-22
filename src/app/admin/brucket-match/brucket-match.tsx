@@ -12,6 +12,8 @@ interface BrucketProps {
     score1: number | null;
     score2: number | null;
     winner: string | null;
+    location?: string | null;
+    dateTime?: string | null;
     onTeamDrop?: (team: string, target: "team1" | "team2") => void;
     onDeleteTeam?: (nodeId: string, target: "team1" | "team2") => void;
     onUpdateTeamName?: (
@@ -26,6 +28,8 @@ interface BrucketProps {
     ) => void;
     onUpdateMatchName?: (nodeId: string, name: string) => void;
     onUpdateWinner?: (nodeId: string, winner: string | null) => void;
+    onUpdateLocation?: (nodeId: string, location: string) => void;
+    onUpdateDateTime?: (nodeId: string, dateTime: string) => void;
   };
 }
 
@@ -37,12 +41,16 @@ const Brucket: React.FC<BrucketProps> = ({ id, data }) => {
     score1,
     score2,
     winner,
+    location,
+    dateTime,
     onTeamDrop,
     onDeleteTeam,
     onUpdateTeamName,
     onUpdateScore,
     onUpdateMatchName,
     onUpdateWinner,
+    onUpdateLocation,
+    onUpdateDateTime,
   } = data;
 
   const handleDragOver = (event: React.DragEvent<HTMLTableRowElement>) => {
@@ -185,7 +193,7 @@ const Brucket: React.FC<BrucketProps> = ({ id, data }) => {
           </tbody>
           <tfoot>
             <tr className="bg-gray-100">
-              <td colSpan={4} className="py-1 px-2 text-center">
+              <td colSpan={3} className="py-1 px-2 text-center">
                 <label htmlFor={`winner-select-${id}`} className="mr-2">
                   Winner:
                 </label>
@@ -202,6 +210,31 @@ const Brucket: React.FC<BrucketProps> = ({ id, data }) => {
                   {team1 && <option value={team1}>{team1}</option>}
                   {team2 && <option value={team2}>{team2}</option>}
                 </select>
+              </td>
+            </tr>
+            <tr className="bg-gray-50">
+              <td colSpan={3} className="py-1 px-2 text-center">
+                <input
+                  type="text"
+                  value={location ?? ""}
+                  placeholder="Enter location"
+                  className="w-full bg-gray-200 rounded px-1 py-0.5 text-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  onChange={(e) =>
+                    onUpdateLocation && onUpdateLocation(id, e.target.value)
+                  }
+                />
+              </td>
+            </tr>
+            <tr className="bg-gray-50">
+              <td colSpan={3} className="py-1 px-2 text-center">
+                <input
+                  type="datetime-local"
+                  value={dateTime ?? ""}
+                  className="w-full bg-gray-200 rounded px-1 py-0.5 text-gray-700 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  onChange={(e) =>
+                    onUpdateDateTime && onUpdateDateTime(id, e.target.value)
+                  }
+                />
               </td>
             </tr>
           </tfoot>

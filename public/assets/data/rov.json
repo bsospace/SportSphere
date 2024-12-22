@@ -11,10 +11,12 @@
         "team1": "โดดเรียนมาตีป้อม",
         "team2": "นักอสังหา",
         "matchName": "รอบเก็บคะแนน 1 คู่ที่ 1",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-25T20:00"
       },
-      "width": 335,
-      "height": 203,
+      "width": 256,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": -260,
@@ -27,20 +29,22 @@
       "type": "brucket",
       "position": {
         "x": -260,
-        "y": 300
+        "y": 410
       },
       "data": {
         "team1": "GG No Re",
         "team2": "SE สยองกึ้ม",
         "matchName": "รอบเก็บคะแนน 1 คู่ที่ 2",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-25T20:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": -260,
-        "y": 300
+        "y": 410
       },
       "dragging": false
     },
@@ -49,20 +53,22 @@
       "type": "brucket",
       "position": {
         "x": -260,
-        "y": 450
+        "y": 670
       },
       "data": {
         "team1": "The nut พเนจร",
         "team2": "มาเอาฟีล",
         "matchName": "รอบเก็บคะแนน 1 คู่ที่ 3",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-25T20:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": -260,
-        "y": 450
+        "y": 670
       },
       "dragging": false
     },
@@ -71,20 +77,22 @@
       "type": "brucket",
       "position": {
         "x": -260,
-        "y": 600
+        "y": 940
       },
       "data": {
         "team1": "หมูกรอบขอบชีส",
         "team2": "บุ้งกี๋แบรนด์",
         "matchName": "รอบเก็บคะแนน 1 คู่ที่ 4",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-25T21:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": -260,
-        "y": 600
+        "y": 940
       },
       "dragging": false
     },
@@ -93,20 +101,22 @@
       "type": "brucket",
       "position": {
         "x": -260,
-        "y": 750
+        "y": 1200
       },
       "data": {
         "team1": "ชินจังชอบกินบล็อคโคลี่",
         "team2": "DESPARADO",
         "matchName": "รอบเก็บคะแนน 1 คู่ที่ 5",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-25T21:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": -260,
-        "y": 750
+        "y": 1200
       },
       "dragging": false
     },
@@ -115,20 +125,22 @@
       "type": "brucket",
       "position": {
         "x": -260,
-        "y": 890
+        "y": 1460
       },
       "data": {
         "team1": "ป้อมอยู่นี่พี่อยู่ไหน",
         "team2": "เด็กเกษตรมารัน",
         "matchName": "รอบเก็บคะแนน 1 คู่ที่ 6",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-25T21:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": -260,
-        "y": 890
+        "y": 1460
       },
       "dragging": false
     },
@@ -137,20 +149,22 @@
       "type": "brucket",
       "position": {
         "x": -260,
-        "y": 1030
+        "y": 1720
       },
       "data": {
         "team1": "สยองกึ๋ม",
         "team2": "ไม่หล่อแต่แฟนคุณรู้จัก",
         "matchName": "รอบเก็บคะแนน 1 คู่ที่ 7",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-25T22:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": -260,
-        "y": 1030
+        "y": 1720
       },
       "dragging": false
     },
@@ -159,20 +173,22 @@
       "type": "brucket",
       "position": {
         "x": -260,
-        "y": 1170
+        "y": 1980
       },
       "data": {
         "team1": "Love Pushsay",
         "team2": "อุกะก่ะ",
         "matchName": "รอบเก็บคะแนน 1 คู่ที่ 8",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-25T22:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": -260,
-        "y": 1170
+        "y": 1980
       },
       "dragging": false
     },
@@ -181,20 +197,22 @@
       "type": "brucket",
       "position": {
         "x": -260,
-        "y": 1310
+        "y": 2240
       },
       "data": {
         "team1": "คนจริงโอวัลตินต้องละลาย",
         "team2": "สีหัก",
         "matchName": "รอบเก็บคะแนน 1 คู่ที่ 9",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-25T22:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": -260,
-        "y": 1310
+        "y": 2240
       },
       "dragging": false
     },
@@ -203,20 +221,22 @@
       "type": "brucket",
       "position": {
         "x": 40,
-        "y": 1310
+        "y": 2240
       },
       "data": {
         "team1": "โดดเรียนมาตีป้อม",
         "team2": "GG No Re",
         "matchName": "รอบเก็บคะแนน 2 คู่ที่ 9",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-26T22:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 40,
-        "y": 1310
+        "y": 2240
       },
       "dragging": false
     },
@@ -225,20 +245,22 @@
       "type": "brucket",
       "position": {
         "x": 40,
-        "y": 300
+        "y": 410
       },
       "data": {
         "team1": "The nut พเนจร",
         "team2": "หมูกรอบขอบชีส",
         "matchName": "รอบเก็บคะแนน 2 คู่ที่ 2",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-26T20:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 40,
-        "y": 300
+        "y": 410
       },
       "dragging": false
     },
@@ -247,20 +269,22 @@
       "type": "brucket",
       "position": {
         "x": 40,
-        "y": 450
+        "y": 670
       },
       "data": {
         "team1": "ชินจังชอบกินบล็อคโคลี่",
         "team2": "ป้อมอยู่นี่พี่อยู่ไหน",
         "matchName": "รอบเก็บคะแนน 2 คู่ที่ 3",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-26T21:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 40,
-        "y": 450
+        "y": 670
       },
       "dragging": false
     },
@@ -269,20 +293,22 @@
       "type": "brucket",
       "position": {
         "x": 40,
-        "y": 600
+        "y": 940
       },
       "data": {
         "team1": "สยองกึ๋ม",
         "team2": "Love Pushsay",
         "matchName": "รอบเก็บคะแนน 2 คู่ที่ 4",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-26T21:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 40,
-        "y": 600
+        "y": 940
       },
       "dragging": false
     },
@@ -291,20 +317,22 @@
       "type": "brucket",
       "position": {
         "x": 40,
-        "y": 750
+        "y": 1200
       },
       "data": {
         "team1": "คนจริงโอวัลตินต้องละลาย",
         "team2": "นักอสังหา",
         "matchName": "รอบเก็บคะแนน 2 คู่ที่ 5",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-26T21:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 40,
-        "y": 750
+        "y": 1200
       },
       "dragging": false
     },
@@ -313,21 +341,23 @@
       "type": "brucket",
       "position": {
         "x": 40,
-        "y": 890
+        "y": 1460
       },
       "data": {
         "team1": "SE สยองกึ้ม",
         "team2": "มาเอาฟีล",
         "matchName": "รอบเก็บคะแนน 2 คู่ที่ 6",
         "winner": null,
-        "score1": 17
+        "score1": 17,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-26T21:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 40,
-        "y": 890
+        "y": 1460
       },
       "dragging": false
     },
@@ -336,20 +366,22 @@
       "type": "brucket",
       "position": {
         "x": 40,
-        "y": 1030
+        "y": 1720
       },
       "data": {
         "team1": "บุ้งกี๋แบรนด์",
         "team2": "DESPARADO",
         "matchName": "รอบเก็บคะแนน 2 คู่ที่ 7",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-26T22:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 40,
-        "y": 1030
+        "y": 1720
       },
       "dragging": false
     },
@@ -358,20 +390,22 @@
       "type": "brucket",
       "position": {
         "x": 40,
-        "y": 1170
+        "y": 1980
       },
       "data": {
         "team1": "เด็กเกษตรมารัน",
         "team2": "ไม่หล่อแต่แฟนคุณรู้จัก",
         "matchName": "รอบเก็บคะแนน 2 คู่ที่ 8",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-26T22:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 40,
-        "y": 1170
+        "y": 1980
       },
       "dragging": false
     },
@@ -386,10 +420,12 @@
         "team1": "อุกะก่ะ",
         "team2": "สีหัก",
         "matchName": "รอบเก็บคะแนน 2 คู่ที่ 1",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-26T20:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 40,
@@ -408,10 +444,12 @@
         "team1": "GG No Re",
         "team2": "เด็กเกษตรมารัน",
         "matchName": "รอบเก็บคะแนน 3 คู่ที่ 1",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-27T20:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 330,
@@ -424,20 +462,22 @@
       "type": "brucket",
       "position": {
         "x": 330,
-        "y": 300
+        "y": 410
       },
       "data": {
         "team1": "นักอสังหา",
         "team2": "ป้อมอยู่นี่พี่อยู่ไหน",
         "matchName": "รอบเก็บคะแนน 3 คู่ที่ 2",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-27T20:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 330,
-        "y": 300
+        "y": 410
       },
       "dragging": false
     },
@@ -446,20 +486,22 @@
       "type": "brucket",
       "position": {
         "x": 330,
-        "y": 450
+        "y": 670
       },
       "data": {
         "team1": "ชินจังชอบกินบล็อคโคลี่",
         "team2": "สีหัก",
         "matchName": "รอบเก็บคะแนน 3 คู่ที่ 3",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-27T20:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 330,
-        "y": 450
+        "y": 670
       },
       "dragging": false
     },
@@ -468,20 +510,22 @@
       "type": "brucket",
       "position": {
         "x": 330,
-        "y": 600
+        "y": 940
       },
       "data": {
         "team1": "SE สยองกึ้ม",
         "team2": "สยองกึ๋ม",
         "matchName": "รอบเก็บคะแนน 3 คู่ที่ 4",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-27T21:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 330,
-        "y": 600
+        "y": 940
       },
       "dragging": false
     },
@@ -490,20 +534,22 @@
       "type": "brucket",
       "position": {
         "x": 330,
-        "y": 750
+        "y": 1200
       },
       "data": {
         "team1": "มาเอาฟีล",
         "team2": "Love Pushsay",
         "matchName": "รอบเก็บคะแนน 3 คู่ที่ 5",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-27T21:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 330,
-        "y": 750
+        "y": 1200
       },
       "dragging": false
     },
@@ -512,20 +558,22 @@
       "type": "brucket",
       "position": {
         "x": 330,
-        "y": 890
+        "y": 1460
       },
       "data": {
         "team1": "The nut พเนจร",
         "team2": "ไม่หล่อแต่แฟนคุณรู้จัก",
         "matchName": "รอบเก็บคะแนน 3 คู่ที่ 6",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-27T21:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 330,
-        "y": 890
+        "y": 1460
       },
       "dragging": false
     },
@@ -534,20 +582,22 @@
       "type": "brucket",
       "position": {
         "x": 330,
-        "y": 1030
+        "y": 1720
       },
       "data": {
         "team1": "โดดเรียนมาตีป้อม",
         "team2": "DESPARADO",
         "matchName": "รอบเก็บคะแนน 3 คู่ที่ 7",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-27T22:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 330,
-        "y": 1030
+        "y": 1720
       },
       "dragging": false
     },
@@ -556,20 +606,22 @@
       "type": "brucket",
       "position": {
         "x": 330,
-        "y": 1170
+        "y": 1980
       },
       "data": {
         "team1": "บุ้งกี๋แบรนด์",
         "team2": "คนจริงโอวัลตินต้องละลาย",
         "matchName": "รอบเก็บคะแนน 3 คู่ที่ 8",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-27T22:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 330,
-        "y": 1170
+        "y": 1980
       },
       "dragging": false
     },
@@ -578,20 +630,22 @@
       "type": "brucket",
       "position": {
         "x": 330,
-        "y": 1310
+        "y": 2240
       },
       "data": {
         "team1": "หมูกรอบขอบชีส",
         "team2": "อุกะก่ะ",
         "matchName": "รอบเก็บคะแนน 3 คู่ที่ 9",
-        "winner": null
+        "winner": null,
+        "location": "ONLINE (2 Match)",
+        "dateTime": "2024-12-27T22:00"
       },
       "width": 256,
-      "height": 116,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 330,
-        "y": 1310
+        "y": 2240
       },
       "dragging": false
     },
@@ -600,20 +654,22 @@
       "type": "brucket",
       "position": {
         "x": 780,
-        "y": 380
+        "y": 390
       },
       "data": {
-        "team1": null,
-        "team2": null,
+        "team1": "สุ่มจากตามลำดับคะแนน 1-8",
+        "team2": "สุ่มจากตามลำดับคะแนน 1-8",
         "matchName": "รอบ 8 ทีมสุดท้าย คู่ที่ 1",
-        "winner": null
+        "winner": null,
+        "location": "ONSITE IF (Bo3)",
+        "dateTime": "2025-01-04T09:00"
       },
       "width": 256,
-      "height": 120,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 780,
-        "y": 380
+        "y": 390
       },
       "dragging": false
     },
@@ -625,13 +681,15 @@
         "y": 660
       },
       "data": {
-        "team1": null,
-        "team2": null,
+        "team1": "สุ่มจากตามลำดับคะแนน 1-8",
+        "team2": "สุ่มจากตามลำดับคะแนน 1-8",
         "matchName": "รอบ 8 ทีมสุดท้าย คู่ที่ 2",
-        "winner": null
+        "winner": null,
+        "location": "ONSITE IF (Bo3)",
+        "dateTime": "2025-01-04T10:30"
       },
       "width": 256,
-      "height": 120,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 780,
@@ -647,13 +705,15 @@
         "y": 920
       },
       "data": {
-        "team1": null,
-        "team2": null,
+        "team1": "สุ่มจากตามลำดับคะแนน 1-8",
+        "team2": "สุ่มจากตามลำดับคะแนน 1-8",
         "matchName": "รอบ 8 ทีมสุดท้าย คู่ที่ 3",
-        "winner": null
+        "winner": null,
+        "location": "ONSITE IF (Bo3)",
+        "dateTime": "2025-01-04T13:00"
       },
       "width": 256,
-      "height": 120,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 780,
@@ -669,13 +729,15 @@
         "y": 1170
       },
       "data": {
-        "team1": null,
-        "team2": null,
-        "matchName": "รอบ 8 ทีมสุดท้าย คู่ที่ ",
-        "winner": null
+        "team1": "สุ่มจากตามลำดับคะแนน 1-8",
+        "team2": "สุ่มจากตามลำดับคะแนน 1-8",
+        "matchName": "รอบ 8 ทีมสุดท้าย คู่ที่ 4",
+        "winner": null,
+        "location": "ONSITE IF (Bo3)",
+        "dateTime": "2025-01-04T14:30"
       },
       "width": 256,
-      "height": 120,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 780,
@@ -687,21 +749,23 @@
       "id": "32",
       "type": "brucket",
       "position": {
-        "x": 1470,
-        "y": 650
+        "x": 1430,
+        "y": 510
       },
       "data": {
-        "team1": null,
-        "team2": null,
+        "team1": "ผู้ชนะรอบ 8 ทีมคู่ที่ 1",
+        "team2": "ผู้ชนะรอบ 8 ทีมคู่ที่ 2",
         "matchName": "Semifinals คู่ที่ 1",
-        "winner": null
+        "winner": null,
+        "location": "ONSITE IF (B03)",
+        "dateTime": "2025-01-11T08:30"
       },
       "width": 256,
-      "height": 120,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
-        "x": 1470,
-        "y": 650
+        "x": 1430,
+        "y": 510
       },
       "dragging": false
     },
@@ -709,21 +773,23 @@
       "id": "33",
       "type": "brucket",
       "position": {
-        "x": 1470,
-        "y": 910
+        "x": 1440,
+        "y": 1030
       },
       "data": {
-        "team1": null,
-        "team2": null,
+        "team1": "ผู้ชนะรอบ 8 ทีมคู่ที่ 3",
+        "team2": "ผู้ชนะรอบ 8 ทีมคู่ที่ 4",
         "matchName": "Semifinals คู่ที่ 2",
-        "winner": null
+        "winner": null,
+        "location": "ONSITE IF (Bo3)",
+        "dateTime": "2025-01-11T10:00"
       },
       "width": 256,
-      "height": 120,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
-        "x": 1470,
-        "y": 910
+        "x": 1440,
+        "y": 1030
       },
       "dragging": false
     },
@@ -732,20 +798,22 @@
       "type": "brucket",
       "position": {
         "x": 2100,
-        "y": 640
+        "y": 510
       },
       "data": {
-        "team1": null,
-        "team2": null,
+        "team1": "ผู้ชนะ Semifinals คู่ที่ 1",
+        "team2": "ผู้ชนะ Semifinals คู่ที่ 2",
         "matchName": "รอบชิงชนะเลิศ",
-        "winner": null
+        "winner": null,
+        "location": "ONSITE IF (Bo5)",
+        "dateTime": "2025-01-11T15:00"
       },
       "width": 256,
-      "height": 120,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 2100,
-        "y": 640
+        "y": 510
       },
       "dragging": false
     },
@@ -754,20 +822,22 @@
       "type": "brucket",
       "position": {
         "x": 2100,
-        "y": 910
+        "y": 1020
       },
       "data": {
-        "team1": null,
-        "team2": null,
+        "team1": "ผู้แพ้ Semifinals คู่ที่ 1",
+        "team2": "ผู้แพ้ Semifinals คู่ที่ 2",
         "matchName": "รอบชิงชนะเลิศอันดับที่ 3",
-        "winner": null
+        "winner": null,
+        "location": "ONSITE IF (Bo5)",
+        "dateTime": "2025-01-11T12:00"
       },
       "width": 256,
-      "height": 120,
+      "height": 174,
       "selected": false,
       "positionAbsolute": {
         "x": 2100,
-        "y": 910
+        "y": 1020
       },
       "dragging": false
     },
@@ -832,8 +902,8 @@
       "id": "label-39",
       "type": "label",
       "position": {
-        "x": 1130,
-        "y": 410
+        "x": 1110,
+        "y": 460
       },
       "data": {
         "label": "ผู้ชนะ รอบ 8 ทีม คู่ที่ 1"
@@ -842,8 +912,8 @@
       "height": 62,
       "selected": false,
       "positionAbsolute": {
-        "x": 1130,
-        "y": 410
+        "x": 1110,
+        "y": 460
       },
       "dragging": false
     },
@@ -851,8 +921,8 @@
       "id": "label-40",
       "type": "label",
       "position": {
-        "x": 1120,
-        "y": 680
+        "x": 1110,
+        "y": 730
       },
       "data": {
         "label": "ผู้ชนะ รอบ 8 ทีม คู่ที่ 2"
@@ -861,8 +931,8 @@
       "height": 62,
       "selected": false,
       "positionAbsolute": {
-        "x": 1120,
-        "y": 680
+        "x": 1110,
+        "y": 730
       },
       "dragging": false
     },
@@ -870,8 +940,8 @@
       "id": "label-41",
       "type": "label",
       "position": {
-        "x": 1120,
-        "y": 940
+        "x": 1110,
+        "y": 990
       },
       "data": {
         "label": "ผู้ชนะ รอบ 8 ทีม คู่ที่ 3"
@@ -880,8 +950,8 @@
       "height": 62,
       "selected": false,
       "positionAbsolute": {
-        "x": 1120,
-        "y": 940
+        "x": 1110,
+        "y": 990
       },
       "dragging": false
     },
@@ -889,8 +959,8 @@
       "id": "label-42",
       "type": "label",
       "position": {
-        "x": 1120,
-        "y": 1190
+        "x": 1110,
+        "y": 1240
       },
       "data": {
         "label": "ผู้ชนะ รอบ 8 ทีม คู่ที่ 4"
@@ -899,8 +969,8 @@
       "height": 62,
       "selected": false,
       "positionAbsolute": {
-        "x": 1120,
-        "y": 1190
+        "x": 1110,
+        "y": 1240
       },
       "dragging": false
     },
@@ -908,8 +978,8 @@
       "id": "label-43",
       "type": "label",
       "position": {
-        "x": 1800,
-        "y": 600
+        "x": 1770,
+        "y": 530
       },
       "data": {
         "label": "ผู้ชนะ Semifinals คู่ที่ 1"
@@ -918,8 +988,8 @@
       "height": 62,
       "selected": false,
       "positionAbsolute": {
-        "x": 1800,
-        "y": 600
+        "x": 1770,
+        "y": 530
       },
       "dragging": false
     },
@@ -927,8 +997,8 @@
       "id": "label-45",
       "type": "label",
       "position": {
-        "x": 1800,
-        "y": 880
+        "x": 1770,
+        "y": 1050
       },
       "data": {
         "label": "ผู้ชนะ Semifinals คู่ที่ 2"
@@ -937,8 +1007,8 @@
       "height": 62,
       "selected": false,
       "positionAbsolute": {
-        "x": 1800,
-        "y": 880
+        "x": 1770,
+        "y": 1050
       },
       "dragging": false
     },
@@ -946,8 +1016,8 @@
       "id": "label-46",
       "type": "label",
       "position": {
-        "x": 1800,
-        "y": 720
+        "x": 1770,
+        "y": 650
       },
       "data": {
         "label": "ผู้แพ้ Semifinals คู่ที่ 1"
@@ -956,8 +1026,8 @@
       "height": 62,
       "selected": false,
       "positionAbsolute": {
-        "x": 1800,
-        "y": 720
+        "x": 1770,
+        "y": 650
       },
       "dragging": false
     },
@@ -965,8 +1035,8 @@
       "id": "label-47",
       "type": "label",
       "position": {
-        "x": 1800,
-        "y": 1010
+        "x": 1770,
+        "y": 1170
       },
       "data": {
         "label": "ผู้แพ้ Semifinals คู่ที่ 2"
@@ -975,8 +1045,8 @@
       "height": 62,
       "selected": false,
       "positionAbsolute": {
-        "x": 1800,
-        "y": 1010
+        "x": 1770,
+        "y": 1170
       },
       "dragging": false
     },
@@ -985,7 +1055,7 @@
       "type": "label",
       "position": {
         "x": 2460,
-        "y": 570
+        "y": 530
       },
       "data": {
         "label": "ชนะเลิศอันดับที่ 1"
@@ -995,7 +1065,7 @@
       "selected": false,
       "positionAbsolute": {
         "x": 2460,
-        "y": 570
+        "y": 530
       },
       "dragging": false
     },
@@ -1004,7 +1074,7 @@
       "type": "label",
       "position": {
         "x": 2460,
-        "y": 730
+        "y": 650
       },
       "data": {
         "label": "รองชนะเลิศอันดับที่ 1"
@@ -1014,7 +1084,7 @@
       "selected": false,
       "positionAbsolute": {
         "x": 2460,
-        "y": 730
+        "y": 650
       },
       "dragging": false
     },
@@ -1023,7 +1093,7 @@
       "type": "label",
       "position": {
         "x": 2460,
-        "y": 880
+        "y": 1040
       },
       "data": {
         "label": "รองชนะเลิศอันดับที่ 2"
@@ -1033,7 +1103,7 @@
       "selected": false,
       "positionAbsolute": {
         "x": 2460,
-        "y": 880
+        "y": 1040
       },
       "dragging": false
     },
@@ -1042,7 +1112,7 @@
       "type": "label",
       "position": {
         "x": 2460,
-        "y": 1040
+        "y": 1160
       },
       "data": {
         "label": "รองชนะเลิศอันดับที่ 3"
@@ -1052,7 +1122,7 @@
       "selected": false,
       "positionAbsolute": {
         "x": 2460,
-        "y": 1040
+        "y": 1160
       },
       "dragging": false
     }
