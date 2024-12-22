@@ -4,21 +4,1386 @@
       "id": "label-1",
       "type": "label",
       "position": {
-        "x": 350,
-        "y": 80
+        "x": 220,
+        "y": -1210
       },
       "data": {
-        "label": "To Be Continue"
+        "label": "ผู้ชนะจาก Group A"
       },
       "width": 221,
       "height": 62,
       "selected": false,
       "positionAbsolute": {
-        "x": 350,
-        "y": 80
+        "x": 220,
+        "y": -1210
       },
       "dragging": false
+    },
+    {
+      "id": "2",
+      "type": "brucket",
+      "position": {
+        "x": 530,
+        "y": -1060
+      },
+      "data": {
+        "team1": "ผู้ชนะจาก Group A",
+        "team2": "ผู้ชนะจาก Group B",
+        "matchName": "Semifinals คู่ที่ 1",
+        "winner": null,
+        "score1": null,
+        "score2": null,
+        "location": null,
+        "dateTime": null
+      },
+      "width": 256,
+      "height": 174,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 530,
+        "y": -1060
+      },
+      "dragging": false
+    },
+    {
+      "id": "3",
+      "type": "brucket",
+      "position": {
+        "x": 520,
+        "y": 100
+      },
+      "data": {
+        "team1": "ผู้ชนะจาก Group C",
+        "team2": "ผู้ชนะจาก Group D",
+        "matchName": "Semifinals คู่ที่ 2",
+        "winner": null,
+        "score1": null,
+        "score2": null,
+        "location": null,
+        "dateTime": null
+      },
+      "width": 256,
+      "height": 174,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 520,
+        "y": 100
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-4",
+      "type": "label",
+      "position": {
+        "x": 210,
+        "y": -770
+      },
+      "data": {
+        "label": "ผู้ชนะจาก Group B"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 210,
+        "y": -770
+      }
+    },
+    {
+      "id": "label-5",
+      "type": "label",
+      "position": {
+        "x": 220,
+        "y": -70
+      },
+      "data": {
+        "label": "ผู้ชนะจาก Group C"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 220,
+        "y": -70
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-6",
+      "type": "label",
+      "position": {
+        "x": 220,
+        "y": 450
+      },
+      "data": {
+        "label": "ผู้ชนะจาก Group D"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 220,
+        "y": 450
+      }
+    },
+    {
+      "id": "8",
+      "type": "brucket",
+      "position": {
+        "x": 1200,
+        "y": -1040
+      },
+      "data": {
+        "team1": "ผู้ชนะ Semifinals คู่ที่ 1",
+        "team2": "ผู้ชนะ Semifinals คู่ที่ 2",
+        "matchName": "รอบชิงชนะเลิศอันดับที่ 1",
+        "winner": null,
+        "score1": null,
+        "score2": null,
+        "location": null,
+        "dateTime": null
+      },
+      "width": 256,
+      "height": 174,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1200,
+        "y": -1040
+      },
+      "dragging": false
+    },
+    {
+      "id": "9",
+      "type": "brucket",
+      "position": {
+        "x": 1190,
+        "y": -200
+      },
+      "data": {
+        "team1": "ผู้แพ้ Semifinals คู่ที่ 1",
+        "team2": "ผู้แพ้ Semifinals คู่ที่ 2",
+        "matchName": "รอบรองชนะเลิศอันดับที่ 2",
+        "winner": null,
+        "score1": null,
+        "score2": null,
+        "location": null,
+        "dateTime": null
+      },
+      "width": 256,
+      "height": 174,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1190,
+        "y": -200
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-10",
+      "type": "label",
+      "position": {
+        "x": 850,
+        "y": -910
+      },
+      "data": {
+        "label": "ผู้ชนะ Semifinals คู่ที่ 1"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 850,
+        "y": -910
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-11",
+      "type": "label",
+      "position": {
+        "x": 850,
+        "y": -750
+      },
+      "data": {
+        "label": "ผู้แพ้ Semifinals คู่ที่ 1"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 850,
+        "y": -750
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-12",
+      "type": "label",
+      "position": {
+        "x": 860,
+        "y": -130
+      },
+      "data": {
+        "label": "ผู้ชนะ Semifinals คู่ที่ 2"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 860,
+        "y": -130
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-13",
+      "type": "label",
+      "position": {
+        "x": 850,
+        "y": 20
+      },
+      "data": {
+        "label": "ผู้แพ้ Semifinals คู่ที่ 2"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 850,
+        "y": 20
+      },
+      "dragging": false
+    },
+    {
+      "id": "22",
+      "type": "brucket",
+      "position": {
+        "x": -850,
+        "y": -1380
+      },
+      "data": {
+        "team1": "THITIWUTxLOGISTICS",
+        "team2": "งานช้างสุรินทร์",
+        "matchName": "Kickoffs คู่ที่ 1",
+        "winner": null,
+        "score1": null,
+        "score2": null,
+        "location": null,
+        "dateTime": null
+      },
+      "width": 256,
+      "height": 174,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -850,
+        "y": -1380
+      },
+      "dragging": false
+    },
+    {
+      "id": "23",
+      "type": "brucket",
+      "position": {
+        "x": -850,
+        "y": -1140
+      },
+      "data": {
+        "team1": "UNITE",
+        "team2": "WE USE 75HZ",
+        "matchName": "Kickoffs คู่ที่ 2",
+        "winner": null,
+        "score1": null,
+        "score2": null,
+        "location": null,
+        "dateTime": null
+      },
+      "width": 256,
+      "height": 174,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -850,
+        "y": -1140
+      },
+      "dragging": false
+    },
+    {
+      "id": "24",
+      "type": "brucket",
+      "position": {
+        "x": -850,
+        "y": -910
+      },
+      "data": {
+        "team1": "หนมน้า หนมน้า",
+        "team2": "แบง",
+        "matchName": "Kickoffs คู่ที่ 3",
+        "winner": null,
+        "score1": null,
+        "score2": null,
+        "location": null,
+        "dateTime": null
+      },
+      "width": 256,
+      "height": 174,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -850,
+        "y": -910
+      },
+      "dragging": false
+    },
+    {
+      "id": "25",
+      "type": "brucket",
+      "position": {
+        "x": -850,
+        "y": -680
+      },
+      "data": {
+        "team1": "Martobmonkey",
+        "team2": "วัยรุ่นคำมี",
+        "matchName": "Kickoffs คู่ที่ 4",
+        "winner": null,
+        "score1": null,
+        "score2": null,
+        "location": null,
+        "dateTime": null
+      },
+      "width": 256,
+      "height": 174,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -850,
+        "y": -680
+      },
+      "dragging": false
+    },
+    {
+      "id": "26",
+      "type": "brucket",
+      "position": {
+        "x": -850,
+        "y": -440
+      },
+      "data": {
+        "team1": "ThirteenZero",
+        "team2": "Run and Pray",
+        "matchName": "Kickoffs คู่ที่ 5",
+        "winner": null,
+        "score1": null,
+        "score2": null,
+        "location": null,
+        "dateTime": null
+      },
+      "width": 256,
+      "height": 174,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -850,
+        "y": -440
+      },
+      "dragging": false
+    },
+    {
+      "id": "27",
+      "type": "brucket",
+      "position": {
+        "x": -850,
+        "y": -200
+      },
+      "data": {
+        "team1": "PATIKOON",
+        "team2": "น้องอย่านอยระวังพี่ซอยนะจ๊ะ",
+        "matchName": "Kickoffs คู่ที่ 6",
+        "winner": null,
+        "score1": null,
+        "score2": null,
+        "location": null,
+        "dateTime": null
+      },
+      "width": 256,
+      "height": 174,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -850,
+        "y": -200
+      },
+      "dragging": false
+    },
+    {
+      "id": "28",
+      "type": "brucket",
+      "position": {
+        "x": -850,
+        "y": 50
+      },
+      "data": {
+        "team1": "TomLeng",
+        "team2": "Surahong(สุรโฮ่ง)",
+        "matchName": "Kickoffs คู่ที่ 7",
+        "winner": null,
+        "score1": null,
+        "score2": null,
+        "location": null,
+        "dateTime": null
+      },
+      "width": 256,
+      "height": 174,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -850,
+        "y": 50
+      },
+      "dragging": false
+    },
+    {
+      "id": "29",
+      "type": "brucket",
+      "position": {
+        "x": -850,
+        "y": 300
+      },
+      "data": {
+        "team1": "LEPROXY",
+        "team2": "เด็กซุ้มเฮียเจมส์",
+        "matchName": "Kickoffs คู่ที่ 8",
+        "winner": null,
+        "score1": null,
+        "score2": null,
+        "location": null,
+        "dateTime": null
+      },
+      "width": 256,
+      "height": 174,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -850,
+        "y": 300
+      },
+      "dragging": false
+    },
+    {
+      "id": "30",
+      "type": "brucket",
+      "position": {
+        "x": -850,
+        "y": 570
+      },
+      "data": {
+        "team1": "ClickNet",
+        "team2": "ยิงไม่โดน บอกLowไว้ก่อน",
+        "matchName": "Kickoffs คู่ที่ 9",
+        "winner": null,
+        "score1": null,
+        "score2": null,
+        "location": null,
+        "dateTime": null
+      },
+      "width": 256,
+      "height": 174,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -850,
+        "y": 570
+      },
+      "dragging": false
+    },
+    {
+      "id": "31",
+      "type": "brucket",
+      "position": {
+        "x": -850,
+        "y": 830
+      },
+      "data": {
+        "team1": "NhomNahValoทีมนี้ไม่มีพอส",
+        "team2": "นพพร",
+        "matchName": "Kickoffs คู่ที่ 10",
+        "winner": null,
+        "score1": null,
+        "score2": null,
+        "location": null,
+        "dateTime": null
+      },
+      "width": 256,
+      "height": 188,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -850,
+        "y": 830
+      },
+      "dragging": false
+    },
+    {
+      "id": "36",
+      "type": "brucket",
+      "position": {
+        "x": -460,
+        "y": -1250
+      },
+      "data": {
+        "team1": "ผู้ชนะ Kickoffs คู่ที่ 1",
+        "team2": "ผู้ชนะ Kickoffs คู่ที่ 2",
+        "matchName": "Playoffs คู่ที่ 1",
+        "winner": null,
+        "score1": null,
+        "score2": null,
+        "location": null,
+        "dateTime": null
+      },
+      "width": 256,
+      "height": 174,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -460,
+        "y": -1250
+      },
+      "dragging": false
+    },
+    {
+      "id": "37",
+      "type": "brucket",
+      "position": {
+        "x": -460,
+        "y": -810
+      },
+      "data": {
+        "team1": "ผู้ชนะ Kickoffs คู่ที่ 3",
+        "team2": "ผู้ชนะ Kickoffs คู่ที่ 4",
+        "matchName": "Playoffs คู่ที่ 2",
+        "winner": null,
+        "score1": null,
+        "score2": null,
+        "location": null,
+        "dateTime": null
+      },
+      "width": 256,
+      "height": 174,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -460,
+        "y": -810
+      },
+      "dragging": false
+    },
+    {
+      "id": "38",
+      "type": "brucket",
+      "position": {
+        "x": -460,
+        "y": -340
+      },
+      "data": {
+        "team1": "ผู้ชนะ Kickoffs คู่ที่ 5",
+        "team2": "ผู้ชนะ Kickoffs คู่ที่ 6",
+        "matchName": "Playoffs คู่ที่ 3",
+        "winner": null,
+        "score1": null,
+        "score2": null,
+        "location": null,
+        "dateTime": null
+      },
+      "width": 256,
+      "height": 174,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -460,
+        "y": -340
+      },
+      "dragging": false
+    },
+    {
+      "id": "39",
+      "type": "brucket",
+      "position": {
+        "x": -460,
+        "y": 410
+      },
+      "data": {
+        "team1": "ผู้ชนะ Kickoffs คู่ที่ 8",
+        "team2": "ผู้ชนะ Kickoffs คู่ที่ 9",
+        "matchName": "Playoffs คู่ที่ 4",
+        "winner": null,
+        "score1": null,
+        "score2": null,
+        "location": null,
+        "dateTime": null
+      },
+      "width": 256,
+      "height": 174,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -460,
+        "y": 410
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-41",
+      "type": "label",
+      "position": {
+        "x": -830,
+        "y": -1490
+      },
+      "data": {
+        "label": "รอบ Kickoffs"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -830,
+        "y": -1490
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-42",
+      "type": "label",
+      "position": {
+        "x": -270,
+        "y": -1490
+      },
+      "data": {
+        "label": "รอบ Playoffs"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -270,
+        "y": -1490
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-43",
+      "type": "label",
+      "position": {
+        "x": 540,
+        "y": -1480
+      },
+      "data": {
+        "label": "รอบ Semifinals"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 540,
+        "y": -1480
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-44",
+      "type": "label",
+      "position": {
+        "x": -450,
+        "y": -10
+      },
+      "data": {
+        "label": "ผู้ชนะ Kickoffs คู่ที่ 7"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -450,
+        "y": -10
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-45",
+      "type": "label",
+      "position": {
+        "x": -440,
+        "y": 810
+      },
+      "data": {
+        "label": "ผู้ชนะ Kickoffs คู่ที่ 10"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -440,
+        "y": 810
+      },
+      "dragging": false
+    },
+    {
+      "id": "46",
+      "type": "brucket",
+      "position": {
+        "x": -110,
+        "y": 600
+      },
+      "data": {
+        "team1": "ผู้ชนะ Playoffs คู่ที่ 4",
+        "team2": "ผู้ชนะ Kickoffs คู่ที่ 10",
+        "matchName": "Playoffs คู่ที่ 6",
+        "winner": null,
+        "score1": null,
+        "score2": null,
+        "location": null,
+        "dateTime": null
+      },
+      "width": 256,
+      "height": 174,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -110,
+        "y": 600
+      },
+      "dragging": false
+    },
+    {
+      "id": "47",
+      "type": "brucket",
+      "position": {
+        "x": -100,
+        "y": -180
+      },
+      "data": {
+        "team1": "ผู้ชนะ Playoffs คู่ที่ 3",
+        "team2": "ผู้ชนะ Kickoffs คู่ที่ 7",
+        "matchName": "Playoffs คู่ที่ 5",
+        "winner": null,
+        "score1": null,
+        "score2": null,
+        "location": null,
+        "dateTime": null
+      },
+      "width": 256,
+      "height": 174,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -100,
+        "y": -180
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-49",
+      "type": "label",
+      "position": {
+        "x": 1210,
+        "y": -1490
+      },
+      "data": {
+        "label": "รอบ Finals"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 1210,
+        "y": -1490
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-50",
+      "type": "label",
+      "position": {
+        "x": -1130,
+        "y": -1220
+      },
+      "data": {
+        "label": "Group Stage A"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "positionAbsolute": {
+        "x": -1130,
+        "y": -1220
+      },
+      "dragging": false
+    },
+    {
+      "id": "label-51",
+      "type": "label",
+      "position": {
+        "x": -1140,
+        "y": -730
+      },
+      "data": {
+        "label": "Group Stage B"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": -1140,
+        "y": -730
+      }
+    },
+    {
+      "id": "label-52",
+      "type": "label",
+      "position": {
+        "x": -1130,
+        "y": -150
+      },
+      "data": {
+        "label": "Group Stage C"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": -1130,
+        "y": -150
+      }
+    },
+    {
+      "id": "label-53",
+      "type": "label",
+      "position": {
+        "x": -1150,
+        "y": 620
+      },
+      "data": {
+        "label": "Group Stage D"
+      },
+      "width": 221,
+      "height": 62,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": -1150,
+        "y": 620
+      }
     }
   ],
-  "edges": []
+  "edges": [
+    {
+      "source": "label-1",
+      "sourceHandle": null,
+      "target": "2",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-1-2"
+    },
+    {
+      "source": "label-4",
+      "sourceHandle": null,
+      "target": "2",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-4-2"
+    },
+    {
+      "source": "label-5",
+      "sourceHandle": null,
+      "target": "3",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-5-3"
+    },
+    {
+      "source": "label-6",
+      "sourceHandle": null,
+      "target": "3",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-6-3"
+    },
+    {
+      "source": "2",
+      "sourceHandle": null,
+      "target": "label-10",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-2-label-10"
+    },
+    {
+      "source": "2",
+      "sourceHandle": null,
+      "target": "label-11",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-2-label-11"
+    },
+    {
+      "source": "3",
+      "sourceHandle": null,
+      "target": "label-12",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-3-label-12"
+    },
+    {
+      "source": "3",
+      "sourceHandle": null,
+      "target": "label-13",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-3-label-13"
+    },
+    {
+      "source": "label-10",
+      "sourceHandle": null,
+      "target": "8",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-10-8"
+    },
+    {
+      "source": "label-12",
+      "sourceHandle": null,
+      "target": "8",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-12-8"
+    },
+    {
+      "source": "label-11",
+      "sourceHandle": null,
+      "target": "9",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-11-9"
+    },
+    {
+      "source": "label-13",
+      "sourceHandle": null,
+      "target": "9",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-13-9"
+    },
+    {
+      "source": "22",
+      "sourceHandle": null,
+      "target": "36",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-22-36"
+    },
+    {
+      "source": "23",
+      "sourceHandle": null,
+      "target": "36",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-23-36"
+    },
+    {
+      "source": "24",
+      "sourceHandle": null,
+      "target": "37",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-24-37"
+    },
+    {
+      "source": "25",
+      "sourceHandle": null,
+      "target": "37",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-25-37"
+    },
+    {
+      "source": "26",
+      "sourceHandle": null,
+      "target": "38",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-26-38"
+    },
+    {
+      "source": "27",
+      "sourceHandle": null,
+      "target": "38",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-27-38"
+    },
+    {
+      "source": "28",
+      "sourceHandle": null,
+      "target": "label-44",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-28-label-44"
+    },
+    {
+      "source": "29",
+      "sourceHandle": null,
+      "target": "39",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-29-39"
+    },
+    {
+      "source": "30",
+      "sourceHandle": null,
+      "target": "39",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-30-39"
+    },
+    {
+      "source": "31",
+      "sourceHandle": null,
+      "target": "label-45",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-31-label-45"
+    },
+    {
+      "source": "36",
+      "sourceHandle": null,
+      "target": "label-1",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-36-label-1"
+    },
+    {
+      "source": "37",
+      "sourceHandle": null,
+      "target": "label-4",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-37-label-4"
+    },
+    {
+      "source": "39",
+      "sourceHandle": null,
+      "target": "46",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-39-46"
+    },
+    {
+      "source": "label-45",
+      "sourceHandle": null,
+      "target": "46",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-45-46"
+    },
+    {
+      "source": "38",
+      "sourceHandle": null,
+      "target": "47",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-38-47"
+    },
+    {
+      "source": "label-44",
+      "sourceHandle": null,
+      "target": "47",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-44-47"
+    },
+    {
+      "source": "47",
+      "sourceHandle": null,
+      "target": "label-5",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-47-label-5"
+    },
+    {
+      "source": "46",
+      "sourceHandle": null,
+      "target": "label-6",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-46-label-6"
+    },
+    {
+      "source": "label-50",
+      "sourceHandle": null,
+      "target": "22",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-50-22"
+    },
+    {
+      "source": "label-50",
+      "sourceHandle": null,
+      "target": "23",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-50-23",
+      "selected": false
+    },
+    {
+      "source": "label-51",
+      "sourceHandle": null,
+      "target": "24",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-51-24"
+    },
+    {
+      "source": "label-51",
+      "sourceHandle": null,
+      "target": "25",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-51-25"
+    },
+    {
+      "source": "label-52",
+      "sourceHandle": null,
+      "target": "26",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-52-26"
+    },
+    {
+      "source": "label-52",
+      "sourceHandle": null,
+      "target": "27",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-52-27"
+    },
+    {
+      "source": "label-52",
+      "sourceHandle": null,
+      "target": "28",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-52-28"
+    },
+    {
+      "source": "label-53",
+      "sourceHandle": null,
+      "target": "29",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-53-29"
+    },
+    {
+      "source": "label-53",
+      "sourceHandle": null,
+      "target": "30",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-53-30"
+    },
+    {
+      "source": "label-53",
+      "sourceHandle": null,
+      "target": "31",
+      "targetHandle": null,
+      "animated": true,
+      "style": {
+        "strokeDasharray": "5,5",
+        "strokeWidth": 2,
+        "stroke": "#555"
+      },
+      "id": "reactflow__edge-label-53-31"
+    }
+  ]
 }

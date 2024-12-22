@@ -82,6 +82,66 @@ export const teamLists = [
       {
         "name": "น้องอย่านอยระวังพี่ซอยนะจ๊ะ",
       },
+      {
+        "name": "ผู้ชนะจาก Group A",
+      },
+      {
+        "name": "ผู้ชนะจาก Group B",
+      },
+      {
+        "name": "ผู้ชนะจาก Group C",
+      },
+      {
+        "name": "ผู้ชนะจาก Group D",
+      },
+      {
+        "name": "ผู้ชนะ Semifinals คู่ที่ 1"
+      },
+      {
+        "name": "ผู้แพ้ Semifinals คู่ที่ 1"
+      },
+      {
+        "name": "ผู้ชนะ Semifinals คู่ที่ 2"
+      },
+      {
+        "name": "ผู้แพ้ Semifinals คู่ที่ 2"
+      },
+      {
+        "name": "ผู้ชนะ Kickoffs คู่ที่ 1"
+      },
+      {
+        "name": "ผู้ชนะ Kickoffs คู่ที่ 2"
+      },
+      {
+        "name": "ผู้ชนะ Kickoffs คู่ที่ 3"
+      },
+      {
+        "name": "ผู้ชนะ Kickoffs คู่ที่ 4"
+      },
+      {
+        "name": "ผู้ชนะ Kickoffs คู่ที่ 5"
+      },
+      {
+        "name": "ผู้ชนะ Kickoffs คู่ที่ 6"
+      },
+      {
+        "name": "ผู้ชนะ Kickoffs คู่ที่ 7"
+      },
+      {
+        "name": "ผู้ชนะ Kickoffs คู่ที่ 8"
+      },
+      {
+        "name": "ผู้ชนะ Kickoffs คู่ที่ 9"
+      },
+      {
+        "name": "ผู้ชนะ Kickoffs คู่ที่ 10"
+      },
+      {
+        "name": "ผู้ชนะ Playoffs คู่ที่ 3"
+      },
+      {
+        "name": "ผู้ชนะ Playoffs คู่ที่ 4"
+      },
     ]
   },
   {
@@ -139,7 +199,7 @@ export const teamLists = [
         "name": "คนจริงโอวัลตินต้องละลาย"
       },
       {
-        "name": "สีหัก"
+        "name": "สีหักลายกนก"
       },
       {
         "name": "ผู้ชนะรอบ 8 ทีมคู่ที่ 1"
