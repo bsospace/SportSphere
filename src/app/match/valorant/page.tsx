@@ -11,21 +11,14 @@ import { Home } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 // Define the node type for the brackets
-const nodeTypes = { brucket: BrucketDisplay,label: LabelNode }
+const nodeTypes = { brucket: BrucketDisplay, label: LabelNode }
 
 const RenderBracket: React.FC = () => {
-
-    const router = useRouter()
+  const router = useRouter()
   const [nodes, setNodes] = useState([])
   const [edges, setEdges] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-
-  // Fetch sport type from query parameters
-  const sport =
-    typeof window !== 'undefined'
-      ? new URLSearchParams(window.location.search).get('sport') || 'valorant'
-      : 'valorant'
 
   useEffect(() => {
     const fetchBracketData = async () => {
@@ -44,10 +37,15 @@ const RenderBracket: React.FC = () => {
     }
 
     fetchBracketData()
-  }, [sport])
+  }, [])
 
   if (loading) {
-    return <div className='text-center text-gray-500'>Loading...</div>
+    return (
+      <div className='flex flex-col items-center justify-center h-screen'>
+        <div className='loader border-t-4 border-b-4 border-blue-500 rounded-full w-12 h-12 animate-spin'></div>
+        <p className='mt-4 text-gray-600 text-lg'>กำลังโหลดข้อมูล...</p>
+      </div>
+    )
   }
 
   if (error) {
@@ -56,44 +54,50 @@ const RenderBracket: React.FC = () => {
 
   return (
     <>
-    <div className='absolute top-10 left-0 right-0 z-10'>
-        <div className="flex lg:w-[90%] w-full lg:justify-center items-center mx-auto">
-        <Button 
-            variant="outline" 
-            className="me-2 rounded-full"
-            onClick={() => router.push("/")}
-        >
+      <div className='absolute top-10 left-0 right-0 z-10'>
+        <div className='flex lg:w-[90%] w-full lg:justify-center items-center mx-auto'>
+          <Button
+            variant='outline'
+            className='me-2 rounded-full'
+            onClick={() => router.push('/')}
+          >
             <Home size={24} />
-        </Button>
-        <div className="overflow-x-auto overflow-hidden rounded-full flex ">
-            <div className="rounded-full">
-                {/* {(
+          </Button>
+          <div className='overflow-x-auto overflow-hidden rounded-full flex '>
+            <div className='rounded-full'>
+              {/* {(
                     sport.map((item) => (
                         <Button className="rounded-full" key={item.name} value={item.name} onClick={() => router.push("/match/")} disabled={item.disabled}>
                             {item.label}
                         </Button>
                     ))
                 )} */}
-                <Button onClick={() => router.push("/match") } className="rounded-full" variant="outline">Match</Button>
+              <Button
+                onClick={() => router.push('/match')}
+                className='rounded-full'
+                variant='outline'
+              >
+                Match
+              </Button>
             </div>
+          </div>
         </div>
-        </div>
-        </div>
-    <div style={{ height: '100vh', backgroundColor: '#f4f4f4' }}>
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        fitView
-        nodeTypes={nodeTypes}
-        proOptions={{ hideAttribution: true }}
-        panOnScroll={true}
-        nodesDraggable={false}
-        panOnDrag={true}
-      >
-        <MiniMap />
-        <Background />
-      </ReactFlow>
-    </div>
+      </div>
+      <div style={{ height: '100vh', backgroundColor: '#f4f4f4' }}>
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          fitView
+          nodeTypes={nodeTypes}
+          proOptions={{ hideAttribution: true }}
+          panOnScroll={true}
+          nodesDraggable={false}
+          panOnDrag={true}
+        >
+          <MiniMap />
+          <Background />
+        </ReactFlow>
+      </div>
     </>
   )
 }
