@@ -49,12 +49,6 @@ export default function MatchPage() {
     useEffect(() => {
         const fetchBracketData = async () => {
             try {
-                const response = await fetch(`/assets/data/${sportData}.json`)
-                if (!response.ok) throw new Error(`Failed to load ${sportData}.json`)
-                const data = await response.json()
-
-                // setNodes(data.nodes || [])
-                // setEdges(data.edges || [])
             } catch (err: any) {
                 setError(err.message)
             } finally {
