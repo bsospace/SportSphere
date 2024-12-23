@@ -755,7 +755,7 @@
       "data": {
         "team1": "ผู้ชนะรอบ 8 ทีมคู่ที่ 1",
         "team2": "ผู้ชนะรอบ 8 ทีมคู่ที่ 2",
-        "matchName": "Semifinals คู่ที่ 1",
+        "matchName": "รอบ 4 ทีมสุดท้าย คู่ที่ 1",
         "winner": null,
         "location": "ONSITE IF (B03)",
         "dateTime": "2025-01-11T08:30"
@@ -779,7 +779,7 @@
       "data": {
         "team1": "ผู้ชนะรอบ 8 ทีมคู่ที่ 3",
         "team2": "ผู้ชนะรอบ 8 ทีมคู่ที่ 4",
-        "matchName": "Semifinals คู่ที่ 2",
+        "matchName": "รอบ 4 ทีมสุดท้าย คู่ที่ 2",
         "winner": null,
         "location": "ONSITE IF (Bo3)",
         "dateTime": "2025-01-11T10:00"
@@ -801,8 +801,8 @@
         "y": 510
       },
       "data": {
-        "team1": "ผู้ชนะ Semifinals คู่ที่ 1",
-        "team2": "ผู้ชนะ Semifinals คู่ที่ 2",
+        "team1": "ผู้ชนะ รอบ 4 ทีมสุดท้าย คู่ที่ 1",
+        "team2": "ผู้ชนะ รอบ 4 ทีมสุดท้าย คู่ที่ 2",
         "matchName": "รอบชิงชนะเลิศ",
         "winner": null,
         "location": "ONSITE IF (Bo5)",
@@ -825,8 +825,8 @@
         "y": 1020
       },
       "data": {
-        "team1": "ผู้แพ้ Semifinals คู่ที่ 1",
-        "team2": "ผู้แพ้ Semifinals คู่ที่ 2",
+        "team1": "ผู้แพ้ รอบ 4 ทีมสุดท้าย คู่ที่ 1",
+        "team2": "ผู้แพ้ รอบ 4 ทีมสุดท้าย คู่ที่ 2",
         "matchName": "รอบชิงชนะเลิศอันดับที่ 3",
         "winner": null,
         "location": "ONSITE IF (Bo5)",
@@ -982,7 +982,7 @@
         "y": 530
       },
       "data": {
-        "label": "ผู้ชนะ Semifinals คู่ที่ 1"
+        "label": "ผู้ชนะ รอบ 4 ทีมสุดท้าย คู่ที่ 1"
       },
       "width": 221,
       "height": 62,
@@ -1001,7 +1001,7 @@
         "y": 1050
       },
       "data": {
-        "label": "ผู้ชนะ Semifinals คู่ที่ 2"
+        "label": "ผู้ชนะ รอบ 4 ทีมสุดท้าย คู่ที่ 2"
       },
       "width": 221,
       "height": 62,
@@ -1020,7 +1020,7 @@
         "y": 650
       },
       "data": {
-        "label": "ผู้แพ้ Semifinals คู่ที่ 1"
+        "label": "ผู้แพ้ รอบ 4 ทีมสุดท้าย คู่ที่ 1"
       },
       "width": 221,
       "height": 62,
@@ -1039,7 +1039,7 @@
         "y": 1170
       },
       "data": {
-        "label": "ผู้แพ้ Semifinals คู่ที่ 2"
+        "label": "ผู้แพ้ รอบ 4 ทีมสุดท้าย คู่ที่ 2"
       },
       "width": 221,
       "height": 62,
