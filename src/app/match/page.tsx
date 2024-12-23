@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars*/
 
 "use client";
 
@@ -13,19 +14,19 @@ import {
 import { Button } from "@/components/ui/button";
 import TournamentBracket from "@/components/TournamentBracket";
 import { tournamentData } from "@/mock/tournamentData";
-import BrucketDisplay from '@/components/RenderBracket';
+// import BrucketDisplay from '@/components/RenderBracket';
 import "reactflow/dist/style.css";
-import ReactFlow, { Background, MiniMap } from 'reactflow';
+// import ReactFlow, { Background, MiniMap } from 'reactflow';
 import { Home } from "lucide-react";
-import LabelNode from '@/app/admin/brucket-match/label-node';
+// import LabelNode from '@/app/admin/brucket-match/label-node';
 
 export default function MatchPage() {
     const router = useRouter();
     
-    const nodeTypes = { brucket:BrucketDisplay, label: LabelNode };
+    // const nodeTypes = { brucket:BrucketDisplay, label: LabelNode };
 
-    const [nodes, setNodes] = useState([]);
-    const [edges, setEdges] = useState([]);
+    // const [nodes, setNodes] = useState([]);
+    // const [edges, setEdges] = useState([]);
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -52,8 +53,8 @@ export default function MatchPage() {
                 if (!response.ok) throw new Error(`Failed to load ${sportData}.json`)
                 const data = await response.json()
 
-                setNodes(data.nodes || [])
-                setEdges(data.edges || [])
+                // setNodes(data.nodes || [])
+                // setEdges(data.edges || [])
             } catch (err: any) {
                 setError(err.message)
             } finally {

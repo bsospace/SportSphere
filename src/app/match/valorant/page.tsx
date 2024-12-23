@@ -16,7 +16,6 @@ const nodeTypes = { brucket: BrucketDisplay,label: LabelNode }
 const RenderBracket: React.FC = () => {
 
     const router = useRouter()
-    const [selectedSport, setSelectedSport] = useState('valorant')
   const [nodes, setNodes] = useState([])
   const [edges, setEdges] = useState([])
   const [loading, setLoading] = useState(true)
