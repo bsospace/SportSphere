@@ -55,7 +55,7 @@ const RenderBracket: React.FC = () => {
   return (
     <>
       <div className='absolute top-10 left-0 right-0 z-10'>
-        <div className='flex lg:w-[90%] w-full lg:justify-center items-center mx-auto'>
+        <div className='flex lg:w-[90%] w-full justify-center items-center mx-auto'>
           <Button
             variant='outline'
             className='me-2 rounded-full'

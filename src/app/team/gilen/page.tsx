@@ -54,7 +54,7 @@ export default function RedPage() {
         <div className="p-12 min-h-screen bg-white">
 
             <div className="mb-6 flex justify-center">
-                <Button variant="secondary" onClick={() => router.push("/")}>
+                <Button variant="secondary" onClick={() => router.push("/")} className="rounded-full shadow-md">
                     <Home className="h-6 w-6" />
                 </Button>
             </div>
@@ -79,7 +79,7 @@ export default function RedPage() {
                             <motion.img
                                 src={member.image}
                                 alt={member.name}
-                                className="h-64 rounded-full border-4 border-yellow-500"
+                                className="h-64 rounded-full border-4 border-yellow-500 shadow-md"
                             />
                         </motion.div>
                         {/* Text Section */}

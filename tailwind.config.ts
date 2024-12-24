@@ -9,6 +9,12 @@ export default {
   ],
   theme: {
   	extend: {
+		fontSize: {
+			h1: ["48px", { lineHeight: "72px", fontWeight: "bold" }],
+			h2: ["32px", { lineHeight: "48px", fontWeight: "bold" }],
+			h3: ["24px", { lineHeight: "36px", fontWeight: "bold" }],
+			h4: ["20px", { lineHeight: "32px", fontWeight: "bold" }],
+		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

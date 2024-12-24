@@ -56,7 +56,7 @@ export default function PinkPage() {
         >
             
             <div className="mb-6 flex justify-center">
-                <Button variant="secondary" onClick={() => router.push("/")}>
+                <Button variant="secondary" onClick={() => router.push("/")} className="rounded-full shadow-md">
                     <Home className="h-6 w-6" />
                 </Button>
             </div>
@@ -81,7 +81,7 @@ export default function PinkPage() {
                             <motion.img
                                 src={member.image}
                                 alt={member.name}
-                                className="h-64 rounded-full border-4 border-pink-400"
+                                className="h-64 rounded-full border-4 border-pink-400 shadow-md"
                             />
                         </motion.div>
                         {/* Text Section */}
