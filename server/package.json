@@ -1,0 +1,45 @@
+{
+  "name": "sport-sphere",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "nodemon src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "prisma:generate": "npx prisma generate",
+    "prisma:migrate": "npx prisma migrate dev",
+    "prisma:studio": "npx prisma studio",
+    "prisma:seed": "ts-node prisma/seed.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BSO-Space/SportSphere.git"
+  },
+  "author": "bso-space",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BSO-Space/SportSphere/issues"
+  },
+  "homepage": "https://github.com/BSO-Space/SportSphere#readme",
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.2",
+    "@types/ws": "^8.5.13",
+    "nodemon": "^3.1.9",
+    "prisma": "^6.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.1.0",
+    "@types/morgan": "^1.9.9",
+    "@types/redis": "^4.0.11",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "morgan": "^1.10.0",
+    "redis": "^4.7.0",
+    "ws": "^8.18.0"
+  }
+}
