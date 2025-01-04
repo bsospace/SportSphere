@@ -77,10 +77,10 @@ pipeline {
                 script {
                     if (env.BRANCH_NAME == 'main') {
                         echo "Deploying using docker-compose.yml"
-                        sh "docker compose up -d"
+                        sh "docker compose up -d --build"
                     } else {
                         echo "Deploying using docker-compose.release.yml"
-                        sh "docker compose -f docker-compose.release.yml up -d"
+                        sh "docker compose -f docker-compose.release.yml up -d --build"
                     }
                 }
             }
