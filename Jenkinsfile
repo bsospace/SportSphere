@@ -5,14 +5,7 @@ pipeline {
         stage("Pull") {
             steps {
                 script {
-                    checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: "*/${env.BRANCH_NAME}"]],
-                        userRemoteConfigs: [[
-                            url: 'https://github.com/BSO-Space/SportSphere.git',
-                            credentialsId: '3c91d658-54b4-4606-b119-5fd58aa85b28'
-                        ]]
-                    ])
+                    checkout scm
                 }
             }
             post {
