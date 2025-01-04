@@ -10,6 +10,7 @@ services:
     environment:
       - NODE_ENV=production
     volumes:
-      - .:/app
-      - /app/node_modules
+      - ./public:/app/public
+      - ./pages:/app/pages
     restart: unless-stopped
+
