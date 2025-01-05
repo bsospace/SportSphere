@@ -19,15 +19,17 @@ const MatchResult = ({ roundTitle, matches }) => (
                                         <li key={idx}>
                                             {video.label}
                                             <br />
-                                            <iframe
-                                                className='aspect-video w-full md:w-fit md:h-[500px]'
-                                                src={video.url}
-                                                title={video.title}
-                                                frameBorder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                referrerPolicy="strict-origin-when-cross-origin"
-                                                allowFullScreen
-                                            ></iframe>
+                                            <div className="aspect-video w-full lg:w-1/2">
+                                                <iframe
+                                                    className="w-full h-full"
+                                                    src={video.url}
+                                                    title={video.title}
+                                                    frameBorder="0"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                    referrerPolicy="strict-origin-when-cross-origin"
+                                                    allowFullScreen
+                                                ></iframe>
+                                            </div>
                                         </li>
                                     </>
                                 ))}
