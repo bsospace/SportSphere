@@ -41,24 +41,6 @@ export default function ValorantContent() {
 
     const matchResults = [
         {
-            roundTitle: 'รอบ kickoff',
-            matches: [
-                {
-                    title: 'comming soon...',
-                    result: ''
-                }
-            ]
-        },
-        {
-            roundTitle: 'รอบ Playoffs',
-            matches: [
-                {
-                    title: 'comming soon...',
-                    result: ''
-                }
-            ]
-        },
-        {
             roundTitle: 'รอบ 4 ทีมสุดท้าย',
             matches: [
                 {
@@ -139,12 +121,16 @@ export default function ValorantContent() {
                             Hide Match History: Off
                         </RuleItem>
                         <RuleItem>
-                            ทีมเลือกคนละ 3 แผนที่จาก: Ascent, Haeven, Abyss, Pearl, Blind, Sunset
+                            ทีมเลือกคนละ 3 แผนที่จาก: Ascent, Haven, Abyss, Pearl, Bind, Sunset
                             <li>หากเลือกเหมือนกัน 3 แผนที่จะเล่น 3 แผนที่นี้</li>
                             <li>หากเลือกเหมือนกัน 2 แผนที่จะสุ่ม 1 แผนที่ที่เหลือ</li>
                             <li>หากเลือกเหมือนกัน 1 แผนที่จะสุ่ม 2 แผนที่ที่เหลือ</li>
                             <li>หากเลือกต่างกันทั้งหมดจะสุ่ม 3 แผนที่จากทั้งหมด</li>
                             <li>หลังจากได้แผนที่ทั้ง 3 แล้วกรรมการจะเป็นผู้สุ่มลำดับการเล่นของแต่ละแผนที่</li>
+                            <li>ห้ามใช้ agent ชื่อว่า <strong className='text-red-500'>Tejo </strong> 
+                                หากมีการใช้ Tejo จะถูกลงโทษ
+                                เกมนั้นจะถือว่าแพ้ทันที
+                            </li>
                         </RuleItem>
                     </Subsection>
                     <Subsection title="6. Pause (การหยุดเกมชั่วคราว)">
