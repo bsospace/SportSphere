@@ -105,7 +105,16 @@ export default function RovContent() {
         {
             roundTitle: 'รอบชิงชนะเลิศ',
             matches: [
-                { title: 'comming soon...', result: '' },
+                {
+                    title: 'รอบ Grand Finals',
+                    result: '',
+                    videos: [
+                        {
+                            label: '',
+                            url: 'https://www.youtube.com/embed/lDenWNUPqqA',
+                        },
+                    ],
+                },
             ],
         },
     ];
