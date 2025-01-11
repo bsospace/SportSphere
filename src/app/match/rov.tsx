@@ -91,7 +91,7 @@ export default function RovContent() {
             roundTitle: 'รอบ 4 ทีมสุดท้าย',
             matches: [
                 {
-                    title: 'รอบ Semi Finals | คู่ที่ 1 SE สยองกึ้ม vs สยองกึ๋ม',
+                    title: 'รอบ Semi Finals',
                     result: '',
                     videos: [
                         {
