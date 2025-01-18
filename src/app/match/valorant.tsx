@@ -44,18 +44,40 @@ export default function ValorantContent() {
             roundTitle: 'รอบ 4 ทีมสุดท้าย',
             matches: [
                 {
-                    title: 'comming soon...',
-                    result: ''
-                }
+                    title: 'คู่ที่ 1 "UNITE" vs "หนมน้า หนมน้า" ',
+                    result: '',
+                    videos: [
+                        {
+                            label: '',
+                            url: 'https://www.youtube.com/embed/D_VVjTnjM84'
+                        }
+                    ]
+                },
+                {
+                    title: 'คู่ที่ 2 "PATIKOON" vs "เด็กซุ้มเฮียเจมส์" ',
+                    result: '',
+                    videos: [
+                        {
+                            label: '',
+                            url: 'https://www.youtube.com/embed/Sz7Hb19-IHw'
+                        }
+                    ]
+                },
             ]
         },
         {
             roundTitle: 'รอบชิงชนะเลิศ',
             matches: [
                 {
-                    title: 'comming soon...',
-                    result: ''
-                }
+                    title: '"UNITE" vs "PATIKOON"',
+                    result: '',
+                    videos: [
+                        {
+                            label: '',
+                            url: 'https://www.youtube.com/embed/bIqkKE_-zOM'
+                        }
+                    ]
+                },
             ]
         },
     ];
@@ -127,7 +149,7 @@ export default function ValorantContent() {
                             <li>หากเลือกเหมือนกัน 1 แผนที่จะสุ่ม 2 แผนที่ที่เหลือ</li>
                             <li>หากเลือกต่างกันทั้งหมดจะสุ่ม 3 แผนที่จากทั้งหมด</li>
                             <li>หลังจากได้แผนที่ทั้ง 3 แล้วกรรมการจะเป็นผู้สุ่มลำดับการเล่นของแต่ละแผนที่</li>
-                            <li>ห้ามใช้ agent ชื่อว่า <strong className='text-red-500'>Tejo </strong> 
+                            <li>ห้ามใช้ agent ชื่อว่า <strong className='text-red-500'>Tejo </strong>
                                 หากมีการใช้ Tejo จะถูกลงโทษ
                                 เกมนั้นจะถือว่าแพ้ทันที
                             </li>
@@ -180,7 +202,7 @@ function Subsection({ title, children }) {
     );
 }
 
-function RuleItem({  children }) {
+function RuleItem({ children }) {
     return (
         <li>
             {children}
