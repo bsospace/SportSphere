@@ -20,7 +20,7 @@ app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 
 app.use(cors({
-  origin: '*',
+  origin: `${envConfig.appMode == "production" ? "https://ifgames.bsospace.com" : "http://localhost:3000"}`,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
