@@ -36,6 +36,8 @@ CREATE TABLE "Sport" (
 -- CreateTable
 CREATE TABLE "Match" (
     "id" TEXT NOT NULL,
+    "matchName" TEXT NOT NULL,
+    "location" TEXT,
     "type" TEXT NOT NULL DEFAULT 'duel',
     "sportId" TEXT NOT NULL,
     "date" TEXT NOT NULL,

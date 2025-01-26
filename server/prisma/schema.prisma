@@ -40,6 +40,8 @@ model Sport {
 
 model Match {
   id              String            @id @default(uuid())
+  matchName       String            
+  location        String?            
   type            String            @default("duel") // Match type: e.g., "duel", "free for all", etc.
   sportId         String
   sport           Sport             @relation(fields: [sportId], references: [id])
