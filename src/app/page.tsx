@@ -14,6 +14,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import TeamLeadersPage from "@/components/TeamLeadersPage";
 import Navigation from "@/components/Navigation";
 import Image from "next/image";
+import UpcomingEvents from "@/components/UpComingEvent";
 
 const variants = {
   hidden: { opacity: 0, height: 0 },
@@ -97,7 +98,7 @@ export default function HomePage() {
     >
       {/* Header Section */}
       <div className="min-h-screen justify-center items-center flex flex-col px-4 text-center bg-white w-full bg-opacity-90">
-        <p className="text-3xl text-black">Welcome to</p>
+        <p className="text-3xl text-black mt-8 md:mt-0">Welcome to</p>
         <div
           className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-cover bg-center mb-6 flex flex-wrap justify-center items-center text-black"
           style={{
@@ -111,6 +112,7 @@ export default function HomePage() {
           <p className="text-white">🏅</p>
         </div>
         <Navigation />
+        <UpcomingEvents />
       </div>
 
       <div className="w-full flex flex-col items-center justify-center md:min-h-screen mt-12">
