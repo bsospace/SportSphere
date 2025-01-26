@@ -18,9 +18,7 @@ export class UserService {
             const user = await this.prismaClient.user.findUnique({
                 where: { id },
             });
-            if (!user) {
-                throw handleError(`User with ID ${id} not found`, 404);
-            }
+            
             return user;
         } catch (error) {
             console.error("Error fetching user:", error);
