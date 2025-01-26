@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import { sportRouter } from './routes/sport.route';
 import envConfig from './config/env.config';
+import { authRouter } from './routes/auth.route';
 
 // Initialize Prisma Client
 export const prismaClient = new PrismaClient();
@@ -33,6 +34,7 @@ app.get('/', (req, res) => {
 );
 
 app.use('/api/v1', sportRouter);
+app.use('/api/v1/auth', authRouter);
 
 // WebSocket Server
 const wss = new WebSocketServer({ noServer: true });
