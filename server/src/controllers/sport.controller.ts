@@ -30,8 +30,8 @@ export class SportController {
             const sports = await this.sportServices.getAllSports();
             return res.status(200).json({
                 success: true,
-                data: sports,
                 message: "Successfully fetched sports",
+                data: sports,
             });
         } catch (error) {
             console.error("Error fetching sports:", error);
@@ -59,8 +59,8 @@ export class SportController {
 
             return res.status(200).json({
                 success: true,
-                data: sport,
                 message: "Successfully fetched sport",
+                data: sport,
             });
         } catch (error) {
             console.error("Error fetching sport:", error);
@@ -86,8 +86,8 @@ export class SportController {
 
             return res.status(201).json({
                 success: true,
-                data: newSport,
                 message: "Successfully created sport",
+                data: newSport,
             });
         } catch (error) {
             console.error("Error creating sport:", error);
@@ -110,8 +110,8 @@ export class SportController {
 
             return res.status(200).json({
                 success: true,
-                data: updatedSport,
                 message: "Successfully updated sport",
+                data: updatedSport,
             });
         } catch (error) {
             console.error("Error updating sport:", error);
@@ -132,8 +132,8 @@ export class SportController {
 
             return res.status(200).json({
                 success: true,
-                data: deletedSport,
                 message: "Successfully deleted sport",
+                data: deletedSport,
             });
         } catch (error) {
             console.error("Error deleting sport:", error);
