@@ -63,6 +63,7 @@ model MatchTeam {
   score     Int
   teamId    String
   matchId   String
+  result    String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
@@ -111,4 +112,6 @@ enum MatchType {
 enum TeamType {
   COLOR
   ESPORT
+  ESPORT_ROV
+  ESPORT_VALORANT
 }
