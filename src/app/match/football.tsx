@@ -114,8 +114,9 @@ export default function FootballContent() {
             <Card className="mt-4">
                 <CardContent>
                     <Section title="ผลการแข่งขัน">
-                        <Podium teams={sortedTeams} />
-                        <Leaderboard matches={mockMatches} />
+                        {/* <Podium teams={sortedTeams} /> */}
+                        {/* <Leaderboard matches={mockMatches} /> */}
+                        Coming Soon...
                     </Section>
                 </CardContent>
             </Card>
@@ -123,7 +124,8 @@ export default function FootballContent() {
             <Card className="mt-4">
                 <CardContent>
                     <Section title="ตารางการแข่งขัน">
-                        <MatchSchedule matches={mockMatches} />
+                        {/* <MatchSchedule matches={mockMatches} /> */}
+                        Coming Soon...
                     </Section>
                 </CardContent>
             </Card>
