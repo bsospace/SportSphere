@@ -1,7 +1,7 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
 import { WebSocketServer } from 'ws';
-import morgan from 'morgan'; 
+import morgan from 'morgan';
 import cors from 'cors';
 import { sportRouter } from './routes/sport.route';
 import envConfig from './config/env.config';
@@ -19,13 +19,20 @@ app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
 
 app.use(cors({
-  origin: '*', 
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 }));
 
-app.use('/api/v1',sportRouter);
+app.get('/', (req, res) => {
+  res.json({
+    message: 'Welcome to the Sports API',
+  })
+}
+);
+
+app.use('/api/v1', sportRouter);
 
 // WebSocket Server
 const wss = new WebSocketServer({ noServer: true });
@@ -55,6 +62,14 @@ const wss = new WebSocketServer({ noServer: true });
 //     console.log('WebSocket connection closed');
 //   });
 // });
+
+
+// Handle 404 errors
+app.use('*', (req, res) => {
+  res.status(404).json({
+    message: `Route not found for ${req.method} ${req.path}`,
+  });
+});
 
 // Attach WebSocket server to Express server
 const server = app.listen(envConfig.appPort, async () => {
