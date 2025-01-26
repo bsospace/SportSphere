@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars*/
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
@@ -61,6 +63,15 @@ export default function SportDetail() {
                 </div>
               </div>
               <div className="text-sm text-gray-700">Location: {match.location}</div>
+              <div className="text-sm text-gray-700">
+                Date Time: {new Date(match.date).toLocaleString("th-TH", {
+                  weekday: "long",  // Full weekday name (e.g., "วันอาทิตย์")
+                  year: "numeric",  // Full year (e.g., "2025")
+                  month: "long",  // Full month name (e.g., "มกราคม")
+                  day: "numeric",  // Day of the month (e.g., "27")
+                })}
+              </div>
+
 
               <div className="flex justify-between text-lg font-bold text-gray-800 mt-2">
                 <div>
