@@ -1,8 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// This is your Prisma schema file.
+// Learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
@@ -14,104 +11,53 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(uuid())
-  username  String
-  email     String    @unique
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-}
-
-model Sport {
-  id          String  @id @default(uuid())
-  name        String
-  description String
-  matches     Match[]
-}
-
-model Match {
-  id          String       @id @default(uuid())
-  label       String
-  type        MatchType
-  location    String
-  start         Boolean
-  startAt     DateTime
-  sportId     String
-  position    Json         @map("position")
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  id          String    @id @default(uuid())
+  username    String
+  email       String    @unique
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
   deletedAt   DateTime?
-  sport       Sport        @relation(fields: [sportId], references: [id])
-  sourceEdges Edge[]       @relation("SourceMatchEdges")
-  targetEdges Edge[]       @relation("TargetMatchEdges")
-  MatchTeam   MatchTeam[]
-  MatchStage  MatchStage[]
 }
 
 model Team {
-  id        String      @id @default(uuid())
-  name      String
-  type      TeamType
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  deletedAt DateTime?
-  MatchTeam MatchTeam[]
+  id                  String    @id @default(uuid())
+  name                String    @unique
+  matchParticipants   MatchParticipant[]
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  deletedAt           DateTime?
 }
 
-model MatchTeam {
-  id        String    @id @default(uuid())
-  score     Int
-  teamId    String
-  matchId   String
-  result    String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-  team      Team      @relation(fields: [teamId], references: [id])
-  match     Match     @relation(fields: [matchId], references: [id])
-}
-
-model Stage {
-  id          String       @id @default(uuid())
+model Sport {
+  id          String    @id @default(uuid())
   name        String
-  description String
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  slug        String    @unique
+  matches     Match[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
   deletedAt   DateTime?
-  MatchStage  MatchStage[]
 }
 
-model MatchStage {
-  id        String    @id @default(uuid())
-  matchId   String
-  stageId   String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-  match     Match     @relation(fields: [matchId], references: [id])
-  stage     Stage     @relation(fields: [stageId], references: [id])
+model Match {
+  id              String            @id @default(uuid())
+  type            String            @default("duel") // Match type: e.g., "duel", "free for all", etc.
+  sportId         String
+  sport           Sport             @relation(fields: [sportId], references: [id])
+  participants    MatchParticipant[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  deletedAt       DateTime?
 }
 
-model Edge {
-  id            String    @id @default(uuid())
-  sourceMatchId String
-  targetMatchId String
-  style         String
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  deletedAt     DateTime?
-  sourceMatch   Match     @relation("SourceMatchEdges", fields: [sourceMatchId], references: [id])
-  targetMatch   Match     @relation("TargetMatchEdges", fields: [targetMatchId], references: [id])
-}
-
-enum MatchType {
-  LABEL
-  BRACKET
-}
-
-enum TeamType {
-  COLOR
-  ESPORT
-  ESPORT_ROV
-  ESPORT_VALORANT
+model MatchParticipant {
+  id          String    @id @default(uuid())
+  matchId     String
+  match       Match     @relation(fields: [matchId], references: [id])
+  teamId      String?
+  team        Team?     @relation(fields: [teamId], references: [id])
+  Rank        String?
+  Points      Int?      @default(0)
+  Score       Int?       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
