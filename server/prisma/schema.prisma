@@ -44,6 +44,7 @@ model Match {
   sportId         String
   sport           Sport             @relation(fields: [sportId], references: [id])
   participants    MatchParticipant[]
+  date            String          
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   deletedAt       DateTime?
@@ -55,9 +56,9 @@ model MatchParticipant {
   match       Match     @relation(fields: [matchId], references: [id])
   teamId      String?
   team        Team?     @relation(fields: [teamId], references: [id])
-  Rank        String?
-  Points      Int?      @default(0)
-  Score       Int?       @default(0)
+  rank        String?
+  points      Int?      @default(0)
+  score       Int?       @default(0)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
