@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars*/
 "use client";
 
 import { useState, useEffect } from "react";
@@ -58,6 +60,10 @@ export default function EditMatchScorePage() {
             ...prevScores,
             [teamId]: Math.max(prevScores[teamId] - 1, 0),
         }));
+    };
+
+    const handleBack = () => {
+        history.back();
     };
 
     const saveScore = async () => {
@@ -169,7 +175,10 @@ export default function EditMatchScorePage() {
                         ))}
                     </div>
 
-                    <div className="flex justify-center mt-8">
+                    <div className="flex justify-center gap-3 mt-8">
+                        <button onClick={handleBack} className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition duration-300">
+                            กลับ
+                        </button>
                         <button
                             onClick={saveScore}
                             className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
