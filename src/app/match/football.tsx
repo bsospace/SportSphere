@@ -1,53 +1,110 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Card,
     CardContent,
 } from "@/components/ui/card";
 import Podium from '@/components/Podium';
+import MatchSchedule from '@/components/MatchSchedule';
+import Leaderboard from '@/components/Leaderboard';
 
 export default function FootballContent() {
+    const [podiumData, setPodiumData] = useState<{ team: string; rank: number; title: string; score: number; color: string; }[]>([]);
     // Mock data
-    const podiumData = [
+    const mockMatches = [
         {
-            team: "สีเขียว นาคา",
-            rank: 1,
-            title: "ชนะเลิศอันดับที่ 1",
-            score: 150,
-            color: 'bg-green-300',
+            id: "1",
+            matchName: "นาคา กับ เอราวัณ",
+            location: "สนามเชาวน์มณีวงษ์",
+            date: "2025-02-01 14:00",
+            type: "free-for-all",
+            participants: [
+                { id: "1a", team: { id: "team1", name: "สีเขียว นาคา" }, rank: 1, score: 5, point: 3 },
+                { id: "1a", team: { id: "team1", name: "สีเขียว นาคา" }, rank: 1, score: 5, point: 3 },
+                { id: "1a", team: { id: "team1", name: "สีเขียว นาคา" }, rank: 1, score: 5, point: 3 },
+                { id: "1a", team: { id: "team1", name: "สีเขียว นาคา" }, rank: 1, score: 5, point: 3 },
+                { id: "1b", team: { id: "team2", name: "สีชมพู เอราวัณ1" }, score: 0, point: 0 },
+                { id: "1b", team: { id: "team2", name: "สีชมพู เอราวัณ2" }, rank: 4, score: 0, point: 0 },
+                { id: "1b", team: { id: "team2", name: "สีชมพู เอราวัณ3" }, rank: 2, score: 0, point: 0 },
+            ],
         },
         {
-            team: "สีแดง หงส์เพลิง",
-            rank: 2,
-            title: "รองชนะเลิศอันดับที่ 1",
-            score: 100,
-            color: 'bg-red-300',
+            id: "2",
+            matchName: "หงส์เพลิง กับ กิเลนทองคำ",
+            location: "สนามเชาวน์มณีวงษ์",
+            date: "2025-02-01 15:00",
+            type: "duel",
+            participants: [
+                { id: "2a", team: { id: "team3", name: "สีแดง หงส์เพลิง" } },
+                { id: "2b", team: { id: "team4", name: "สีเหลือง กิเลนทองคำ" } },
+            ],
         },
-        {
-            team: "สีเหลือง กิเลนทองคำ",
-            rank: 3,
-            title: "รองชนะเลิศอันดับที่ 2",
-            score: 80,
-            color: 'bg-yellow-300',
-        },
-        {
-            team: "สีน้ำเงิน สุบรรณนที",
-            rank: 4,
-            title: "รองชนะเลิศอันดับที่ 3",
-            score: 50,
-            color: 'bg-blue-300',
-        },
-        {
-            team: "สีชมพู เอราวัณ",
-            rank: 5,
-            title: "รองชนะเลิศอันดับที่ 4",
-            score: 30,
-            color: 'bg-pink-300',
-        }
     ];
 
-    const sortedTeams = [4, 2, 1, 3, 5].map((rank) =>
-        podiumData.find((team) => team.rank === rank)
-    );
+    useEffect(() => {
+        const teamPoints = mockMatches.reduce<Record<string, { name: string; points: number }>>(
+            (acc, match) => {
+                match.participants.forEach((participant) => {
+                    const teamId = participant.team.id;
+                    const teamName = participant.team.name;
+                    const points = participant.point ?? 0;
+    
+                    if (!acc[teamId]) {
+                        acc[teamId] = { name: teamName, points: 0 };
+                    }
+                    acc[teamId].points += points;
+                });
+                return acc;
+            },
+            {}
+        );
+    
+        const sortedTeams = Object.entries(teamPoints)
+            .map(([id, { name, points }]) => ({
+                id,
+                name,
+                points,
+            }))
+            .sort((a, b) => b.points - a.points)
+            .map((team, index) => {
+                // Generate color from team name (temporary)
+                const color = team.name.includes("เขียว")
+                    ? "bg-green-300"
+                    : team.name.includes("แดง")
+                    ? "bg-red-300"
+                    : team.name.includes("เหลือง")
+                    ? "bg-yellow-300"
+                    : team.name.includes("น้ำเงิน")
+                    ? "bg-blue-300"
+                    : team.name.includes("ชมพู")
+                    ? "bg-pink-300"
+                    : "bg-gray-300";
+    
+                // Generate title based on rank
+                const titles = [
+                    "ชนะเลิศอันดับที่ 1",
+                    "รองชนะเลิศอันดับที่ 1",
+                    "รองชนะเลิศอันดับที่ 2",
+                    "รองชนะเลิศอันดับที่ 3",
+                    "รองชนะเลิศอันดับที่ 4",
+                ];
+                const title = `${titles[index] || `อันดับที่ ${index + 1}`}`;
+    
+                return {
+                    team: team.name,
+                    rank: index + 1,
+                    title,
+                    score: team.points,
+                    color,
+                };
+            });
+    
+        setPodiumData(sortedTeams);
+    }, []);
+    
+
+    const sortedTeams = [4, 2, 1, 3, 5]
+    .map((rank) => podiumData.find((team) => team.rank === rank))
+    .filter((team) => team !== undefined);
 
     return (
         <div>
@@ -57,8 +114,8 @@ export default function FootballContent() {
             <Card className="mt-4">
                 <CardContent>
                     <Section title="ผลการแข่งขัน">
-                        {/* <Podium teams={sortedTeams} /> */}
-                        Coming Soon...
+                        <Podium teams={sortedTeams} />
+                        <Leaderboard matches={mockMatches} />
                     </Section>
                 </CardContent>
             </Card>
@@ -66,7 +123,7 @@ export default function FootballContent() {
             <Card className="mt-4">
                 <CardContent>
                     <Section title="ตารางการแข่งขัน">
-                        Coming Soon...
+                        <MatchSchedule matches={mockMatches} />
                     </Section>
                 </CardContent>
             </Card>
