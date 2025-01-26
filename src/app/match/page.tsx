@@ -12,8 +12,6 @@ import {
     TabsTrigger,
 } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import TournamentBracket from "@/components/TournamentBracket";
-import { tournamentData } from "@/mock/tournamentData";
 // import BrucketDisplay from '@/components/RenderBracket';
 import "reactflow/dist/style.css";
 // import ReactFlow, { Background, MiniMap } from 'reactflow';

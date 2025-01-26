@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars*/
 import React from 'react';
 import {
     Card,
     CardContent,
 } from "@/components/ui/card";
 import Podium from '@/components/Podium';
-import { color } from 'framer-motion';
 
 export default function BasketballContent() {
     // Mock data

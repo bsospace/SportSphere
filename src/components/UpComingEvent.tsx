@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 
 interface Event {
     image?: string;
@@ -75,10 +77,12 @@ const UpcomingEvents = () => {
                     >
                         {/* Event Image (optional) */}
                         {event.image && (
-                            <img
+                            <Image
                                 src={event.image}
                                 alt={event.title}
-                                className="w-16 h-16 rounded object-cover hover:shadow-lg"
+                                width={100}
+                                height={100}
+                                className="rounded-lg"
                             />
                         )}
                         {/* Event Details */}
