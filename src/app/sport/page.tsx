@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { api } from "../utils/api.util";
 
 // กำหนดประเภทของข้อมูล sports
 interface Sport {
@@ -14,16 +15,11 @@ export default function Sport() {
   const router = useRouter();
   const [sports, setSports] = useState<Sport[]>([]); // กำหนดประเภทเป็น Sport[]
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_SPORT; // อ่านค่าจาก .env
-
   useEffect(() => {
     const fetchSports = async () => {
       try {
-        const response = await fetch(`${apiUrl}/api/v1/sports`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch sports data");
-        }
-        const data = await response.json();
+        const response = await api.get(`/api/v1/sports`);
+        const data = await response.data;
         setSports(data.data); // ตั้งค่า sports จากข้อมูลที่ได้รับ
       } catch (error) {
         console.error("Error fetching sports:", error);
@@ -31,7 +27,7 @@ export default function Sport() {
     };
 
     fetchSports();
-  }, [apiUrl]); // ใช้ apiUrl ในการดึงข้อมูล
+  }, []); // ใช้ apiUrl ในการดึงข้อมูล
 
   const handleRedirect = (slug: string, id: string) => {
     router.push(`/sport/${slug}`);

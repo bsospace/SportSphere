@@ -1,11 +1,12 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { api } from "../../utils/api.util";
 
 export default function SportDetail() {
   const { slug } = useParams() as { slug: string | undefined };
+  const router = useRouter();
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -40,6 +41,7 @@ export default function SportDetail() {
         {matches.map((match: any) => (
           <div
             key={match.id}
+            onClick={() => router.push(`/sport/${slug}/${match.id}`)} // Redirect when clicked
             className="mb-6 bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 cursor-pointer"
           >
             <div className="p-5 bg-gray-200 text-gray-800 text-xl font-semibold">

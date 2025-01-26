@@ -1,5 +1,6 @@
-import axios from 'axios';
+"use client";
 
+import axios from 'axios';
 
 const accessToken = localStorage.getItem('accessToken');
 
