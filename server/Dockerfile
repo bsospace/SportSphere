@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM node:22 AS build
+FROM node:20-alpine3.17 AS build
 
 # Set the working directory
 WORKDIR /app
@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy only necessary files for dependency installation
 COPY package*.json ./
 
-# Install dependencies
+# Install dependencies (using npm ci for clean installs)
 RUN npm ci
 
 # Copy the rest of the application files (e.g., source, Prisma schema)
@@ -20,7 +20,7 @@ RUN npx prisma generate
 RUN npm run build
 
 # Stage 2: Production image
-FROM node:22 AS production
+FROM node:20-alpine3.17 AS production
 
 # Set the working directory
 WORKDIR /app
@@ -32,4 +32,4 @@ COPY --from=build /app/prisma /app/prisma
 COPY --from=build /app/package.json /app/package.json
 
 # Run the application
-CMD ["node", "dist/src/index.js"]
+CMD ["npm", "start"]

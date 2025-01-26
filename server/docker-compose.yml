@@ -11,7 +11,6 @@ services:
       - .env
     depends_on:
       - db
-      - redis
     networks:
       - sportnetwork
 
@@ -26,17 +25,6 @@ services:
       - sport_postgres_data:/var/lib/postgresql/data
     ports:
       - "${DB_PORT}:5432"
-    networks:
-      - sportnetwork
-
-  redis:
-    image: redis:latest
-    restart: always
-    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"]
-    ports:
-      - "${REDIS_PORT}:6379"
-    environment:
-      - REDIS_PASSWORD=${REDIS_PASSWORD}
     networks:
       - sportnetwork
 
