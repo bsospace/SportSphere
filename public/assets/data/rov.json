@@ -11,7 +11,9 @@
         "team1": "โดดเรียนมาตีป้อม",
         "team2": "นักอสังหา",
         "matchName": "รอบเก็บคะแนน 1 คู่ที่ 1",
-        "winner": null,
+        "winner": "โดดเรียนมาตีป้อม",
+	"score1": 2,
+        "score2": 0,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-25T20:00"
       },
@@ -35,7 +37,9 @@
         "team1": "GG No Re",
         "team2": "SE สยองกึ้ม",
         "matchName": "รอบเก็บคะแนน 1 คู่ที่ 2",
-        "winner": null,
+        "winner": "SE สยองกึ้ม",
+	"score1": 0,
+	"score2": 2,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-25T20:00"
       },
@@ -59,7 +63,9 @@
         "team1": "The nut พเนจร",
         "team2": "มาเอาฟีล",
         "matchName": "รอบเก็บคะแนน 1 คู่ที่ 3",
-        "winner": null,
+        "winner": "The nut พเนจร",
+	"score1": 2,
+	"score2": 0,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-25T20:00"
       },
@@ -83,7 +89,9 @@
         "team1": "หมูกรอบขอบชีส",
         "team2": "บุ้งกี๋แบรนด์",
         "matchName": "รอบเก็บคะแนน 1 คู่ที่ 4",
-        "winner": null,
+        "winner": "Drew",
+	"score1": 1,
+	"score2": 1,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-25T21:00"
       },
@@ -107,7 +115,9 @@
         "team1": "ชินจังชอบกินบล็อคโคลี่",
         "team2": "DESPARADO",
         "matchName": "รอบเก็บคะแนน 1 คู่ที่ 5",
-        "winner": null,
+        "winner": "ชินจังชอบกินบล็อคโคลี่",
+	"score1": 2,
+	"score2": 0,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-25T21:00"
       },
@@ -131,7 +141,9 @@
         "team1": "ป้อมอยู่นี่พี่อยู่ไหน",
         "team2": "เด็กเกษตรมารัน",
         "matchName": "รอบเก็บคะแนน 1 คู่ที่ 6",
-        "winner": null,
+        "winner": "Drew",
+	"score1": 1,
+	"score2": 1,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-25T21:00"
       },
@@ -155,7 +167,9 @@
         "team1": "สยองกึ๋ม",
         "team2": "ไม่หล่อแต่แฟนคุณรู้จัก",
         "matchName": "รอบเก็บคะแนน 1 คู่ที่ 7",
-        "winner": null,
+        "winner": "สยองกึ๋ม",
+	"score1": 2,
+	"score2": 0,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-25T22:00"
       },
@@ -179,7 +193,9 @@
         "team1": "Love Pushsay",
         "team2": "อุกะก่ะ",
         "matchName": "รอบเก็บคะแนน 1 คู่ที่ 8",
-        "winner": null,
+        "winner": "Love Pushsay",
+	"score1": 2,
+	"score2": 0,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-25T22:00"
       },
@@ -203,7 +219,9 @@
         "team1": "คนจริงโอวัลตินต้องละลาย",
         "team2": "สีหักลายกนก",
         "matchName": "รอบเก็บคะแนน 1 คู่ที่ 9",
-        "winner": null,
+        "winner": "สีหักลายกนก",
+	"score1": 0,
+	"score2": 2,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-25T22:00"
       },
@@ -227,7 +245,9 @@
         "team1": "โดดเรียนมาตีป้อม",
         "team2": "GG No Re",
         "matchName": "รอบเก็บคะแนน 2 คู่ที่ 9",
-        "winner": null,
+        "winner": "โดดเรียนมาตีป้อม",
+	"score1": 2,
+	"score2": 0,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-26T22:00"
       },
@@ -251,7 +271,9 @@
         "team1": "The nut พเนจร",
         "team2": "หมูกรอบขอบชีส",
         "matchName": "รอบเก็บคะแนน 2 คู่ที่ 2",
-        "winner": null,
+        "winner": "Drew",
+	"score1": 1,
+	"score2": 1,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-26T20:00"
       },
@@ -275,7 +297,9 @@
         "team1": "ชินจังชอบกินบล็อคโคลี่",
         "team2": "ป้อมอยู่นี่พี่อยู่ไหน",
         "matchName": "รอบเก็บคะแนน 2 คู่ที่ 3",
-        "winner": null,
+        "winner": "Drew",
+	"score1": 1,
+	"score2": 1,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-26T21:00"
       },
@@ -299,7 +323,9 @@
         "team1": "สยองกึ๋ม",
         "team2": "Love Pushsay",
         "matchName": "รอบเก็บคะแนน 2 คู่ที่ 4",
-        "winner": null,
+        "winner": "สยองกึ๋ม",
+	"score1": 2,
+	"score2": 0,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-26T21:00"
       },
@@ -323,7 +349,9 @@
         "team1": "คนจริงโอวัลตินต้องละลาย",
         "team2": "นักอสังหา",
         "matchName": "รอบเก็บคะแนน 2 คู่ที่ 5",
-        "winner": null,
+        "winner": "นักอสังหา",
+	"score1": 0,
+	"score2": 2,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-26T21:00"
       },
@@ -347,8 +375,9 @@
         "team1": "SE สยองกึ้ม",
         "team2": "มาเอาฟีล",
         "matchName": "รอบเก็บคะแนน 2 คู่ที่ 6",
-        "winner": null,
-        "score1": 17,
+        "winner": "SE สยองกึ้ม",
+	"score1": 2,
+	"score2": 0,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-26T21:00"
       },
@@ -372,7 +401,9 @@
         "team1": "บุ้งกี๋แบรนด์",
         "team2": "DESPARADO",
         "matchName": "รอบเก็บคะแนน 2 คู่ที่ 7",
-        "winner": null,
+        "winner": "บุ้งกี๋แบรนด์",
+	"score1": 2,
+	"score2": 0,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-26T22:00"
       },
@@ -396,7 +427,9 @@
         "team1": "เด็กเกษตรมารัน",
         "team2": "ไม่หล่อแต่แฟนคุณรู้จัก",
         "matchName": "รอบเก็บคะแนน 2 คู่ที่ 8",
-        "winner": null,
+        "winner": "เด็กเกษตรมารัน",
+	"score1": 2,
+	"score2": 0,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-26T22:00"
       },
@@ -420,7 +453,9 @@
         "team1": "อุกะก่ะ",
         "team2": "สีหัก",
         "matchName": "รอบเก็บคะแนน 2 คู่ที่ 1",
-        "winner": null,
+        "winner":"สีหัก",
+	"score1": 0,
+	"score2": 2,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-26T20:00"
       },
@@ -444,7 +479,9 @@
         "team1": "GG No Re",
         "team2": "เด็กเกษตรมารัน",
         "matchName": "รอบเก็บคะแนน 3 คู่ที่ 1",
-        "winner": null,
+        "winner": "เด็กเกษตรมารัน",
+	"score1": 0,
+	"score2": 2,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-27T20:00"
       },
@@ -468,7 +505,9 @@
         "team1": "นักอสังหา",
         "team2": "ป้อมอยู่นี่พี่อยู่ไหน",
         "matchName": "รอบเก็บคะแนน 3 คู่ที่ 2",
-        "winner": null,
+        "winner": "ป้อมอยู่นี่พี่อยู่ไหน",
+	"score1": 0,
+	"score2": 2,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-27T20:00"
       },
@@ -492,7 +531,9 @@
         "team1": "ชินจังชอบกินบล็อคโคลี่",
         "team2": "สีหัก",
         "matchName": "รอบเก็บคะแนน 3 คู่ที่ 3",
-        "winner": null,
+        "winner": "ชินจังชอบกินบล็อคโคลี่",
+	"score1": 2,
+	"score2": 0,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-27T20:00"
       },
@@ -516,7 +557,9 @@
         "team1": "SE สยองกึ้ม",
         "team2": "สยองกึ๋ม",
         "matchName": "รอบเก็บคะแนน 3 คู่ที่ 4",
-        "winner": null,
+        "winner": "สยองกึ๋ม",
+	"score1": 0,
+	"score2": 2,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-27T21:00"
       },
@@ -540,7 +583,9 @@
         "team1": "มาเอาฟีล",
         "team2": "Love Pushsay",
         "matchName": "รอบเก็บคะแนน 3 คู่ที่ 5",
-        "winner": null,
+        "winner": "Drew",
+	"score1": 1,
+	"score2": 1,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-27T21:00"
       },
@@ -564,8 +609,7 @@
         "team1": "The nut พเนจร",
         "team2": "ไม่หล่อแต่แฟนคุณรู้จัก",
         "matchName": "รอบเก็บคะแนน 3 คู่ที่ 6",
-        "winner": null,
-        "location": "ONLINE (2 Match)",
+        "winner": "The nut พเนจร",
         "dateTime": "2024-12-27T21:00"
       },
       "width": 256,
@@ -588,7 +632,9 @@
         "team1": "โดดเรียนมาตีป้อม",
         "team2": "DESPARADO",
         "matchName": "รอบเก็บคะแนน 3 คู่ที่ 7",
-        "winner": null,
+        "winner": "Drew",
+	"score1": 1,
+	"score2": 1,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-27T22:00"
       },
@@ -612,7 +658,9 @@
         "team1": "บุ้งกี๋แบรนด์",
         "team2": "คนจริงโอวัลตินต้องละลาย",
         "matchName": "รอบเก็บคะแนน 3 คู่ที่ 8",
-        "winner": null,
+        "winner": "บุ้งกี๋แบรนด์",
+	"score1": 2,
+	"score2": 0,
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-27T22:00"
       },
@@ -636,7 +684,7 @@
         "team1": "หมูกรอบขอบชีส",
         "team2": "อุกะก่ะ",
         "matchName": "รอบเก็บคะแนน 3 คู่ที่ 9",
-        "winner": null,
+        "winner": "หมูกรอบขอบชีส",
         "location": "ONLINE (2 Match)",
         "dateTime": "2024-12-27T22:00"
       },
@@ -657,10 +705,10 @@
         "y": 390
       },
       "data": {
-        "team1": "สุ่มจากตามลำดับคะแนน 1-8",
-        "team2": "สุ่มจากตามลำดับคะแนน 1-8",
+        "team1": "เด็กเกษตรมารัน",
+        "team2": "SE สยองกึ้ม",
         "matchName": "รอบ 8 ทีมสุดท้าย คู่ที่ 1",
-        "winner": null,
+        "winner": "SE สยองกึ้ม",
         "location": "ONSITE IF (Bo3)",
         "dateTime": "2025-01-04T09:00"
       },
@@ -681,10 +729,12 @@
         "y": 660
       },
       "data": {
-        "team1": "สุ่มจากตามลำดับคะแนน 1-8",
-        "team2": "สุ่มจากตามลำดับคะแนน 1-8",
+        "team1": "สยองกึ๋ม",
+        "team2": "The nut พเนจร",
         "matchName": "รอบ 8 ทีมสุดท้าย คู่ที่ 2",
-        "winner": null,
+        "winner": "สยองกึ๋ม",
+	"score1": 2,
+	"score2": 0,
         "location": "ONSITE IF (Bo3)",
         "dateTime": "2025-01-04T10:30"
       },
@@ -705,10 +755,10 @@
         "y": 920
       },
       "data": {
-        "team1": "สุ่มจากตามลำดับคะแนน 1-8",
-        "team2": "สุ่มจากตามลำดับคะแนน 1-8",
+        "team1": "สีหักลายกนก",
+        "team2": "ชินจังชอบกินบล็อคโคลี่",
         "matchName": "รอบ 8 ทีมสุดท้าย คู่ที่ 3",
-        "winner": null,
+        "winner": "ชินจังชอบกินบล็อคโคลี่",
         "location": "ONSITE IF (Bo3)",
         "dateTime": "2025-01-04T13:00"
       },
@@ -729,10 +779,12 @@
         "y": 1170
       },
       "data": {
-        "team1": "สุ่มจากตามลำดับคะแนน 1-8",
-        "team2": "สุ่มจากตามลำดับคะแนน 1-8",
+        "team1": "บุ้งกี๋แบรนด์",
+        "team2": "โดดเรียนมาตีป้อม",
         "matchName": "รอบ 8 ทีมสุดท้าย คู่ที่ 4",
-        "winner": null,
+        "winner": "โดดเรียนมาตีป้อม",
+	"score1": 0,
+	"score2": 2,
         "location": "ONSITE IF (Bo3)",
         "dateTime": "2025-01-04T14:30"
       },
@@ -753,10 +805,12 @@
         "y": 510
       },
       "data": {
-        "team1": "ผู้ชนะรอบ 8 ทีมคู่ที่ 1",
-        "team2": "ผู้ชนะรอบ 8 ทีมคู่ที่ 2",
+        "team1": "SE สยองกึ้ม",
+        "team2": "สยองกึ๋ม",
         "matchName": "รอบ 4 ทีมสุดท้าย คู่ที่ 1",
-        "winner": null,
+        "winner": "สยองกึ๋ม",
+	"score1": 0,
+	"score2": 2,
         "location": "ONSITE IF (B03)",
         "dateTime": "2025-01-11T08:30"
       },
@@ -777,10 +831,12 @@
         "y": 1030
       },
       "data": {
-        "team1": "ผู้ชนะรอบ 8 ทีมคู่ที่ 3",
-        "team2": "ผู้ชนะรอบ 8 ทีมคู่ที่ 4",
+        "team1": "ชินจังชอบกินบล็อคโคลี่",
+        "team2": "โดดเรียนมาตีป้อม",
         "matchName": "รอบ 4 ทีมสุดท้าย คู่ที่ 2",
-        "winner": null,
+        "winner": "โดดเรียนมาตีป้อม",
+	"score1": 0,
+	"score2": 2,
         "location": "ONSITE IF (Bo3)",
         "dateTime": "2025-01-11T10:00"
       },
@@ -801,10 +857,12 @@
         "y": 510
       },
       "data": {
-        "team1": "ผู้ชนะ รอบ 4 ทีมสุดท้าย คู่ที่ 1",
-        "team2": "ผู้ชนะ รอบ 4 ทีมสุดท้าย คู่ที่ 2",
+        "team1": "สยองกึ๋ม",
+        "team2": "โดดเรียนมาตีป้อม",
         "matchName": "รอบชิงชนะเลิศ",
-        "winner": null,
+        "winner": "สยองกึ๋ม",
+	"score1": 3,
+	"score2": 0,
         "location": "ONSITE IF (Bo5)",
         "dateTime": "2025-01-11T15:00"
       },
@@ -825,10 +883,12 @@
         "y": 1020
       },
       "data": {
-        "team1": "ผู้แพ้ รอบ 4 ทีมสุดท้าย คู่ที่ 1",
-        "team2": "ผู้แพ้ รอบ 4 ทีมสุดท้าย คู่ที่ 2",
-        "matchName": "รอบชิงชนะเลิศอันดับที่ 3",
-        "winner": null,
+        "team1": "SE สยองกึ้ม",
+        "team2": "ชินจังชอบกินบล็อคโคลี่",
+        "matchName": "รอบรองชนะเลิศอันดับที่ 2",
+        "winner": "SE สยองกึ้ม",
+	"score1": 3,
+	"score2": 0,
         "location": "ONSITE IF (Bo5)",
         "dateTime": "2025-01-11T12:00"
       },
@@ -906,7 +966,7 @@
         "y": 460
       },
       "data": {
-        "label": "ผู้ชนะ รอบ 8 ทีม คู่ที่ 1"
+        "label": "SE สยองกึ้ม"
       },
       "width": 221,
       "height": 62,
@@ -925,7 +985,7 @@
         "y": 730
       },
       "data": {
-        "label": "ผู้ชนะ รอบ 8 ทีม คู่ที่ 2"
+        "label": "สยองกึ๋ม"
       },
       "width": 221,
       "height": 62,
@@ -944,7 +1004,7 @@
         "y": 990
       },
       "data": {
-        "label": "ผู้ชนะ รอบ 8 ทีม คู่ที่ 3"
+        "label": "ชินจังชอบกินบล็อคโคลี่"
       },
       "width": 221,
       "height": 62,
@@ -963,7 +1023,7 @@
         "y": 1240
       },
       "data": {
-        "label": "ผู้ชนะ รอบ 8 ทีม คู่ที่ 4"
+        "label": "โดดเรียนมาตีป้อม"
       },
       "width": 221,
       "height": 62,
@@ -982,7 +1042,7 @@
         "y": 530
       },
       "data": {
-        "label": "ผู้ชนะ รอบ 4 ทีมสุดท้าย คู่ที่ 1"
+        "label": "สยองกึ๋ม"
       },
       "width": 221,
       "height": 62,
@@ -1001,7 +1061,7 @@
         "y": 1050
       },
       "data": {
-        "label": "ผู้ชนะ รอบ 4 ทีมสุดท้าย คู่ที่ 2"
+        "label": "โดดเรียนมาตีป้อม"
       },
       "width": 221,
       "height": 62,
@@ -1020,7 +1080,7 @@
         "y": 650
       },
       "data": {
-        "label": "ผู้แพ้ รอบ 4 ทีมสุดท้าย คู่ที่ 1"
+        "label": "SE สยองกึ้ม"
       },
       "width": 221,
       "height": 62,
@@ -1039,7 +1099,7 @@
         "y": 1170
       },
       "data": {
-        "label": "ผู้แพ้ รอบ 4 ทีมสุดท้าย คู่ที่ 2"
+        "label": "ชินจังชอบกินบล็อคโคลี่"
       },
       "width": 221,
       "height": 62,
@@ -1058,7 +1118,7 @@
         "y": 530
       },
       "data": {
-        "label": "ชนะเลิศอันดับที่ 1"
+        "label": "สยองกึ๋ม"
       },
       "width": 221,
       "height": 62,
@@ -1077,7 +1137,7 @@
         "y": 650
       },
       "data": {
-        "label": "รองชนะเลิศอันดับที่ 1"
+        "label": "โดดเรียนมาตีป้อม"
       },
       "width": 221,
       "height": 62,
@@ -1096,7 +1156,7 @@
         "y": 1040
       },
       "data": {
-        "label": "รองชนะเลิศอันดับที่ 2"
+        "label": "SE สยองกึ้ม"
       },
       "width": 221,
       "height": 62,
@@ -1115,7 +1175,7 @@
         "y": 1160
       },
       "data": {
-        "label": "รองชนะเลิศอันดับที่ 3"
+        "label": "ชินจังชอบกินบล็อคโคลี่"
       },
       "width": 221,
       "height": 62,

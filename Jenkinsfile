@@ -5,14 +5,7 @@ pipeline {
         stage("Pull") {
             steps {
                 script {
-                    checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: "*/${env.BRANCH_NAME}"]],
-                        userRemoteConfigs: [[
-                            url: 'https://github.com/BSO-Space/SportSphere.git',
-                            credentialsId: '3c91d658-54b4-4606-b119-5fd58aa85b28'
-                        ]]
-                    ])
+                    checkout scm
                 }
             }
             post {
@@ -77,10 +70,10 @@ pipeline {
                 script {
                     if (env.BRANCH_NAME == 'main') {
                         echo "Deploying using docker-compose.yml"
-                        sh "docker compose up -d"
+                        sh "docker compose up -d --build"
                     } else {
                         echo "Deploying using docker-compose.release.yml"
-                        sh "docker compose -f docker-compose.release.yml up -d"
+                        sh "docker compose -f docker-compose.release.yml up -d --build"
                     }
                 }
             }
