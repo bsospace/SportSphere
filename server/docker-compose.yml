@@ -9,6 +9,8 @@ services:
       - "${APP_PORT}:${APP_PORT}"
     env_file:
       - .env
+    volumes:
+      - ./keys:/app/keys
     depends_on:
       - db
     networks:
