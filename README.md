@@ -45,20 +45,37 @@ Define environment variables in separate `.env` files for the frontend and backe
 
 #### `frontend/.env`
 ```env
-NODE_ENV=production
-NEXT_PUBLIC_API_URL=http://localhost:3001
+NEXT_PUBLIC_APP_OPENID_API=
+NEXT_PUBLIC_APP_URL_CALL_BACK=
+NEXT_PUBLIC_API_URL=
+NEXT_PUBLIC_URL=
+NEXT_PUBLIC_API_SPORT=
 ```
 
 #### `backend/.env`
 ```env
-APP_PORT=3001
-PG_USER=postgres
-PG_PASSWORD=postgrespassword
-PG_DATABASE=sportdb
-DB_PORT=5432
-PGADMIN_PORT=5050
-PGADMIN_EMAIL=admin@example.com
-PGADMIN_PASSWORD=securepassword
+# Prisma Database Connection
+DATABASE_URL=
+
+# Application
+APP_PORT=
+NODE_ENV=
+APP_URL=
+
+# PostgreSQL Database
+PG_USER=
+PG_PASSWORD=
+PG_DATABASE=
+DB_PORT=
+
+# PgAdmin
+PGADMIN_EMAIL=
+PGADMIN_PASSWORD=
+PGADMIN_PORT=
+
+# OpenID API
+OPENID_API=
+SERVICE_NAME=
 ```
 
 ### 3️⃣ Combine Environment Variables
