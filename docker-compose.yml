@@ -1,16 +1,69 @@
-version: "3.8"
 services:
-  app:
+  frontend:
     build:
-      context: .
+      context: ./frontend
       dockerfile: Dockerfile
-    container_name: sport-sphere
+    container_name: sport-frontend
     ports:
       - "5056:3000"
     environment:
       - NODE_ENV=production
     volumes:
-      - ./public:/app/public
-      - ./pages:/app/pages
+      - ./frontend/public:/app/public
+      - ./frontend/pages:/app/pages
     restart: unless-stopped
+    networks:
+      - sportnetwork
 
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: production
+    container_name: sport-backend
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    env_file:
+      - .env
+    volumes:
+      - ./backend/keys:/app/keys
+    depends_on:
+      - db
+    networks:
+      - sportnetwork
+
+  db:
+    image: postgres:latest
+    container_name: sport-db
+    restart: always
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DATABASE}
+    volumes:
+      - sport_postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT}:5432"
+    networks:
+      - sportnetwork
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: sport-pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+    ports:
+      - "${PGADMIN_PORT}:80"
+    depends_on:
+      - db
+    networks:
+      - sportnetwork
+
+volumes:
+  sport_postgres_data:
+
+networks:
+  sportnetwork:
+    driver: bridge

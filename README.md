@@ -1,36 +1,123 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏀 Sportsphere Project 🏆
 
-## Getting Started
+This project manages a **frontend** and **backend** for the Sportsphere application using Docker Compose. Environment variables for the frontend and backend are stored separately and combined automatically before running the application.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 📂 Folder Structure
+```
+.
+├── docker-compose.yml   # Docker Compose configuration
+├── combine-env.sh       # Script to combine .env files
+├── frontend/            # Frontend code and environment
+│   ├── Dockerfile
+│   ├── .env
+│   └── src/
+├── backend/             # Backend code and environment
+│   ├── Dockerfile
+│   ├── .env
+│   └── src/
+└── .env (Generated automatically)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✅ Prerequisites
+1. Install [Docker](https://www.docker.com/) and ensure Docker Compose is included. 🐳
+2. Ensure the `combine-env.sh` script is executable:
+   ```bash
+   chmod +x combine-env.sh
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🚀 Steps to Run
 
-To learn more about Next.js, take a look at the following resources:
+### 1️⃣ Clone the Repository
+Clone this repository to your local machine:
+```bash
+git clone https://github.com/bsospace/SportSphere.git
+cd sportsphere
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2️⃣ Add Environment Variables
+Define environment variables in separate `.env` files for the frontend and backend:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### `frontend/.env`
+```env
+NODE_ENV=production
+NEXT_PUBLIC_API_URL=http://localhost:3001
+```
 
-## Deploy on Vercel
+#### `backend/.env`
+```env
+APP_PORT=3001
+PG_USER=postgres
+PG_PASSWORD=postgrespassword
+PG_DATABASE=sportdb
+DB_PORT=5432
+PGADMIN_PORT=5050
+PGADMIN_EMAIL=admin@example.com
+PGADMIN_PASSWORD=securepassword
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 3️⃣ Combine Environment Variables
+Run the `combine-env.sh` script to merge the `.env` files into a single `.env` file in the root directory:
+```bash
+./combine-env.sh
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The script will generate a root `.env` file containing both frontend and backend environment variables. ✅
+
+### 4️⃣ Start the Application
+Run Docker Compose to start all services:
+```bash
+docker compose up
+```
+
+This will:
+- 🖥️ Build the **frontend** and **backend** Docker images.
+- 🛠️ Start the `frontend`, `backend`, `db` (PostgreSQL), and `pgadmin` services.
+
+### 5️⃣ Access the Application
+- **Frontend**: Visit [http://localhost:5056](http://localhost:5056) 🖼️  
+- **Backend**: The backend API will run on [http://localhost:3001](http://localhost:3001) ⚙️  
+- **pgAdmin**: Visit [http://localhost:5050](http://localhost:5050) and log in using:
+  - Email: `admin@example.com`
+  - Password: `securepassword`
+
+---
+
+## 🛑 Stopping the Application
+To stop the application, press `Ctrl + C` or run:
+```bash
+docker compose down
+```
+
+---
+
+## 🔧 Troubleshooting
+
+### ❗ Missing `.env` Variables
+If you encounter warnings about missing `.env` variables:
+1. Ensure the `.env` files exist in the `frontend` and `backend` directories.
+2. Re-run the `combine-env.sh` script:
+   ```bash
+   ./combine-env.sh
+   ```
+
+### 🔄 Rebuilding Images
+If changes are made to the `Dockerfile` or dependencies, rebuild the services:
+```bash
+docker compose up --build
+```
+
+---
+
+## 📌 Additional Notes
+- The `combine-env.sh` script automatically combines variables from `frontend/.env` and `backend/.env` into a root `.env` file. 🔗
+- This structure ensures modular development while keeping environment configuration consistent. ✅
+
+---
+
+Enjoy building your Sportsphere application! 🏀⚽🏐

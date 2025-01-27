@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars*/
 /* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
 import React, { useEffect, useState } from 'react';
 import {
     Card,
@@ -101,7 +103,7 @@ export default function FootballContent() {
             });
     
         setPodiumData(sortedTeams);
-    }, []);
+    }, [podiumData]);
     
 
     const sortedTeams = [4, 2, 1, 3, 5]

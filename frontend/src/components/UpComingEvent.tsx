@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 interface Event {
@@ -36,10 +37,15 @@ const UpcomingEvents = () => {
 
     if (loading) {
         return (
-            <div className="bg-white shadow-lg rounded-lg p-4">
+            <motion.div 
+                className="bg-white shadow-lg rounded-lg p-4"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1.2 }}
+                >
                 <h2 className="text-xl font-semibold m-4">เร็วๆ นี้</h2>
                 <p className="text-gray-500">Loading events...</p>
-            </div>
+            </motion.div>
         );
     }
 
@@ -62,7 +68,12 @@ const UpcomingEvents = () => {
     }
 
     return (
-        <div className="bg-white shadow-lg rounded-lg p-4">
+        <motion.div 
+        className="bg-white shadow-lg rounded-lg p-4"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2 }}
+        >
             <h2 className="text-xl font-semibold m-4">เร็วๆ นี้</h2>
             {/* Grid layout for events */}
             <div
@@ -114,7 +125,7 @@ const UpcomingEvents = () => {
                     </div>
                 ))}
             </div>
-        </div>
+        </motion.div>
     );
 };
 
