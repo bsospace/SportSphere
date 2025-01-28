@@ -1,5 +1,7 @@
 import { PrismaClient, Match, MatchParticipant } from "@prisma/client";
 import { handleError } from "../../utils/error-handler.util";
+import { AuditLog } from "../../utils/interface";
+import { InputJsonValue } from "@prisma/client/runtime/library";
 
 
 export class MatchService {
@@ -8,6 +10,8 @@ export class MatchService {
     constructor(prismaClient: PrismaClient) {
         this.prismaClient = prismaClient;
     }
+
+
     public async getMacthBySportSlug(sportSlug: string) {
         try {
             const sport = await this.prismaClient.sport.findUnique({
@@ -134,7 +138,8 @@ export class MatchService {
 
     public async updateMatchScores(
         matchId: string,
-        scores: { teamId: string; score: number; points: number; rank: string }[]
+        scores: { teamId: string; score: number; points: number; rank: string }[],
+        auditLog: AuditLog[]
     ): Promise<MatchParticipant[]> {
         try {
             const participants = await this.prismaClient.matchParticipant.findMany({
@@ -152,12 +157,16 @@ export class MatchService {
                     throw new Error(`Participant with teamId ${scoreData.teamId} not found in the match.`);
                 }
 
+                let existingAuditLogData: InputJsonValue[] = participant.auditLogs as InputJsonValue[];
+                existingAuditLogData.push(JSON.stringify(auditLog));
+
                 await this.prismaClient.matchParticipant.update({
                     where: { id: participant.id },
                     data: {
                         score: scoreData.score,
                         points: scoreData.points,
                         rank: scoreData.rank,
+                        auditLogs: existingAuditLogData,
                     },
                 });
             }
