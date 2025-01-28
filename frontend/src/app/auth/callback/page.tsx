@@ -30,7 +30,6 @@ const Callback = () => {
     if (redirectParam) {
       window.location.href = redirectParam
     }
-    alert(redirectParam)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
