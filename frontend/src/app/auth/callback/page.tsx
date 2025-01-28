@@ -1,39 +1,31 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars*/
-/* eslint-disable @typescript-eslint/no-empty-object-type*/
-"use client";
+'use client';
+
 import { useEffect } from 'react';
 
-type Props = {}
-
-function Callback ({}: Props) {
+const Callback = () => {
   useEffect(() => {
-    // get access token and refresh token from url query parameters
-    const urlParams = new URLSearchParams(window.location.search)
+    // Get tokens from query parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const accessToken = urlParams.get('accessToken');
+    const refreshToken = urlParams.get('refreshToken');
 
-    const accessToken = urlParams.get('accessToken')
-    const refreshToken = urlParams.get('refreshToken')
-    
-    // set access token to local storage
+    // Save tokens to localStorage
     if (accessToken) {
-      localStorage.setItem('accessToken', accessToken)
+      localStorage.setItem('accessToken', accessToken);
     }
     if (refreshToken) {
-      localStorage.setItem('refreshToken', refreshToken)
+      localStorage.setItem('refreshToken', refreshToken);
     }
 
-    if(!accessToken || !refreshToken){
-      window.location.href = '/login'
+    // Redirect based on token presence
+    if (!accessToken || !refreshToken) {
+      window.location.href = '/auth/login'; // Redirect to login if tokens are missing
+    } else {
+      window.location.href = '/'; // Redirect to home on success
     }
+  }, []);
 
-    window.location.href = '/'
-  }, [])
+  return <p>Processing login...</p>;
+};
 
-  return (
-    <div>
-      <p>Loading...</p>
-    </div>
-  )
-}
-
-export default Callback
+export default Callback;
