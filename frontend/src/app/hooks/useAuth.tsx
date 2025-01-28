@@ -80,10 +80,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   // Auto-fetch profile on mount
   useEffect(() => {
-    const token = localStorage.getItem('accessToken')
-    if (token) {
-      getProfile()
-    }
+    getProfile();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
