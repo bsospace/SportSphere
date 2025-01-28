@@ -56,6 +56,7 @@ export default function EditMatchScorePage () {
 
   useEffect(() => {
     fetchMatchData()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug, id])
 
   const handleScoreChange = (teamId: string, value: number) => {
