@@ -46,7 +46,7 @@ export default function HomePage() {
     setResult(null);
     setError("");
 
-    const response = await fetch(`/api/n?username=${userNumber}`);
+    const response = await fetch(`/api/search?username=${userNumber}`);
 
     if (response.ok) {
       const data = await response.json();

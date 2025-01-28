@@ -13,16 +13,7 @@ const sports = [
   { name: "แบดมินตันคู่ผสม", slug: "BMX", type: "duel" },
 
   // Free-for-all-type sports
-  { name: "วิ่งสามขา", slug: "TG1", type: "free-for-all" },
-  { name: "วิ่งเปรี้ยวซุปเปอร์แมน", slug: "TG2", type: "free-for-all" },
-  { name: "วิ่งสามัคคี", slug: "TG3", type: "free-for-all" },
-  { name: "วิ่งตะขาบ", slug: "TG4", type: "free-for-all" },
-  { name: "ปิดตาชิงธง", slug: "TG5", type: "free-for-all" },
-  { name: "วิ่งผลัดกระสอบทราย", slug: "TG6", type: "free-for-all" },
-  { name: "กอล์ฟคนจน", slug: "TG7", type: "free-for-all" },
-  { name: "ชักกะเย่อ", slug: "TG8", type: "free-for-all" },
-  { name: "กินวิบาก", slug: "TG9", type: "free-for-all" },
-  { name: "วิ่ง 4x100 ผสมชาย 2 หญิง 2", slug: "TG10", type: "free-for-all" },
+  { name: "กีฬาพื้นบ้าน", slug: "TG", type: "free-for-all" }
 ];
 
 async function main() {

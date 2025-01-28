@@ -5,6 +5,7 @@ import { Clock, ChevronLeft, Save, Plus, Minus } from 'lucide-react'
 import { api } from '@/app/utils/api.util'
 import { useParams } from 'next/navigation'
 import { useAuth } from '@/app/hooks/useAuth'
+import { Loader2 } from 'lucide-react';
 
 export default function EditMatchScorePage () {
   const { isAuthenticated, isLoading } = useAuth()
@@ -19,6 +20,8 @@ export default function EditMatchScorePage () {
   }
 
   interface MatchData {
+    id: string
+    type: string
     matchName: string
     location: string
     date: string
@@ -94,8 +97,8 @@ export default function EditMatchScorePage () {
 
   if (!matchData) {
     return (
-      <div className='flex items-center justify-center min-h-screen bg-gray-50'>
-        <div className='text-gray-500'>กำลังโหลดข้อมูล...</div>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
       </div>
     )
   }
@@ -107,7 +110,7 @@ export default function EditMatchScorePage () {
         <div className='bg-white rounded-lg shadow-sm p-6 mb-6'>
           <div className='flex items-center justify-between mb-4'>
             <h1 className='text-2xl font-bold text-gray-900'>
-              {matchData.matchName}
+            {matchData.id} | {matchData.matchName} [{matchData.type.toUpperCase()}]
             </h1>
             <button
               onClick={() => setShowAuditLogs(!showAuditLogs)}
@@ -117,9 +120,9 @@ export default function EditMatchScorePage () {
               {showAuditLogs ? 'ซ่อนประวัติ' : 'แสดงประวัติ'}
             </button>
           </div>
-          <div className='flex items-center text-gray-600'>
-            <span className='mr-4'>{matchData.location}</span>
-            <span>{formatDate(matchData.date)}</span>
+          <div className='flex flex-wrap items-center text-gray-600'>
+            <span className='mr-4'>📍 {matchData.location}</span>
+            <span>🕐 {formatDate(matchData.date)}</span>
           </div>
         </div>
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
@@ -286,7 +289,7 @@ export default function EditMatchScorePage () {
         </div>
 
         <div className='flex justify-center gap-4 mt-6'>
-          <button className='flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200'>
+          <button className='flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200' onClick={() => window.location.href = `/sport/${slug}`}>
             <ChevronLeft size={20} />
             กลับ
           </button>
