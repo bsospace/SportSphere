@@ -8,7 +8,7 @@ import React, {
   useEffect
 } from 'react'
 import { api } from '../utils/api.util'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 export interface User {
   id: string
@@ -51,9 +51,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     }
   }
 
-  // Redirect if `redirect` is specified
-  const searchParams = useSearchParams()
-  const redirect = searchParams ? searchParams.get('redirect') : null
   
   // Fetch user profile
   const getProfile = async () => {
@@ -69,8 +66,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
       setUser(data)
       setIsAuthenticated(true)
-
-      router.push(redirect ? (redirect as string) : '/')
+      
     } catch (error) {
       console.error('Error fetching profile:', error)
       setUser(null)
