@@ -64,8 +64,10 @@ export default function EditMatchScorePage() {
 
   useEffect(() => {
     if (!isAuthenticated && !isLoading) {
-      window.location.href = `/auth/login?redirect=/sport/${id}`
+      window.location.href = `/auth/login?redirect=/sport/${slug}/${id}`
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated, isLoading])
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
