@@ -13,9 +13,6 @@ function Callback ({}: Props) {
 
     const accessToken = urlParams.get('accessToken')
     const refreshToken = urlParams.get('refreshToken')
-
-    console.log(accessToken)
-    console.log(refreshToken)
     
     // set access token to local storage
     if (accessToken) {
@@ -29,7 +26,6 @@ function Callback ({}: Props) {
       window.location.href = '/login'
     }
 
-    alert(accessToken)
     window.location.href = '/'
   }, [])
 
