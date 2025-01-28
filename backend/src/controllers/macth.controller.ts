@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { MatchService } from "../services/macth.service";
 import { assignRanksAndPoints, calculatePoints } from "../../utils/rank-score.util";
+import { AuditLog } from "../../utils/interface";
 
 
 interface Score {
@@ -111,6 +112,15 @@ export class MacthController {
                 return res.status(404).json({ message: "Match not found." });
             }
 
+            // Capture original scores for audit log comparison
+            const originalScores = match.participants.map((participant) => ({
+                teamId: participant.teamId,
+                teamName: participant.team ? participant.team.name : 'Unknown',
+                score: participant.score ?? 0,
+                rank: participant.rank ?? 0,
+                points: participant.points ?? 0,
+            }));
+
             // Merge the provided scores with existing participant data
             const mergedScores = match.participants.map((participant) => {
                 const updatedScore = scores.find((s) => s.teamId === participant.teamId);
@@ -134,6 +144,44 @@ export class MacthController {
                 };
             });
 
+            const user = req.user || null;
+
+            // Generate audit log with detailed score changes
+            const scoreChanges = mergedScores.map((updated) => {
+                const original = originalScores.find((o) => o.teamId === updated.teamId);
+                return {
+                    teamId: updated.teamId,
+            
+                    previous: {
+                        score: original?.score ?? 0,
+                        rank: original?.rank ?? 0,
+                        points: original?.points ?? 0,
+                        teamName: original?.teamName ?? 'Unknown',
+                    },
+                    updated: {
+                        score: updated.score ?? 0,
+                        rank: updated.rank ?? 0,
+                        points: updated.points ?? 0,
+                        teamName: original?.teamName ?? 'Unknown',
+                    },
+                };
+            });
+
+            const auditLog: AuditLog = {
+                timestamp: new Date().toISOString(),
+                action: "update",
+                service: "match",
+                email: user?.email,
+                userId: user?.id,
+                ipAddress: req.ip,
+                userAgent: req.get("User-Agent"),
+                success: true,
+                metadata: {
+                    matchId: id,
+                    scoreChanges, 
+                },
+            };
+
             // Update the participants' scores, ranks, and points in the database
             const updatedParticipants = await this.matchService.updateMatchScores(
                 id,
@@ -143,6 +191,7 @@ export class MacthController {
                     points: participant.points ?? 0,
                     rank: participant.rank !== null ? participant.rank.toString() : '',
                 }))
+                , [auditLog]
             );
 
             // Refetch the match to get the updated state

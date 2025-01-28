@@ -17,6 +17,7 @@ model User {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   deletedAt   DateTime?
+  auditLogs     Json[]
 }
 
 model Team {
@@ -26,6 +27,7 @@ model Team {
   createdAt           DateTime  @default(now())
   updatedAt           DateTime  @updatedAt
   deletedAt           DateTime?
+  auditLogs     Json[]
 }
 
 model Sport {
@@ -36,6 +38,7 @@ model Sport {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   deletedAt   DateTime?
+  auditLogs     Json[]
 }
 
 model Match {
@@ -50,6 +53,7 @@ model Match {
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   deletedAt       DateTime?
+  auditLogs     Json[]
 }
 
 model MatchParticipant {
@@ -63,4 +67,5 @@ model MatchParticipant {
   score       Int?       @default(0)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+  auditLogs     Json[]
 }

@@ -1,43 +1,40 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars*/
-/* eslint-disable @typescript-eslint/no-empty-object-type*/
-"use client";
-import { useEffect } from 'react';
+'use client'
 
-type Props = {}
+import { useAuth } from '@/app/hooks/useAuth'
+import { useEffect } from 'react'
 
-function Callback ({}: Props) {
+const Callback = () => {
+  const { setIsLoading, setIsAuthenticated} =
+    useAuth()
+
   useEffect(() => {
-    // get access token and refresh token from url query parameters
+    // Get tokens from query parameters
     const urlParams = new URLSearchParams(window.location.search)
-
     const accessToken = urlParams.get('accessToken')
     const refreshToken = urlParams.get('refreshToken')
 
-    console.log(accessToken)
-    console.log(refreshToken)
-    
-    // set access token to local storage
+    const redirectParam = localStorage.getItem('redirect') || null
+
+    // Save tokens to localStorage
     if (accessToken) {
       localStorage.setItem('accessToken', accessToken)
+      setIsLoading(false)
+      setIsAuthenticated(true)
     }
     if (refreshToken) {
       localStorage.setItem('refreshToken', refreshToken)
+      setIsLoading(false)
+      setIsAuthenticated(true)
     }
 
-    if(!accessToken || !refreshToken){
-      window.location.href = '/login'
+    if (redirectParam) {
+      window.location.href = redirectParam
     }
-
-    alert(accessToken)
-    window.location.href = '/'
+    alert(redirectParam)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return (
-    <div>
-      <p>Loading...</p>
-    </div>
-  )
+  return <p>Processing login...</p>
 }
 
 export default Callback

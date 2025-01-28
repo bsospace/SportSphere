@@ -1,113 +1,110 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars*/
-"use client";
+'use client'
 
 import React, {
-    createContext,
-    useContext,
-    useState,
-    ReactNode,
-    useEffect
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect
 } from 'react'
 import { api } from '../utils/api.util'
+import { useRouter } from 'next/navigation'
 
 export interface User {
-    id: string
-    username: string
-    first_name: string
-    last_name: string
-    email: string
-    avatar: string
-    roles: string[]
-    premissions: string[]
+  id: string
+  username: string
+  email: string
+  avatar: string
+  roles: string[]
+  premissions: string[]
 }
 
 interface AuthContextProps {
-    user: User | null
-    isAuthenticated: boolean
-    isLoading: boolean
-    accessToken: string | null
-    refreshToken: string | null
-    logout: () => Promise<void>
-    getProfile: () => Promise<void>
+  user: User | null
+  isAuthenticated: boolean
+  isLoading: boolean,
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+  logout: () => Promise<void>
+  getProfile: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined)
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
-    children
+  children
 }) => {
-    const [user, setUser] = useState<User | null>(null)
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
-    const [accessToken, setAccessToken] = useState<string | null>(null)
-    const [refreshToken, setRefreshToken] = useState<string | null>(null)
+  const router = useRouter()
+  const [user, setUser] = useState<User | null>(null)
+  const [isAuthenticated, setIsAuthenticated] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
 
-    const logout = async () => {
-        setIsLoading(true)
-        try {
-            localStorage.clear()
-            window.location.reload()
-        } finally {
-            setIsLoading(false)
-        }
+  // Logout function
+  const logout = async () => {
+    setIsLoading(true)
+    try {
+      localStorage.removeItem('accessToken') // Clear token
+      localStorage.removeItem('refreshToken')
+      setUser(null) // Clear user state
+      setIsAuthenticated(false)
+      router.push('/auth/login') // Redirect to login
+    } finally {
+      setIsLoading(false)
     }
+  }
 
-    const getProfile = async () => {
-        setIsLoading(true)
-        try {
-            const response = await api.get('/api/v1/auth/me')
-            const data = response.data as User
-            setUser({
-                id: data.id,
-                username: data.username,
-                first_name: data.first_name,
-                last_name: data.last_name,
-                email: data.email,
-                avatar: '',
-                roles: data.roles,
-                premissions: data.premissions
-            })
-            console.log(response)
-            setIsAuthenticated(true)
-        } finally {
-            setIsLoading(false)
-        }
+  
+  // Fetch user profile
+  const getProfile = async () => {
+    setIsLoading(true)
+    try {
+      const token = localStorage.getItem('accessToken')
+      if (!token) throw new Error('No token found')
+
+      const response = await api.get('/api/v1/auth/me', {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      const data = response.data as User
+
+      setUser(data)
+      setIsAuthenticated(true)
+
+    } catch (error) {
+      console.error('Error fetching profile:', error)
+      setUser(null)
+      setIsAuthenticated(false)
+    } finally {
+      setIsLoading(false)
     }
+  }
 
-    useEffect(() => {
-        getProfile()
-    }, [])  // เรียก getProfile ทุกครั้งที่ isAuthenticated หรือ user เปลี่ยนแปลง
+  // Auto-fetch profile on mount
+  useEffect(() => {
+    getProfile();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-    const hasRole = (role: string) => {
-        return user?.roles.includes(role) ?? false
-    }
-
-    const hasPermission = (permission: string) => {
-        return user?.premissions.includes(permission) ?? false
-    }
-
-    return (
-        <AuthContext.Provider
-            value={{
-                user,
-                isAuthenticated,
-                isLoading,
-                accessToken,
-                refreshToken,
-                logout,
-                getProfile,
-            }}
-        >
-            {children}
-        </AuthContext.Provider>
-    )
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated,
+        isLoading,
+        setIsLoading,
+        setIsAuthenticated,
+        logout,
+        getProfile
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  )
 }
 
 export const useAuth = () => {
-    const context = useContext(AuthContext)
-    if (!context) {
-        throw new Error('useAuth must be used within an AuthProvider')
-    }
-    return context
+  const context = useContext(AuthContext)
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider')
+  }
+  return context
 }
