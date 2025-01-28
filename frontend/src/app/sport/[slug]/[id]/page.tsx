@@ -155,60 +155,61 @@ export default function EditMatchScorePage() {
           <div className='bg-white rounded-lg shadow-sm p-6'>
             <h2 className='text-lg font-semibold mb-4'>แก้ไขคะแนน</h2>
             <div className='flex flex-wrap gap-4'>
-                {matchData.participants.map(participant => (
-                  <div
-                    key={participant.team.id}
-                    className={`mb-6 p-4 ${showAuditLogs ? 'w-full' : 'max-w-[350px]'} bg-gray-50 rounded-lg`}
-                  >
-                    <h3 className='font-medium text-gray-900 mb-3'>
-                      {participant.team.name}
-                    </h3>
-                    <div className='space-y-4'>
-                      <div>
-                        <label className='block text-sm text-gray-600 mb-1'>
-                          คะแนน
-                        </label>
-                        <div className='flex items-center gap-2'>
-                          <button
-                            onClick={() =>
-                              handleScoreChange(
-                                participant.team.id,
-                                (teamScores[participant.team.id] || 0) - 1
-                              )
-                            }
-                            className='p-2 rounded bg-gray-100 hover:bg-gray-200 text-gray-600'
-                          >
-                            <Minus size={16} />
-                          </button>
-                          <input
-                            type='number'
-                            value={teamScores[participant.team.id] || 0}
-                            onChange={e =>
-                              handleScoreChange(
-                                participant.team.id,
-                                parseInt(e.target.value)
-                              )
-                            }
-                            className='flex-1 p-2 border rounded text-center'
-                            min='0'
-                          />
-                          <button
-                            onClick={() =>
-                              handleScoreChange(
-                                participant.team.id,
-                                (teamScores[participant.team.id] || 0) + 1
-                              )
-                            }
-                            className='p-2 rounded bg-gray-100 hover:bg-gray-200 text-gray-600'
-                          >
-                            <Plus size={16} />
-                          </button>
-                        </div>
+              {matchData.participants.map(participant => (
+                <div
+                  key={participant.team.id}
+                  className={`mb-6 p-4 ${showAuditLogs ? 'w-full' : 'max-w-[350px]'} bg-gray-50 rounded-lg`}
+                >
+                  <h3 className='font-medium text-gray-900 mb-3'>
+                    {participant.team.name}
+                  </h3>
+                  <div className='space-y-4'>
+                    <div>
+                      <label className='block text-sm text-gray-600 mb-1'>
+                        คะแนน
+                      </label>
+                      <div className='flex items-center gap-2'>
+                        <button
+                          onClick={() =>
+                            handleScoreChange(
+                              participant.team.id,
+                              (teamScores[participant.team.id] || 0) - 1
+                            )
+                          }
+                          className='p-2 rounded bg-gray-100 hover:bg-gray-200 text-gray-600'
+                        >
+                          <Minus size={16} />
+                        </button>
+                        <input
+                          type='number'
+                          value={teamScores[participant.team.id] || 0}
+                          onChange={e =>
+                            handleScoreChange(
+                              participant.team.id,
+                              parseInt(e.target.value)
+                            )
+                          }
+                          className='flex-1 p-2 border rounded text-center'
+                          min='0'
+                        />
+                        <button
+                          onClick={() =>
+                            handleScoreChange(
+                              participant.team.id,
+                              (teamScores[participant.team.id] || 0) + 1
+                            )
+                          }
+                          className='p-2 rounded bg-gray-100 hover:bg-gray-200 text-gray-600'
+                        >
+                          <Plus size={16} />
+                        </button>
                       </div>
-                      <div>
-                        <label className='block text-sm text-gray-600 mb-1'>
-                          ผลการแข่งขัน
-                        </label>
+                    </div>
+                    <div>
+                      <label className='block text-sm text-gray-600 mb-1'>
+                        ผลการแข่งขัน
+                      </label>
+                      {matchData.participants.length == 2 ?
                         <select
                           value={teamRanks[participant.team.id] || 0}
                           onChange={e =>
@@ -224,10 +225,18 @@ export default function EditMatchScorePage() {
                           <option value={2}>แพ้</option>
                           <option value={3}>เสมอ</option>
                         </select>
-                      </div>
+                        :
+                        <select value={teamRanks[participant.team.id] || 0} onChange={e => handleRankChange(participant.team.id, parseInt(e.target.value))} className='w-full p-2 border rounded'>
+                          <option value={""}>--</option>
+                          {matchData.participants.map((participant, index) => (
+                            <option value={5 - index}>{index + 1}</option>
+                          ))}
+                        </select>
+                      }
                     </div>
                   </div>
-                ))}
+                </div>
+              ))}
             </div>
           </div>
 
