@@ -5,6 +5,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "../utils/api.util";
+import { useAuth } from "../hooks/useAuth";
 
 // กำหนดประเภทของข้อมูล sports
 interface Sport {
@@ -16,6 +17,7 @@ interface Sport {
 export default function Sport() {
   const router = useRouter();
   const [sports, setSports] = useState<Sport[]>([]); // กำหนดประเภทเป็น Sport[]
+  const { isAuthenticated, isLoading } = useAuth();
 
   useEffect(() => {
     const fetchSports = async () => {
@@ -34,6 +36,12 @@ export default function Sport() {
   const handleRedirect = (slug: string, id: string) => {
     router.push(`/sport/${slug}`);
   };
+  useEffect(() => {
+    if (!isAuthenticated && !isLoading) {
+      window.location.href = `/auth/login?redirect=/sport`
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
 
   return (
     <div className="flex items-center justify-center bg-gray-100">
