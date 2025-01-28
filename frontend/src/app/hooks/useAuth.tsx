@@ -59,7 +59,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     setIsLoading(true)
     try {
       const token = localStorage.getItem('accessToken')
-      if (!token) throw new Error('No token found')
+
+      if(!token){
+        setIsAuthenticated(false)
+        setIsLoading(false)
+        return;
+      }
 
       const response = await api.get('/api/v1/auth/me', {
         headers: { Authorization: `Bearer ${token}` }
