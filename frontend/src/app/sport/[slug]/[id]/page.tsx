@@ -5,6 +5,7 @@ import { Clock, ChevronLeft, Save, Plus, Minus } from 'lucide-react'
 import { api } from '@/app/utils/api.util'
 import { useParams } from 'next/navigation'
 import { useAuth } from '@/app/hooks/useAuth'
+import { showCustomToast } from '@/components/CustomToast'
 
 export default function EditMatchScorePage() {
   const { isAuthenticated, isLoading } = useAuth()
@@ -67,7 +68,7 @@ export default function EditMatchScorePage() {
       window.location.href = `/auth/login?redirect=/sport/${slug}/${id}`
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [isAuthenticated, isLoading])
 
   const handleScoreChange = (teamId: string, value: number) => {
     setTeamScores(prev => ({
@@ -114,6 +115,8 @@ export default function EditMatchScorePage() {
     try {
       const response = await api.put(`api/v1/match/${id}/edit`, formatData);
       console.log("Data saved successfully:", response.data);
+      fetchMatchData();
+      showCustomToast('success','บันทึกข้อมูลสำเร็จ');
     } catch (error) {
       console.error("Error saving match data:", error);
     }
