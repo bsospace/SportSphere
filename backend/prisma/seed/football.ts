@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const matches = [
-    { id: "FB1", date: "2025-02-01", sportSlug: "FB", homeTeam: "สีแดง หงส์เพลิง", awayTeam: "สีเหลือง กิเลนทองคำ", time: "14:00-14:50", machName: "เอราวัณ กับ กิเลนทองคำ", location: 'สนามเชาวน์ มณีวงษ์' },
+    { id: "FB1", date: "2025-02-01", sportSlug: "FB", homeTeam: "สีแดง หงส์เพลิง", awayTeam: "สีเหลือง กิเลนทองคำ", time: "14:00-14:50", machName: "หงส์เพลิง กับ กิเลนทองคำ", location: 'สนามเชาวน์ มณีวงษ์' },
     { id: "FB2", date: "2025-02-01", sportSlug: "FB", homeTeam: "สีเขียว นาคา", awayTeam: "สีชมพู เอราวัณ", time: "15:00-15:50", machName: "นาคา กับ เอราวัณ", location: 'สนามเชาวน์ มณีวงษ์' },
     { id: "FB3", date: "2025-02-01", sportSlug: "FB", homeTeam: "สีน้ำเงิน สุบรรณนที", awayTeam: "สีแดง หงส์เพลิง", time: "16:00-16:50", machName: "สุบรรณนที กับ หงส์เพลิง", location: 'สนามเชาวน์ มณีวงษ์' },
     { id: "FB4", date: "2025-02-01", sportSlug: "FB", homeTeam: "สีเหลือง กิเลนทองคำ", awayTeam: "สีชมพู เอราวัณ", time: "17:00-17:50", machName: "กิเลนทองคำ กับ เอราวัณ", location: 'สนามเชาวน์ มณีวงษ์' },
