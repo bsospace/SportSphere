@@ -6,7 +6,7 @@ import { api } from '@/app/utils/api.util'
 import { useParams } from 'next/navigation'
 import { useAuth } from '@/app/hooks/useAuth'
 
-export default function EditMatchScorePage () {
+export default function EditMatchScorePage() {
   const { isAuthenticated, isLoading } = useAuth()
   interface Participant {
     team: {
@@ -19,6 +19,7 @@ export default function EditMatchScorePage () {
   }
 
   interface MatchData {
+    id: string
     matchName: string
     location: string
     date: string
@@ -67,6 +68,8 @@ export default function EditMatchScorePage () {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, isLoading])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleScoreChange = (teamId: string, value: number) => {
     setTeamScores(prev => ({
@@ -91,6 +94,33 @@ export default function EditMatchScorePage () {
       minute: '2-digit'
     })
   }
+
+  const saveData = async () => {
+    if (!matchData || !matchData.participants || matchData.participants.length < 2) {
+      console.error("Invalid match data");
+      return;
+    }
+
+    const formatData = {
+      id: matchData.id,
+      scores: matchData.participants.map((participant) => {
+        const teamId = participant.team.id.toString();
+        return {
+          teamId,
+          score: teamScores[teamId] || 0,
+          rank: teamRanks[teamId] || 0,
+        };
+      }),
+    };
+
+    try {
+      const response = await api.put(`api/v1/match/${id}/edit`, formatData);
+      console.log("Data saved successfully:", response.data);
+    } catch (error) {
+      console.error("Error saving match data:", error);
+    }
+  };
+
 
   if (!matchData) {
     return (
@@ -122,82 +152,85 @@ export default function EditMatchScorePage () {
             <span>{formatDate(matchData.date)}</span>
           </div>
         </div>
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+        <div className={`grid grid-cols-1 ${showAuditLogs ? 'lg:grid-cols-2' : ''} gap-6`}>
           {/* Score Editor */}
           <div className='bg-white rounded-lg shadow-sm p-6'>
             <h2 className='text-lg font-semibold mb-4'>แก้ไขคะแนน</h2>
-            {matchData.participants.map(participant => (
-              <div
-                key={participant.team.id}
-                className='mb-6 p-4 bg-gray-50 rounded-lg'
-              >
-                <h3 className='font-medium text-gray-900 mb-3'>
-                  {participant.team.name}
-                </h3>
-                <div className='space-y-4'>
-                  <div>
-                    <label className='block text-sm text-gray-600 mb-1'>
-                      คะแนน
-                    </label>
-                    <div className='flex items-center gap-2'>
-                      <button
-                        onClick={() =>
-                          handleScoreChange(
-                            participant.team.id,
-                            (teamScores[participant.team.id] || 0) - 1
-                          )
-                        }
-                        className='p-2 rounded bg-gray-100 hover:bg-gray-200 text-gray-600'
-                      >
-                        <Minus size={16} />
-                      </button>
-                      <input
-                        type='number'
-                        value={teamScores[participant.team.id] || 0}
-                        onChange={e =>
-                          handleScoreChange(
-                            participant.team.id,
-                            parseInt(e.target.value)
-                          )
-                        }
-                        className='flex-1 p-2 border rounded text-center'
-                        min='0'
-                      />
-                      <button
-                        onClick={() =>
-                          handleScoreChange(
-                            participant.team.id,
-                            (teamScores[participant.team.id] || 0) + 1
-                          )
-                        }
-                        className='p-2 rounded bg-gray-100 hover:bg-gray-200 text-gray-600'
-                      >
-                        <Plus size={16} />
-                      </button>
+            <div className='flex flex-wrap gap-4'>
+                {matchData.participants.map(participant => (
+                  <div
+                    key={participant.team.id}
+                    className={`mb-6 p-4 ${showAuditLogs ? 'w-full' : 'max-w-[350px]'} bg-gray-50 rounded-lg`}
+                  >
+                    <h3 className='font-medium text-gray-900 mb-3'>
+                      {participant.team.name}
+                    </h3>
+                    <div className='space-y-4'>
+                      <div>
+                        <label className='block text-sm text-gray-600 mb-1'>
+                          คะแนน
+                        </label>
+                        <div className='flex items-center gap-2'>
+                          <button
+                            onClick={() =>
+                              handleScoreChange(
+                                participant.team.id,
+                                (teamScores[participant.team.id] || 0) - 1
+                              )
+                            }
+                            className='p-2 rounded bg-gray-100 hover:bg-gray-200 text-gray-600'
+                          >
+                            <Minus size={16} />
+                          </button>
+                          <input
+                            type='number'
+                            value={teamScores[participant.team.id] || 0}
+                            onChange={e =>
+                              handleScoreChange(
+                                participant.team.id,
+                                parseInt(e.target.value)
+                              )
+                            }
+                            className='flex-1 p-2 border rounded text-center'
+                            min='0'
+                          />
+                          <button
+                            onClick={() =>
+                              handleScoreChange(
+                                participant.team.id,
+                                (teamScores[participant.team.id] || 0) + 1
+                              )
+                            }
+                            className='p-2 rounded bg-gray-100 hover:bg-gray-200 text-gray-600'
+                          >
+                            <Plus size={16} />
+                          </button>
+                        </div>
+                      </div>
+                      <div>
+                        <label className='block text-sm text-gray-600 mb-1'>
+                          ผลการแข่งขัน
+                        </label>
+                        <select
+                          value={teamRanks[participant.team.id] || 0}
+                          onChange={e =>
+                            handleRankChange(
+                              participant.team.id,
+                              parseInt(e.target.value)
+                            )
+                          }
+                          className='w-full p-2 border rounded'
+                        >
+                          <option value={""}>--</option>
+                          <option value={1}>ชนะ</option>
+                          <option value={2}>แพ้</option>
+                          <option value={3}>เสมอ</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
-                  <div>
-                    <label className='block text-sm text-gray-600 mb-1'>
-                      ผลการแข่งขัน
-                    </label>
-                    <select
-                      value={teamRanks[participant.team.id] || 0}
-                      onChange={e =>
-                        handleRankChange(
-                          participant.team.id,
-                          parseInt(e.target.value)
-                        )
-                      }
-                      className='w-full p-2 border rounded'
-                    >
-                      <option value={3}>ชนะ</option>
-                      <option value={0}>แพ้</option>
-                      <option value={1}>เสมอ</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            ))}
+                ))}
+            </div>
           </div>
 
           {showAuditLogs && (
@@ -242,7 +275,7 @@ export default function EditMatchScorePage () {
                   return allLogs.map((parsedLog, i) => {
                     const changes =
                       parsedLog.metadata?.scoreChanges &&
-                      Array.isArray(parsedLog.metadata.scoreChanges)
+                        Array.isArray(parsedLog.metadata.scoreChanges)
                         ? parsedLog.metadata.scoreChanges
                         : null
 
@@ -290,7 +323,7 @@ export default function EditMatchScorePage () {
             <ChevronLeft size={20} />
             กลับ
           </button>
-          <button className='flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600'>
+          <button className='flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600' onClick={saveData}>
             <Save size={20} />
             บันทึก
           </button>
