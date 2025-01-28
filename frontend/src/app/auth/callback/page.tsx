@@ -1,31 +1,40 @@
-'use client';
+'use client'
 
-import { useEffect } from 'react';
+import { useAuth } from '@/app/hooks/useAuth'
+import { useEffect } from 'react'
 
 const Callback = () => {
+  const { setIsLoading, setIsAuthenticated} =
+    useAuth()
+
   useEffect(() => {
     // Get tokens from query parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    const accessToken = urlParams.get('accessToken');
-    const refreshToken = urlParams.get('refreshToken');
+    const urlParams = new URLSearchParams(window.location.search)
+    const accessToken = urlParams.get('accessToken')
+    const refreshToken = urlParams.get('refreshToken')
+
+    const redirectParam = localStorage.getItem('redirect') || null
 
     // Save tokens to localStorage
     if (accessToken) {
-      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('accessToken', accessToken)
+      setIsLoading(false)
+      setIsAuthenticated(true)
     }
     if (refreshToken) {
-      localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('refreshToken', refreshToken)
+      setIsLoading(false)
+      setIsAuthenticated(true)
     }
 
-    // Redirect based on token presence
-    if (!accessToken || !refreshToken) {
-      window.location.href = '/auth/login'; // Redirect to login if tokens are missing
-    } else {
-      window.location.href = '/'; // Redirect to home on success
+    if (redirectParam) {
+      window.location.href = redirectParam
     }
-  }, []);
+    alert(redirectParam)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-  return <p>Processing login...</p>;
-};
+  return <p>Processing login...</p>
+}
 
-export default Callback;
+export default Callback
