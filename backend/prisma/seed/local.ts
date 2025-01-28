@@ -19,6 +19,7 @@ const teamGamesMatches = [
 async function seedTeamGamesMatches() {
     console.log("Seeding volleyball matches...");
 
+
     for (const match of teamGamesMatches) {
         try {
             // Resolve the sport ID
@@ -35,19 +36,23 @@ async function seedTeamGamesMatches() {
                 "สีน้ำเงิน สุบรรณนที",
                 "สีชมพู เอราวัณ",
                 "สีเหลือง กิเลนทองคำ",
-            ]
+            ];
 
-            let teamIds: any[] = [];
+            // Use Promise.all to resolve all team IDs
+            const teamIds = await Promise.all(
+                teams.map(async (team) => {
+                    const teamId = await prisma.team.findUnique({
+                        where: { name: team },
+                    });
+                    if (!teamId) {
+                        throw new Error(`Team ${team} not found.`);
+                    }
+                    console.log('found team', teamId);
+                    return teamId.id; // Ensure you only push the `id`
+                })
+            );
 
-            teams.forEach(async (team) => {
-                const teamId = await prisma.team.findUnique({
-                    where: { name: team },
-                });
-                if (!teamId) {
-                    throw new Error(`Team ${team} not found.`);
-                }
-                teamIds.push(teamId)
-            })
+            console.log("teamIds", teamIds);
 
             // Create the match
             const createdMatch = await prisma.match.create({
@@ -56,13 +61,12 @@ async function seedTeamGamesMatches() {
                     type: "free-for-all",
                     sportId: sport.id,
                     participants: {
-                        create: [
-                            { teamId: teamIds[0], rank: null, points: 0, score: 0 },
-                            { teamId: teamIds[1], rank: null, points: 0, score: 0 },
-                            { teamId: teamIds[2], rank: null, points: 0, score: 0 },
-                            { teamId: teamIds[3], rank: null, points: 0, score: 0 },
-                            { teamId: teamIds[4], rank: null, points: 0, score: 0 },
-                        ],
+                        create: teamIds.map((teamId) => ({
+                            teamId,
+                            rank: null,
+                            points: 0,
+                            score: 0,
+                        })),
                     },
                     createdAt: new Date(match.date),
                     updatedAt: new Date(match.date),
@@ -72,11 +76,9 @@ async function seedTeamGamesMatches() {
                 },
             });
 
-            console.log(
-                `Created volleyball match: ${match.matchName} on ${match.date} at ${match.time}`
-            );
+            console.log("createdMatch", createdMatch);
         } catch (error) {
-            console.error(`Error seeding volleyball match: ${error}`);
+            console.error("Error creating match:", error);
         }
     }
 
