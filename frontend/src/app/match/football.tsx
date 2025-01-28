@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars*/
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable-next-line react-hooks/exhaustive-deps */
 "use client";
 
 import React, { useEffect, useState } from 'react';
@@ -104,7 +105,6 @@ export default function FootballContent() {
     
         setPodiumData(sortedTeams);
     }, [podiumData]);
-    
 
     const sortedTeams = [4, 2, 1, 3, 5]
     .map((rank) => podiumData.find((team) => team.rank === rank))
