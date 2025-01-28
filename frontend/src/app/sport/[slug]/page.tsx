@@ -36,7 +36,7 @@ export default function SportDetail () {
         window.location.href = `/auth/login?redirect=/sport/${slug}`
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[isAuthenticated,isLoading])
+    },[])
 
   if (loading) return <p className='text-center text-lg'>Loading...</p>
   if (error) return <p className='text-center text-red-500'>{error}</p>

@@ -9,7 +9,6 @@ import React, {
 } from 'react'
 import { api } from '../utils/api.util'
 import { useRouter } from 'next/navigation'
-import { showCustomToast } from '@/components/CustomToast'
 
 export interface User {
   id: string
@@ -23,7 +22,7 @@ export interface User {
 interface AuthContextProps {
   user: User | null
   isAuthenticated: boolean
-  isLoading: boolean
+  isLoading: boolean,
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
   logout: () => Promise<void>
@@ -54,17 +53,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     }
   }
 
+  
   // Fetch user profile
   const getProfile = async () => {
     setIsLoading(true)
     try {
       const token = localStorage.getItem('accessToken')
-
-      if(!token){
-        setIsAuthenticated(false)
-        setIsLoading(false)
-        return;
-      }
+      if (!token) throw new Error('No token found')
 
       const response = await api.get('/api/v1/auth/me', {
         headers: { Authorization: `Bearer ${token}` }
@@ -72,13 +67,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       const data = response.data as User
 
       setUser(data)
-      setIsAuthenticated(true);
+      setIsAuthenticated(true)
+
     } catch (error) {
-      console.error('Error downloading file:', error)
-      if (error.response.status === 403) {
-        showCustomToast('danger', 'กรุณาเข้าสู่ระบบอีกครั้งด้วย email @go.buu.ac.th เท่านั้น')
-        router.push('/auth/login')
-      }
+      console.error('Error fetching profile:', error)
       setUser(null)
       setIsAuthenticated(false)
     } finally {
@@ -88,8 +80,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   // Auto-fetch profile on mount
   useEffect(() => {
-    getProfile()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getProfile();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
