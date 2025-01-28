@@ -3,16 +3,16 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const matches = [
-    { date: "2025-02-01", sportSlug: "FB", homeTeam: "สีแดง หงส์เพลิง", awayTeam: "สีเหลือง กิเลนทองคำ", time: "14:00", machName: "เอราวัณ กับ กิเลนทองคำ", location: 'สนามเชาวน์มณีวงษ์' },
-    { date: "2025-02-01", sportSlug: "FB", homeTeam: "สีเขียว นาคา", awayTeam: "สีชมพู เอราวัณ", time: "15:00", machName: "นาคา กับ เอราวัณ", location: 'สนามเชาวน์มณีวงษ์' },
-    { date: "2025-02-01", sportSlug: "FB", homeTeam: "สีน้ำเงิน สุบรรณนที", awayTeam: "สีแดง หงส์เพลิง", time: "16:00", machName: "สุบรรณนที กับ หงส์เพลิง", location: 'สนามเชาวน์มณีวงษ์' },
-    { date: "2025-02-01", sportSlug: "FB", homeTeam: "สีเหลือง กิเลนทองคำ", awayTeam: "สีชมพู เอราวัณ", time: "17:00", machName: "กิเลนทองคำ กับ เอราวัณ", location: 'สนามเชาวน์มณีวงษ์' },
-    { date: "2025-02-01", sportSlug: "FB", homeTeam: "สีชมพู เอราวัณ", awayTeam: "สีน้ำเงิน สุบรรณนที", time: "18:00", machName: "เอราวัณ กับ สุบรรณนที", location: 'สนามเชาวน์มณีวงษ์' },
-    { date: "2025-02-01", sportSlug: "FB", homeTeam: "สีเหลือง กิเลนทองคำ", awayTeam: "สีเขียว นาคา", time: "19:00", machName: "กิเลนทองคำ กับ นาคา" },
-    { date: "2025-02-02", sportSlug: "FB", homeTeam: "สีน้ำเงิน สุบรรณนที", awayTeam: "สีเหลือง กิเลนทองคำ", time: "10:00", machName: "สุบรรณนที กับ กิเลนทองคำ", location: 'สนามเชาวน์มณีวงษ์' },
-    { date: "2025-02-02", sportSlug: "FB", homeTeam: "สีแดง หงส์เพลิง", awayTeam: "สีเขียว นาคา", time: "11:00", machName: "หงส์เพลิง กับ นาคา", location: 'สนามเชาวน์มณีวงษ์' },
-    { date: "2025-02-02", sportSlug: "FB", homeTeam: "สีชมพู เอราวัณ", awayTeam: "สีแดง หงส์เพลิง", time: "13:00", machName: "เอราวัณ กับ หงส์เพลิง", location: 'สนามเชาวน์มณีวงษ์' },
-    { date: "2025-02-02", sportSlug: "FB", homeTeam: "สีเขียว นาคา", awayTeam: "สีน้ำเงิน สุบรรณนที", time: "14:00", machName: "นาคา กับ สุบรรณนที", location: 'สนามเชาวน์มณีวงษ์' },
+    { id: "FB1", date: "2025-02-01", sportSlug: "FB", homeTeam: "สีแดง หงส์เพลิง", awayTeam: "สีเหลือง กิเลนทองคำ", time: "14:00-14:50", machName: "เอราวัณ กับ กิเลนทองคำ", location: 'สนามเชาวน์ มณีวงษ์' },
+    { id: "FB2", date: "2025-02-01", sportSlug: "FB", homeTeam: "สีเขียว นาคา", awayTeam: "สีชมพู เอราวัณ", time: "15:00-15:50", machName: "นาคา กับ เอราวัณ", location: 'สนามเชาวน์ มณีวงษ์' },
+    { id: "FB3", date: "2025-02-01", sportSlug: "FB", homeTeam: "สีน้ำเงิน สุบรรณนที", awayTeam: "สีแดง หงส์เพลิง", time: "16:00-16:50", machName: "สุบรรณนที กับ หงส์เพลิง", location: 'สนามเชาวน์ มณีวงษ์' },
+    { id: "FB4", date: "2025-02-01", sportSlug: "FB", homeTeam: "สีเหลือง กิเลนทองคำ", awayTeam: "สีชมพู เอราวัณ", time: "17:00-17:50", machName: "กิเลนทองคำ กับ เอราวัณ", location: 'สนามเชาวน์ มณีวงษ์' },
+    { id: "FB5", date: "2025-02-01", sportSlug: "FB", homeTeam: "สีชมพู เอราวัณ", awayTeam: "สีน้ำเงิน สุบรรณนที", time: "18:00-18:50", machName: "เอราวัณ กับ สุบรรณนที", location: 'สนามเชาวน์ มณีวงษ์' },
+    { id: "FB6", date: "2025-02-01", sportSlug: "FB", homeTeam: "สีเหลือง กิเลนทองคำ", awayTeam: "สีเขียว นาคา", time: "19:00-19:50", machName: "กิเลนทองคำ กับ นาคา", location: 'สนามเชาวน์ มณีวงษ์' },
+    { id: "FB7", date: "2025-02-02", sportSlug: "FB", homeTeam: "สีน้ำเงิน สุบรรณนที", awayTeam: "สีเหลือง กิเลนทองคำ", time: "10:00-10:50", machName: "สุบรรณนที กับ กิเลนทองคำ", location: 'สนามเชาวน์ มณีวงษ์' },
+    { id: "FB8", date: "2025-02-02", sportSlug: "FB", homeTeam: "สีแดง หงส์เพลิง", awayTeam: "สีเขียว นาคา", time: "11:00-11:50", machName: "หงส์เพลิง กับ นาคา", location: 'สนามเชาวน์ มณีวงษ์' },
+    { id: "FB9", date: "2025-02-02", sportSlug: "FB", homeTeam: "สีชมพู เอราวัณ", awayTeam: "สีแดง หงส์เพลิง", time: "13:00:13:50", machName: "เอราวัณ กับ หงส์เพลิง", location: 'สนามเชาวน์ มณีวงษ์' },
+    { id: "FB10", date: "2025-02-02", sportSlug: "FB", homeTeam: "สีเขียว นาคา", awayTeam: "สีน้ำเงิน สุบรรณนที", time: "14:00-14:50", machName: "นาคา กับ สุบรรณนที", location: 'สนามเชาวน์ มณีวงษ์' }
 ];
 
 async function main() {
@@ -47,6 +47,7 @@ async function main() {
             // Create the match
             const createdMatch = await prisma.match.create({
                 data: {
+                    id: match.id,
                     type: "duel",
                     sportId: sport.id,
                     participants: {

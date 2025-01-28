@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "../utils/api.util";
 import { useAuth } from "../hooks/useAuth";
-import { Trophy, Loader2 } from "lucide-react";
+import { Trophy, Loader2, Home } from "lucide-react";
 
 interface Sport {
   id: string;
@@ -56,6 +56,12 @@ export default function Sport() {
       <div className="max-w-4xl mx-auto text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-800 mb-4">Select Your Sport</h1>
         <p className="text-gray-600">Choose a sport to explore events and competitions</p>
+        <div className="flex flex-wrap justify-center gap-4 mt-4">
+        <button className='flex items-center gap-2 px-4 py-2 bg-white text-black rounded-full hover:bg-gray-200' onClick={() => window.location.href = `/`}>
+          <Home size={20} />
+          Home
+        </button>
+        </div>
       </div>
 
       {/* Sports Grid */}
