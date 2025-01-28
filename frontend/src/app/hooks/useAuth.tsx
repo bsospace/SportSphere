@@ -22,7 +22,9 @@ export interface User {
 interface AuthContextProps {
   user: User | null
   isAuthenticated: boolean
-  isLoading: boolean
+  isLoading: boolean,
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
   logout: () => Promise<void>
   getProfile: () => Promise<void>
 }
@@ -34,7 +36,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const router = useRouter()
   const [user, setUser] = useState<User | null>(null)
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
 
   // Logout function
@@ -66,7 +68,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
       setUser(data)
       setIsAuthenticated(true)
-      
+
     } catch (error) {
       console.error('Error fetching profile:', error)
       setUser(null)
@@ -91,6 +93,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         user,
         isAuthenticated,
         isLoading,
+        setIsLoading,
+        setIsAuthenticated,
         logout,
         getProfile
       }}
