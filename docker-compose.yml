@@ -8,9 +8,6 @@ services:
       - "5056:3000"
     environment:
       - NODE_ENV=production
-    volumes:
-      - ./frontend/public:/app/public
-      - ./frontend/pages:/app/pages
     restart: unless-stopped
     networks:
       - sportnetwork
@@ -58,11 +55,14 @@ services:
       - "${PGADMIN_PORT}:80"
     depends_on:
       - db
+    volumes:
+      - sport_pgadmin_data:/var/lib/pgadmin
     networks:
       - sportnetwork
 
 volumes:
   sport_postgres_data:
+  sport_pgadmin_data:
 
 networks:
   sportnetwork:

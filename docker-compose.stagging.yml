@@ -1,0 +1,72 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.stagging
+    container_name: stag-sport-frontend
+    ports:
+      - "3002:3000"
+    environment:
+      - NODE_ENV=staging
+    volumes:
+      - ./frontend/public:/app/public
+      - ./frontend/pages:/app/pages
+    restart: unless-stopped
+    networks:
+      - sportnetwork_stagging
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.stagging
+      target: production
+    container_name: stag-sport-backend
+    ports:
+      - "${APP_PORT:-4000}:${APP_PORT:-4000}"
+    env_file:
+      - .env
+    volumes:
+      - ./backend/keys:/app/keys
+    depends_on:
+      - db
+    networks:
+      - sportnetwork_stagging
+
+  db:
+    image: postgres:latest
+    container_name: stag-sport-db
+    restart: always
+    environment:
+      POSTGRES_USER: ${PG_USER:-postgres}
+      POSTGRES_PASSWORD: ${PG_PASSWORD:-password}
+      POSTGRES_DB: ${PG_DATABASE:-stag_sport_db}
+    volumes:
+      - stag_sport_postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT:-5433}:5432"
+    networks:
+      - sportnetwork_stagging
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: stag-sport-pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-stag_admin@example.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-stag_password}
+    ports:
+      - "${PGADMIN_PORT:-5051}:80"
+    depends_on:
+      - db
+    volumes:
+      - stag_sport_pgadmin_data:/var/lib/pgadmin
+    networks:
+      - sportnetwork_stagging
+
+volumes:
+  stag_sport_postgres_data:
+  stag_sport_pgadmin_data:
+
+networks:
+  sportnetwork_stagging:
+    driver: bridge
