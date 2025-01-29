@@ -16,7 +16,7 @@ pipeline {
                         case ~/^release\/.*/:
                             env.ENVIRONMENT = 'staging'
                             env.ENV_FILE_CREDENTIAL = 'sport-staging-env-file'
-                            env.DOCKER_COMPOSE_FILE = 'docker-compose.staging.yml'
+                            env.DOCKER_COMPOSE_FILE = 'docker-compose.stagging.yml'
                             break
                         case 'main':
                             env.ENVIRONMENT = 'production'
