@@ -29,6 +29,9 @@ const Callback = () => {
 
     if (redirectParam) {
       window.location.href = redirectParam
+    }else {
+      localStorage.removeItem('redirect');
+      window.location.href = '/sport'
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
