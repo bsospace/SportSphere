@@ -41,6 +41,9 @@ pipeline {
                     withCredentials([file(credentialsId: env.ENV_FILE_CREDENTIAL, variable: 'SECRET_ENV_FILE')]) {
                         sh "cp $SECRET_ENV_FILE .env"
                         echo "Loaded environment file for ${env.ENVIRONMENT}."
+                        echo "Copying .env file to frontend and backend directories..."
+                        sh 'cp .env frontend/.env'
+                        sh 'cp .env backend/.env'
                     }
                 }
             }
