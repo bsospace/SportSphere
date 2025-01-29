@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: envConfig.appMode === "production"
-      ? "https://ifgames.bsospace.com"
+      ? ["https://ifgames.bsospace.com","https://stagging-ifgames.bsospace.com"]
       : "http://localhost:3000",
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
