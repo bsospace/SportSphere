@@ -51,14 +51,15 @@ pipeline {
             }
         }
 
-        stage("Pull Latest Code") {
+        stage('Checkout & Pull') {
             steps {
                 script {
-                    checkout([$class: 'GitSCM', branches: [[name: '*/${BRANCH_NAME}']], userRemoteConfigs: scm.userRemoteConfigs])
+                    checkout scm
+                    env.LAST_COMMIT_AUTHOR = sh(script: "git log -1 --pretty=format:'%an'", returnStdout: true).trim()
+                    env.LAST_COMMIT_MESSAGE = sh(script: "git log -1 --pretty=format:'%s'", returnStdout: true).trim()
 
-                    // Extract latest commit details
-                    env.LAST_COMMIT_AUTHOR = sh(script: "git log -1 --pretty=format:%an || echo 'unknown'", returnStdout: true).trim()
-                    env.LAST_COMMIT_MESSAGE = sh(script: "git log -1 --pretty=format:%s || echo 'unknown'", returnStdout: true).trim()
+                    echo "Last Commit Author: ${env.LAST_COMMIT_AUTHOR}"
+                    echo "Last Commit Message: ${env.LAST_COMMIT_MESSAGE}"
                 }
             }
         }
