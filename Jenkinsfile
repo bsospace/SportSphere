@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        DISCORD_WEBHOOK = credentials('discord-webhook')
+        DISCORD_WEBHOOK = credentials('discord-webhook');
+        ACCESS_PUBLIC_KEY = credentials('sports-access-public-key');
     }
 
     stages {
@@ -25,8 +26,8 @@ pipeline {
                             break
                         default:
                             env.ENVIRONMENT = 'other'
-                            env.DOCKER_COMPOSE_FILE = ''
                             env.ENV_FILE_CREDENTIAL = 'sport-staging-env-file'
+                            env.DOCKER_COMPOSE_FILE = ''
                     }
 
                     echo "Environment: ${env.ENVIRONMENT}"
@@ -39,11 +40,12 @@ pipeline {
             steps {
                 script {
                     withCredentials([file(credentialsId: env.ENV_FILE_CREDENTIAL, variable: 'SECRET_ENV_FILE')]) {
-                        sh "cp $SECRET_ENV_FILE .env"
-                        echo "Loaded environment file for ${env.ENVIRONMENT}."
-                        echo "Copying .env file to frontend and backend directories..."
-                        sh 'cp .env frontend/.env'
-                        sh 'cp .env backend/.env'
+                        sh "cp $SECRET_ENV_FILE .env || true"
+                        sh "cp .env frontend/.env || true"
+                        sh "cp .env backend/.env || true"
+                        sh "mkdir -p backend/keys"
+                        sh "echo \"$ACCESS_PUBLIC_KEY\" > backend/keys/sportspherePublicAccess.pem"
+                        echo "Environment setup completed."
                     }
                 }
             }
@@ -52,17 +54,12 @@ pipeline {
         stage("Pull Latest Code") {
             steps {
                 script {
-                    checkout scm
-                }
-                script {
+                    checkout([$class: 'GitSCM', branches: [[name: '*/${BRANCH_NAME}']], userRemoteConfigs: scm.userRemoteConfigs])
+
                     // Extract latest commit details
-                    env.LAST_COMMIT_AUTHOR = sh(script: "git log -1 --pretty=format:'%an'", returnStdout: true).trim()
-                    env.LAST_COMMIT_MESSAGE = sh(script: "git log -1 --pretty=format:'%s'", returnStdout: true).trim()
+                    env.LAST_COMMIT_AUTHOR = sh(script: "git log -1 --pretty=format:%an || echo 'unknown'", returnStdout: true).trim()
+                    env.LAST_COMMIT_MESSAGE = sh(script: "git log -1 --pretty=format:%s || echo 'unknown'", returnStdout: true).trim()
                 }
-            }
-            post {
-                success { echo "Pull completed successfully." }
-                failure { echo "Pull failed!" }
             }
         }
 
@@ -72,10 +69,6 @@ pipeline {
                     sh "cd frontend && npm install"
                     sh "cd backend && npm install"
                 }
-            }
-            post {
-                success { echo "Dependencies installed successfully." }
-                failure { echo "Dependency installation failed!" }
             }
         }
 
@@ -87,10 +80,6 @@ pipeline {
                     sh "cd backend && npm run build"
                 }
             }
-            post {
-                success { echo "Application built successfully." }
-                failure { echo "Application build failed!" }
-            }
         }
 
         stage('Build & Deploy Docker') {
@@ -100,9 +89,15 @@ pipeline {
             steps {
                 script {
                     echo "Using DOCKER_COMPOSE_FILE: ${env.DOCKER_COMPOSE_FILE}"
-                    // Build & Deploy
+
                     sh """
-                        echo "🚀 Building and starting new containers..."
+                        echo "🛑 Stopping existing containers..."
+                        docker compose -f ${env.DOCKER_COMPOSE_FILE} down --remove-orphans
+
+                        echo "🧹 Removing unused images..."
+                        docker image prune -f
+
+                        echo "🚀 Building and deploying new containers..."
                         docker compose -f ${env.DOCKER_COMPOSE_FILE} up --build -d
                     """
                 }
@@ -113,8 +108,29 @@ pipeline {
     post {
         always {
             script {
-                def color = (currentBuild.result == 'SUCCESS') ? 3066993 : 15158332
-                def status = (currentBuild.result == 'SUCCESS') ? '✅ Success' : '❌ Failure'
+                def status, color
+                switch (currentBuild.result ?: 'SUCCESS') {
+                    case 'SUCCESS':
+                        status = '✅ Success'
+                        color = 3066993
+                        break
+                    case 'FAILURE':
+                        status = '❌ Failure'
+                        color = 15158332
+                        break
+                    case 'ABORTED':
+                        status = '⚠️ Aborted'
+                        color = 15844367
+                        break
+                    case 'UNSTABLE':
+                        status = '🟡 Unstable'
+                        color = 16776960
+                        break
+                    default:
+                        status = '🔘 Unknown'
+                        color = 8421504
+                }
+
                 def timestamp = new Date().format("yyyy-MM-dd'T'HH:mm:ss'Z'", TimeZone.getTimeZone('UTC'))
 
                 def payload = [
@@ -161,7 +177,6 @@ pipeline {
                     ]]
                 ]
 
-                // Send notification only if DISCORD_WEBHOOK exists
                 if (env.DISCORD_WEBHOOK?.trim()) {
                     httpRequest(
                         url: env.DISCORD_WEBHOOK,
