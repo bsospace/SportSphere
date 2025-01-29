@@ -7,10 +7,7 @@ services:
     ports:
       - "3002:3000"
     environment:
-      - NODE_ENV=staging
-    volumes:
-      - ./frontend/public:/app/public
-      - ./frontend/pages:/app/pages
+      - NODE_ENV=production
     restart: unless-stopped
     networks:
       - sportnetwork_stagging
