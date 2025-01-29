@@ -98,19 +98,9 @@ export default function HomePage() {
     >
       {/* Header Section */}
       <div className="min-h-screen justify-center items-center flex flex-col px-4 text-center bg-white w-full bg-opacity-90">
-        <p className="text-3xl text-black mt-8 md:mt-0">Welcome to</p>
-        <div
-          className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-cover bg-center mb-6 flex flex-wrap justify-center items-center text-black"
-          style={{
-            backgroundImage: `url("/images/banner.svg"), linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.9))`,
-            textShadow: "2px 4px 6px rgba(0, 0, 0, 0.6)",
-            WebkitTextStroke: "2px white",
-          }}
-        >
-          <p className="text-blue-700 mx-2">Informatics</p> 
-          Games 2024 
-          <p className="text-white">🏅</p>
-        </div>
+          <div className="flex justify-center items-center">
+              <Image src="/images/ifgames-logo.svg" width={500} height={100} alt="logo" />
+          </div>
         <Navigation />
         <UpcomingEvents />
       </div>

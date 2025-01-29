@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import {
     Tabs,
     TabsContent,
@@ -80,7 +81,7 @@ export default function MatchPage() {
         <div
             className="md:p-6 p-2 min-h-screen bg-white"
             style={{
-                backgroundImage: "url('/images/banner.svg')",
+                backgroundImage: "url('/images/sport-banner.svg')",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
             }}
@@ -92,7 +93,11 @@ export default function MatchPage() {
                     WebkitTextStroke: "1px black",
                 }}
             >
-                <p className="text-blue-700">Informatics</p> Games 2024 <br /> Line Up
+                {/* <p className="text-blue-700">Informatics</p> Games 2024  */}
+                <div className="flex justify-center items-center">
+                    <Image src="/images/ifgames-logo.svg" width={150} height={100} alt="logo" />
+                </div>
+                Line Up
             </h1>
 
             {/* Tabs */}
