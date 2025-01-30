@@ -32,7 +32,26 @@ export class MacthController {
     public async getMacthBySportSlug(req: Request, res: Response): Promise<any> {
         try {
             const sportSlug = req.params.sportSlug;
-            const { matches, sport } = await this.matchService.getMacthBySportSlug(sportSlug);
+            const { audit } = req.query;
+
+            //validate the request audit query
+            if (audit && typeof audit !== 'string') {
+                return res.status(400).json({ message: "Invalid audit query parameter." });
+            }
+
+            // Fetch matches based on the sport slug
+            const result = await this.matchService.getMacthBySportSlug(sportSlug, audit as string);
+
+            // Check if matches are found
+            if (!result) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Matches not found',
+                    error: 'Matches not found',
+                });
+            }
+
+            const { matches, sport } = result;
 
             return res.status(200).json({
                 success: true,
