@@ -11,12 +11,12 @@ import Podium from '@/components/Podium';
 
 const podiumData = [
     {
-        team: "รอชิง",
+        team: "UNITE",
         rank: 1,
         title: "ชนะเลิศอันดับที่ 1",
     },
     {
-        team: "รอชิง",
+        team: "PATIKOON",
         rank: 2,
         title: "รองชนะเลิศอันดับที่ 1",
     },

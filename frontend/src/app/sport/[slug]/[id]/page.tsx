@@ -118,7 +118,7 @@ export default function EditMatchScorePage() {
       const response = await api.put(`api/v1/match/${id}/edit`, formatData);
       console.log("Data saved successfully:", response.data);
       fetchMatchData();
-      showCustomToast('success','บันทึกข้อมูลสำเร็จ');
+      showCustomToast('success', 'บันทึกข้อมูลสำเร็จ');
     } catch (error) {
       console.error("Error saving match data:", error);
     }
@@ -140,7 +140,7 @@ export default function EditMatchScorePage() {
         <div className='bg-white rounded-lg shadow-sm p-6 mb-6'>
           <div className='flex items-center justify-between mb-4'>
             <h1 className='text-2xl font-bold text-gray-900'>
-            {matchData.id} | {matchData.matchName} [{matchData.type.toUpperCase()}]
+              {matchData.id} | {matchData.matchName} [{matchData.type.toUpperCase()}]
             </h1>
             <button
               onClick={() => setShowAuditLogs(!showAuditLogs)}
@@ -152,7 +152,7 @@ export default function EditMatchScorePage() {
           </div>
           <div className='flex flex-wrap items-center text-gray-600'>
             <span className='mr-4'>📍 {matchData.location}</span>
-            <span>🕐 {formatDate(matchData.date)}</span>
+            <span>🕐 {matchData.date}</span>
           </div>
         </div>
         <div className={`grid grid-cols-1 ${showAuditLogs ? 'lg:grid-cols-2' : ''} gap-6`}>
@@ -234,7 +234,7 @@ export default function EditMatchScorePage() {
                         <select value={teamRanks[participant.team.id] || 0} onChange={e => handleRankChange(participant.team.id, parseInt(e.target.value))} className='w-full p-2 border rounded'>
                           <option value={""}>--</option>
                           {matchData.participants.map((participant, index) => (
-                            <option key={index} value={5 - index}>{index + 1}</option>
+                            <option key={index} value={participant.rank || index + 1}>{index + 1}</option>
                           ))}
                         </select>
                       }

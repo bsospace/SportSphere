@@ -4,6 +4,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import { api } from '@/app/utils/api.util';
 import {
     Card,
     CardContent,
@@ -11,48 +12,54 @@ import {
 import Podium from '@/components/Podium';
 import MatchSchedule from '@/components/MatchSchedule';
 import Leaderboard from '@/components/Leaderboard';
+import { Loader2 } from 'lucide-react';
+import { useSocket } from '../hooks/useSocket';
 
 export default function FootballContent() {
     const [podiumData, setPodiumData] = useState<{ team: string; rank: number; title: string; score: number; color: string; }[]>([]);
-    // Mock data
-    const mockMatches = [
-        {
-            id: "1",
-            matchName: "นาคา กับ เอราวัณ",
-            location: "สนามเชาวน์มณีวงษ์",
-            date: "2025-02-01 14:00",
-            type: "free-for-all",
-            participants: [
-                { id: "1a", team: { id: "team1", name: "สีเขียว นาคา" }, rank: 1, score: 5, point: 3 },
-                { id: "1a", team: { id: "team1", name: "สีเขียว นาคา" }, rank: 1, score: 5, point: 3 },
-                { id: "1a", team: { id: "team1", name: "สีเขียว นาคา" }, rank: 1, score: 5, point: 3 },
-                { id: "1a", team: { id: "team1", name: "สีเขียว นาคา" }, rank: 1, score: 5, point: 3 },
-                { id: "1b", team: { id: "team2", name: "สีชมพู เอราวัณ1" }, score: 0, point: 0 },
-                { id: "1b", team: { id: "team2", name: "สีชมพู เอราวัณ2" }, rank: 4, score: 0, point: 0 },
-                { id: "1b", team: { id: "team2", name: "สีชมพู เอราวัณ3" }, rank: 2, score: 0, point: 0 },
-            ],
-        },
-        {
-            id: "2",
-            matchName: "หงส์เพลิง กับ กิเลนทองคำ",
-            location: "สนามเชาวน์มณีวงษ์",
-            date: "2025-02-01 15:00",
-            type: "duel",
-            participants: [
-                { id: "2a", team: { id: "team3", name: "สีแดง หงส์เพลิง" } },
-                { id: "2b", team: { id: "team4", name: "สีเหลือง กิเลนทองคำ" } },
-            ],
-        },
-    ];
+    const [matches, setMatches] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+    const { socket, connected } = useSocket();
+
+    const fetchData = async () => {
+        try {
+            const response = await api.get('api/v1/match/FB');
+            const data = await response.data.data.matches;
+
+            setMatches(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    // Listen for match score updates from WebSocket
+    useEffect(() => {
+        if (socket) {
+            socket.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+                if (message.event === 'matchScoresUpdated') {
+                    if(message.data.sport === 'FB'){
+                        fetchData();
+                    }
+                }
+            };
+
+            return () => {
+                socket.onmessage = null;
+            };
+        }
+    }, [socket]);
 
     useEffect(() => {
-        const teamPoints = mockMatches.reduce<Record<string, { name: string; points: number }>>(
+        fetchData();
+
+        const teamPoints = matches.reduce<Record<string, { name: string; points: number }>>(
             (acc, match) => {
                 match.participants.forEach((participant) => {
                     const teamId = participant.team.id;
                     const teamName = participant.team.name;
                     const points = participant.point ?? 0;
-    
+
                     if (!acc[teamId]) {
                         acc[teamId] = { name: teamName, points: 0 };
                     }
@@ -62,8 +69,8 @@ export default function FootballContent() {
             },
             {}
         );
-    
-        const sortedTeams = Object.entries(teamPoints)
+
+        let sortedTeams = Object.entries(teamPoints)
             .map(([id, { name, points }]) => ({
                 id,
                 name,
@@ -75,15 +82,15 @@ export default function FootballContent() {
                 const color = team.name.includes("เขียว")
                     ? "bg-green-300"
                     : team.name.includes("แดง")
-                    ? "bg-red-300"
-                    : team.name.includes("เหลือง")
-                    ? "bg-yellow-300"
-                    : team.name.includes("น้ำเงิน")
-                    ? "bg-blue-300"
-                    : team.name.includes("ชมพู")
-                    ? "bg-pink-300"
-                    : "bg-gray-300";
-    
+                        ? "bg-red-300"
+                        : team.name.includes("เหลือง")
+                            ? "bg-yellow-300"
+                            : team.name.includes("น้ำเงิน")
+                                ? "bg-blue-300"
+                                : team.name.includes("ชมพู")
+                                    ? "bg-pink-300"
+                                    : "bg-gray-300";
+
                 // Generate title based on rank
                 const titles = [
                     "ชนะเลิศอันดับที่ 1",
@@ -93,7 +100,7 @@ export default function FootballContent() {
                     "รองชนะเลิศอันดับที่ 4",
                 ];
                 const title = `${titles[index] || `อันดับที่ ${index + 1}`}`;
-    
+
                 return {
                     team: team.name,
                     rank: index + 1,
@@ -102,25 +109,32 @@ export default function FootballContent() {
                     color,
                 };
             });
-    
-        setPodiumData(sortedTeams);
-    }, [podiumData]);
 
-    const sortedTeams = [4, 2, 1, 3, 5]
-    .map((rank) => podiumData.find((team) => team.rank === rank))
-    .filter((team) => team !== undefined);
+        sortedTeams = [4, 2, 1, 3, 5]
+            .map((rank) => sortedTeams.find((team) => team.rank === rank))
+            .filter((team) => team !== undefined);
+
+        setPodiumData(sortedTeams);
+        setLoading(false);
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+                <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+            </div>
+        );
+    }
 
     return (
         <div>
             <p className="text-center text-4xl font-semibold mb-4">ฟุตบอล</p>
-
             {/* Podium Section */}
             <Card className="mt-4">
                 <CardContent>
                     <Section title="ผลการแข่งขัน">
-                        {/* <Podium teams={sortedTeams} /> */}
-                        {/* <Leaderboard matches={mockMatches} /> */}
-                        Coming Soon...
+                        <Podium teams={podiumData} />
+                        <Leaderboard matches={matches} />
                     </Section>
                 </CardContent>
             </Card>
@@ -128,8 +142,7 @@ export default function FootballContent() {
             <Card className="mt-4">
                 <CardContent>
                     <Section title="ตารางการแข่งขัน">
-                        {/* <MatchSchedule matches={mockMatches} /> */}
-                        Coming Soon...
+                        <MatchSchedule matches={matches} />
                     </Section>
                 </CardContent>
             </Card>

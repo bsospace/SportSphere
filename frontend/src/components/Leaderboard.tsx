@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Team {
     id: string;
@@ -9,7 +11,7 @@ interface Participant {
     id: string;
     team: Team;
     score?: number;
-    point?: number;
+    points?: number;
 }
 
 interface Match {
@@ -22,68 +24,116 @@ interface LeaderboardProps {
 }
 
 const Leaderboard: React.FC<LeaderboardProps> = ({ matches }) => {
-    // Aggregate scores for each team
-    const teamPoints = matches.reduce<Record<string, { name: string; totalPoints: number }>>(
-        (acc, match) => {
-            match.participants.forEach((participant) => {
-                const teamId = participant.team.id;
-                const teamName = participant.team.name;
-                const point = participant.point ?? 0;
+    const [isLoading, setIsLoading] = useState(true);
+    const [sortedTeams, setSortedTeams] = useState<{ id: string; name: string; totalPoints: number }[]>([]);
 
-                if (!acc[teamId]) {
-                    acc[teamId] = { name: teamName, totalPoints: 0 };
-                }
-                acc[teamId].totalPoints += point;
-            });
+    useEffect(() => {
+        setTimeout(() => {
+            // Aggregate scores for each team
+            const teamPoints = matches.reduce<Record<string, { name: string; totalPoints: number }>>(
+                (acc, match) => {
+                    match.participants.forEach((participant) => {
+                        const teamId = participant.team.id;
+                        const teamName = participant.team.name;
+                        const point = participant.points ?? 0;
 
-            return acc;
-        },
-        {}
-    );
+                        if (!acc[teamId]) {
+                            acc[teamId] = { name: teamName, totalPoints: 0 };
+                        }
+                        acc[teamId].totalPoints += point;
+                    });
 
-    // Sort teams by total points in descending order
-    const sortedTeams = Object.entries(teamPoints)
-        .map(([id, { name, totalPoints }]) => ({ id, name, totalPoints }))
-        .sort((a, b) => b.totalPoints - a.totalPoints);
+                    return acc;
+                },
+                {}
+            );
+
+            // Sort teams by total points in descending order
+            const sorted = Object.entries(teamPoints)
+                .map(([id, { name, totalPoints }]) => ({ id, name, totalPoints }))
+                .sort((a, b) => b.totalPoints - a.totalPoints);
+
+            setSortedTeams(sorted);
+            setIsLoading(false);
+        }, 1000);
+    }, [matches]);
 
     // Determine row colors for the top 3
-    const getRowColor = (index: number) => {
-        switch (index) {
-            case 0:
-                return "bg-yellow-200"; // Gold
-            case 1:
-                return "bg-gray-200"; // Silver
-            case 2:
-                return "bg-orange-200"; // Bronze
-            default:
-                return "bg-gray-100"; // Default background
+    const getRowColor = (index: number, teamName: string) => {
+        // Determine color based on team name
+        let teamColor = "bg-gray-300"; // Default color for teams not matching specific colors
+    
+        if (teamName.includes("เขียว")) {
+            teamColor = "bg-green-300";
+        } else if (teamName.includes("แดง")) {
+            teamColor = "bg-red-300";
+        } else if (teamName.includes("เหลือง")) {
+            teamColor = "bg-yellow-300";
+        } else if (teamName.includes("น้ำเงิน")) {
+            teamColor = "bg-blue-300";
+        } else if (teamName.includes("ชมพู")) {
+            teamColor = "bg-pink-300";
         }
-    };
+        return teamColor;
+    }
 
     return (
-        <div>
-            {sortedTeams.length === 0 ? (
-                <p className="text-gray-500">No data available.</p>
-            ) : (
-                <div className="flex flex-col gap-4">
-                    {sortedTeams.map((team, index) => (
-                        <div
-                            key={team.id}
-                            className={`flex items-center justify-between px-4 py-2 rounded-lg ${getRowColor(
-                                index
-                            )}`}
+        <div className="flex flex-col gap-4">
+            <AnimatePresence>
+                {isLoading || sortedTeams.length === 0 ? (
+                    Array.from({ length: 5 }).map((_, index) => (
+                        <motion.div
+                            key={`skeleton-${index}`}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.3, delay: index * 0.1 }}
+                            className="flex items-center justify-between px-4 py-2 rounded-lg bg-gray-100"
                         >
-                            {/* Rank */}
                             <div className="flex items-center gap-4">
-                                <span className="text-lg font-bold text-gray-700">{index + 1}.</span>
+                                <Skeleton className="w-6 h-6 rounded" />
+                                <Skeleton className="w-24 h-5 rounded" />
+                            </div>
+                            <Skeleton className="w-12 h-5 rounded" />
+                        </motion.div>
+                    ))
+                ) : (
+                    sortedTeams.map((team, index) => (
+                        <motion.div
+                            key={team.id}
+                            layout
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{
+                                type: "spring",
+                                stiffness: 200,
+                                damping: 20,
+                                duration: 0.3
+                            }}
+                            className={`flex items-center justify-between px-4 py-2 rounded-lg ${getRowColor(index, team.name)}`}
+                        >
+                            <div className="flex items-center gap-4">
+                                <motion.span
+                                    initial={{ scale: 0.8 }}
+                                    animate={{ scale: 1 }}
+                                    className="text-lg font-bold text-gray-700"
+                                >
+                                    {index + 1}.
+                                </motion.span>
                                 <span className="text-sm font-medium text-gray-800">{team.name}</span>
                             </div>
-                            {/* Total Points */}
-                            <span className="text-sm font-bold text-gray-700">{team.totalPoints} pts</span>
-                        </div>
-                    ))}
-                </div>
-            )}
+                            <motion.span
+                                initial={{ scale: 0.8 }}
+                                animate={{ scale: 1 }}
+                                className="text-sm font-bold text-gray-700"
+                            >
+                                {team.totalPoints} pts
+                            </motion.span>
+                        </motion.div>
+                    ))
+                )}
+            </AnimatePresence>
         </div>
     );
 };

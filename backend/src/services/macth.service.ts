@@ -2,7 +2,7 @@ import { PrismaClient, Match, MatchParticipant } from "@prisma/client";
 import { handleError } from "../../utils/error-handler.util";
 import { AuditLog } from "../../utils/interface";
 import { InputJsonValue } from "@prisma/client/runtime/library";
-
+import WebSocket from "ws";
 
 export class MatchService {
     private prismaClient: PrismaClient;
@@ -12,26 +12,58 @@ export class MatchService {
     }
 
 
-    public async getMacthBySportSlug(sportSlug: string) {
+    public async getMacthBySportSlug(sportSlug: string, audit?: string) {
         try {
+
+            // Fetch the sport
             const sport = await this.prismaClient.sport.findUnique({
                 where: { slug: sportSlug },
             });
-
+            
+            // Check if the sport exists
             if (!sport) {
                 throw handleError(`Sport with slug ${sportSlug} not found`, 404);
             }
 
-            const matches = await this.prismaClient.match.findMany({
-                where: { sportId: sport.id },
-                include: {
-                    participants: {
-                        include: { team: true },
-                    }
-                },
-            });
+            // Fetch matches based on the audit query
+            if (audit && audit === 'true') {
+                const matches = await this.prismaClient.match.findMany({
+                    where: { sportId: sport.id },
+                    include: {
+                        participants: {
+                            include: { team: true },
+                        }
+                    },
+                });
 
-            return { matches, sport };
+                return { matches, sport };;
+            }
+
+            // Fetch matches without audit logs
+            if (!audit || audit === 'false') {
+                const matches = await this.prismaClient.match.findMany({
+                    where: { sportId: sport.id },
+                    include: {
+                        participants: {
+                            select: {
+                                id: true,
+                                score: true,
+                                points: true,
+                                rank: true,
+                                team: {
+                                    select: {
+                                        id: true,
+                                        name: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+                return { matches, sport };
+            }
+
         } catch (error) {
             console.error("Error fetching matches:", error);
             throw new Error("Failed to fetch matches.");
@@ -144,6 +176,11 @@ export class MatchService {
         try {
             const participants = await this.prismaClient.matchParticipant.findMany({
                 where: { matchId },
+                include: {
+                    match: {
+                        include: { sport: true }
+                    }
+                },
             });
 
             if (participants.length === 0) {
@@ -178,7 +215,8 @@ export class MatchService {
                 include: { team: true },
             });
 
-            await this.triggerScoreUpdateHook(updatedParticipants);
+
+            await this.triggerScoreUpdateHook(participants[0].match.sport.slug);
 
             return updatedParticipants;
         } catch (error) {
@@ -191,32 +229,27 @@ export class MatchService {
  * Hook to handle actions when scores are updated.
  * For example, broadcast changes to connected WebSocket clients.
  */
-    private async triggerScoreUpdateHook(participants: MatchParticipant[]): Promise<void> {
+
+    private async triggerScoreUpdateHook(sport: string): Promise<void> {
         try {
+            // Check if the WebSocket server is available globally
+            (global as any).wss.clients.forEach((client: WebSocket) => {
+                // Check if the WebSocket connection is open
+                if (client.readyState === WebSocket.OPEN) {
+                    // Prepare the data to be sent
+                    const eventData = {
+                        event: "matchScoresUpdated", // Event name
+                        data: { sport }, // Updated participants (match data)
+                    };
 
+                    // Send the event to the client
+                    client.send(JSON.stringify(eventData));
+                    console.log("[INFO] Sent score update event to WebSocket clients.");
+                }
+            });
 
-            // Example: Log or broadcast the changes (you can replace this with actual WebSocket or messaging logic)
-            console.log(`[HOOK] Scores updated for Match ID: ${participants[0].matchId}`);
-
-            // Broadcast to WebSocket clients (replace with your actual WebSocket logic)
-            interface WebSocketServer {
-                clients: Set<WebSocket>;
-            }
-
-            if ((global as any).wss as WebSocketServer) {
-                (global as any).wss.clients.forEach((client: WebSocket) => {
-                    if (client.readyState === 1) {
-                        client.send(
-                            JSON.stringify({
-                                event: "matchScoresUpdated",
-                                data: participants,
-                            })
-                        );
-                    }
-                });
-            }
         } catch (error) {
-            console.error(`[HOOK ERROR] Failed to execute score update hook:`, error);
+            console.error('[ERROR] Failed to trigger score update hook:', error);
         }
     }
 }
