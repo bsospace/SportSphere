@@ -32,7 +32,7 @@ import LocalContent from "./local";
 
 export default function MatchPage() {
     const router = useRouter();
-    
+
     // const nodeTypes = { brucket:BrucketDisplay, label: LabelNode };
 
     // const [nodes, setNodes] = useState([]);
@@ -40,19 +40,23 @@ export default function MatchPage() {
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [sportData, setSportData] = useState("valorant");
+    const [sportData] = useState("valorant");
+
+    // Get slug from query param
+    const urlParams = new URLSearchParams(window.location.search)
+    const slug = urlParams.get('sport') || 'valorant';
 
     const sport = [
-        { name: "valorant", label: "Valorant", file: "valorant" },
-        { name: "football", label: "ฟุตบอล", file: "football" },
-        { name: "volleyball", label: "วอลเลย์บอล", file: "volleyball" },
-        { name: "basketball", label: "บาสเกตบอล", file: "basketball" },
-        { name: "chairball", label: "แชร์บอล", file: "chairball" },
-        { name: "badminton-men", label: "แบดมินตันคู่ชาย", file: "badminton-men" },
-        { name: "badminton-women", label: "แบดมินตันคู่หญิง", file: "badminton-women" },
-        { name: "badminton-mixed", label: "แบดมินตันคู่ผสม", file: "badminton-mixed" },
-        { name: "local", label: "กีฬาพื้นบ้าน", file: "local" },
-        { name: "rov", label: "RoV", file: "rov" },
+        { name: "valorant", label: "Valorant", file: "valorant", slug: "valorant" },
+        { name: "football", label: "ฟุตบอล", file: "football", slug: "football" },
+        { name: "volleyball", label: "วอลเลย์บอล", file: "volleyball", slug: "volleyball" },
+        { name: "basketball", label: "บาสเกตบอล", file: "basketball", slug: "basketball" },
+        { name: "chairball", label: "แชร์บอล", file: "chairball", slug: "chairball" },
+        { name: "badminton-men", label: "แบดมินตันคู่ชาย", file: "badminton-men", slug: 'badminton-men' },
+        { name: "badminton-women", label: "แบดมินตันคู่หญิง", file: "badminton-women", slug: "badminton-women" },
+        { name: "badminton-mixed", label: "แบดมินตันคู่ผสม", file: "badminton-mixed", slug: "badminton-mixed" },
+        { name: "local", label: "กีฬาพื้นบ้าน", file: "local", slug: "local" },
+        { name: "rov", label: "RoV", file: "rov", slug: 'rov' },
     ]
 
     useEffect(() => {
@@ -101,26 +105,28 @@ export default function MatchPage() {
             </h1>
 
             {/* Tabs */}
-            <Tabs className="w-full" defaultValue={sportData}>
+            <Tabs className="w-full" defaultValue={slug}>
                 <div className="flex lg:w-[90%] w-full lg:justify-center items-center mx-auto">
-                <Button 
-                    variant="outline" 
-                    className="me-2 rounded-full"
-                    onClick={() => router.push("/")}
-                >
-                    <Home size={24} />
-                </Button>
-                <div className="overflow-x-auto overflow-hidden rounded-full flex ">
-                    <TabsList className="rounded-full">
-                        {(
-                            sport.map((item) => (
-                                <TabsTrigger className="rounded-full" key={item.name} value={item.name} onClick={() => setSportData(item.name)}>
-                                    {item.label}
-                                </TabsTrigger>
-                            ))
-                        )}
-                    </TabsList>
-                </div>
+                    <Button
+                        variant="outline"
+                        className="me-2 rounded-full"
+                        onClick={() => router.push("/")}
+                    >
+                        <Home size={24} />
+                    </Button>
+                    <div className="overflow-x-auto overflow-hidden rounded-full flex ">
+                        <TabsList className="rounded-full">
+                            {(
+                                sport.map((item) => (
+                                    <TabsTrigger className="rounded-full" key={item.name} value={item.name} onClick={() =>
+                                        router.push(`/match?sport=${item.slug}`)
+                                    }>
+                                        {item.label}
+                                    </TabsTrigger>
+                                ))
+                            )}
+                        </TabsList>
+                    </div>
                 </div>
 
                 <div className="mt-8 flex flex-col items-center rounded-lg w-full lg:w-[90%] mx-auto">
