@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 // import BrucketDisplay from '@/components/RenderBracket';
 import "reactflow/dist/style.css";
 // import ReactFlow, { Background, MiniMap } from 'reactflow';
-import { Home } from "lucide-react";
+import { Home, Loader2 } from "lucide-react";
 // import LabelNode from '@/app/admin/brucket-match/label-node';
 
 import RovContent from "./rov";
@@ -42,9 +42,12 @@ export default function MatchPage() {
     const [error, setError] = useState<string | null>(null);
     const [sportData] = useState("valorant");
 
+    let slug = "valorant";
     // Get slug from query param
-    const urlParams = new URLSearchParams(window.location.search)
-    const slug = urlParams.get('sport') || 'valorant';
+    if (typeof window !== "undefined"){
+        const urlParams = new URLSearchParams(window.location.search)
+        slug = urlParams.get('sport') || 'valorant';
+    }
 
     const sport = [
         { name: "valorant", label: "Valorant", file: "valorant", slug: "valorant" },
@@ -72,9 +75,12 @@ export default function MatchPage() {
         fetchBracketData()
     }, [sportData])
 
-
     if (loading) {
-        return <div className='text-center text-gray-500'>Loading...</div>
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+                <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+            </div>
+        );
     }
 
     if (error) {
