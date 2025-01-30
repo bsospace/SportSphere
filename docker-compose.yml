@@ -9,6 +9,8 @@ services:
     environment:
       - NODE_ENV=production
     restart: unless-stopped
+    volumes:
+      - ./frontend/public/assets/data/:/app/public/assets/data/
     networks:
       - sportnetwork
 
