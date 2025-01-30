@@ -13,25 +13,44 @@ import Podium from '@/components/Podium';
 import MatchSchedule from '@/components/MatchSchedule';
 import Leaderboard from '@/components/Leaderboard';
 import { Loader2 } from 'lucide-react';
+import { useSocket } from '../hooks/useSocket';
 
 export default function FootballContent() {
     const [podiumData, setPodiumData] = useState<{ team: string; rank: number; title: string; score: number; color: string; }[]>([]);
     const [matches, setMatches] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const { socket, connected } = useSocket();
+
+    const fetchData = async () => {
+        try {
+            const response = await api.get('api/v1/match/FB');
+            const data = await response.data.data.matches;
+
+            setMatches(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    // Listen for match score updates from WebSocket
+    useEffect(() => {
+        if (socket) {
+            socket.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+                if (message.event === 'matchScoresUpdated') {
+                    if(message.data.sport === 'FB'){
+                        fetchData();
+                    }
+                }
+            };
+
+            return () => {
+                socket.onmessage = null;
+            };
+        }
+    }, [socket]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await api.get('api/v1/match/FB');
-                const data = await response.data.data.matches;
-    
-                console.log(data);
-                setMatches(data);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
         fetchData();
 
         const teamPoints = matches.reduce<Record<string, { name: string; points: number }>>(
@@ -40,7 +59,7 @@ export default function FootballContent() {
                     const teamId = participant.team.id;
                     const teamName = participant.team.name;
                     const points = participant.point ?? 0;
-    
+
                     if (!acc[teamId]) {
                         acc[teamId] = { name: teamName, points: 0 };
                     }
@@ -50,7 +69,7 @@ export default function FootballContent() {
             },
             {}
         );
-    
+
         let sortedTeams = Object.entries(teamPoints)
             .map(([id, { name, points }]) => ({
                 id,
@@ -63,15 +82,15 @@ export default function FootballContent() {
                 const color = team.name.includes("เขียว")
                     ? "bg-green-300"
                     : team.name.includes("แดง")
-                    ? "bg-red-300"
-                    : team.name.includes("เหลือง")
-                    ? "bg-yellow-300"
-                    : team.name.includes("น้ำเงิน")
-                    ? "bg-blue-300"
-                    : team.name.includes("ชมพู")
-                    ? "bg-pink-300"
-                    : "bg-gray-300";
-    
+                        ? "bg-red-300"
+                        : team.name.includes("เหลือง")
+                            ? "bg-yellow-300"
+                            : team.name.includes("น้ำเงิน")
+                                ? "bg-blue-300"
+                                : team.name.includes("ชมพู")
+                                    ? "bg-pink-300"
+                                    : "bg-gray-300";
+
                 // Generate title based on rank
                 const titles = [
                     "ชนะเลิศอันดับที่ 1",
@@ -81,7 +100,7 @@ export default function FootballContent() {
                     "รองชนะเลิศอันดับที่ 4",
                 ];
                 const title = `${titles[index] || `อันดับที่ ${index + 1}`}`;
-    
+
                 return {
                     team: team.name,
                     rank: index + 1,
@@ -90,10 +109,10 @@ export default function FootballContent() {
                     color,
                 };
             });
-    
+
         sortedTeams = [4, 2, 1, 3, 5]
-        .map((rank) => sortedTeams.find((team) => team.rank === rank))
-        .filter((team) => team !== undefined);
+            .map((rank) => sortedTeams.find((team) => team.rank === rank))
+            .filter((team) => team !== undefined);
 
         setPodiumData(sortedTeams);
         setLoading(false);
@@ -110,14 +129,12 @@ export default function FootballContent() {
     return (
         <div>
             <p className="text-center text-4xl font-semibold mb-4">ฟุตบอล</p>
-
             {/* Podium Section */}
             <Card className="mt-4">
                 <CardContent>
                     <Section title="ผลการแข่งขัน">
                         <Podium teams={podiumData} />
                         <Leaderboard matches={matches} />
-                        
                     </Section>
                 </CardContent>
             </Card>
@@ -126,7 +143,6 @@ export default function FootballContent() {
                 <CardContent>
                     <Section title="ตารางการแข่งขัน">
                         <MatchSchedule matches={matches} />
-                        
                     </Section>
                 </CardContent>
             </Card>
