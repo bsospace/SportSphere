@@ -139,9 +139,9 @@
         "team1": "UNITE",
         "team2": "PATIKOON",
         "matchName": "รอบชิงชนะเลิศอันดับที่ 1",
-        "winner": null,
-        "score1": null,
-        "score2": null,
+        "winner": "UNITE",
+        "score1": 3,
+        "score2": 0,
         "location": "ONSITE (Bo5)",
         "dateTime": "2025-01-30T00:00"
       },
