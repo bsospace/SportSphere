@@ -35,7 +35,7 @@ const MatchSchedule: React.FC<MatchScheduleProps> = ({ matches }) => {
         setTimeout(() => {
             setIsLoading(false);
         }, 1000); // Simulated loading delay
-    }, [matches]);
+    }, []);
 
     // Function to get the badge text based on match type and rank
     const getBadgeText = (rank: string | undefined, matchType: string | null) => {
@@ -52,7 +52,7 @@ const MatchSchedule: React.FC<MatchScheduleProps> = ({ matches }) => {
                 default:
                     return `Rank ${rank}`;
             }
-        } else if (matchType?.toUpperCase() == "free-for-all") {
+        } else if (matchType == "free-for-all") {
             switch (rank) {
                 case "1":
                     return "1st Place 🥇";
