@@ -1,54 +1,131 @@
 /* eslint-disable @typescript-eslint/no-unused-vars*/
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import React, { useEffect, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 import {
     Card,
     CardContent,
-} from "@/components/ui/card";
+    CardFooter,
+} from "@/components/ui/card"
 import Podium from '@/components/Podium';
+import { api } from '@/app/utils/api.util';
+import { useSocket } from '../hooks/useSocket';
+import { Loader2 } from 'lucide-react';
+import MatchSchedule from '@/components/MatchSchedule';
+import Leaderboard from '@/components/Leaderboard';
 
 export default function BadmintonMenContent() {
-    // Mock data
-    const podiumData = [
-        {
-            team: "สีเขียว นาคา",
-            rank: 1,
-            title: "ชนะเลิศอันดับที่ 1",
-            score: 150,
-            color: 'bg-green-300',
-        },
-        {
-            team: "สีแดง หงส์เพลิง",
-            rank: 2,
-            title: "รองชนะเลิศอันดับที่ 1",
-            score: 100,
-            color: 'bg-red-300',
-        },
-        {
-            team: "สีเหลือง กิเลนทองคำ",
-            rank: 3,
-            title: "รองชนะเลิศอันดับที่ 2",
-            score: 80,
-            color: 'bg-yellow-300',
-        },
-        {
-            team: "สีน้ำเงิน สุบรรณนที",
-            rank: 4,
-            title: "รองชนะเลิศอันดับที่ 3",
-            score: 50,
-            color: 'bg-blue-300',
-        },
-        {
-            team: "สีชมพู เอราวัณ",
-            rank: 5,
-            title: "รองชนะเลิศอันดับที่ 4",
-            score: 30,
-            color: 'bg-pink-300',
-        }
-    ];
+    const [podiumData, setPodiumData] = useState<{ team: string; rank: number; title: string; score: number; color: string; }[]>([]);
+    const [matches, setMatches] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+    const { socket } = useSocket();
 
-    const sortedTeams = [4, 2, 1, 3, 5].map((rank) =>
-        podiumData.find((team) => team.rank === rank)
-    );
+    const fetchData = async () => {
+        try {
+            const response = await api.get('api/v1/match/BMM');
+            const data = await response.data.data.matches;
+
+            setMatches(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    // Listen for match score updates from WebSocket
+    useEffect(() => {
+        if (socket) {
+            socket.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+                if (message.event === 'matchScoresUpdated') {
+                    if(message.data.sport === 'BMM'){
+                        fetchData();
+                    }
+                }
+            };
+
+            return () => {
+                socket.onmessage = null;
+            };
+        }
+    }, [socket]);
+
+    useEffect(() => {
+        fetchData();
+
+        const teamPoints = matches.reduce<Record<string, { name: string; points: number }>>(
+            (acc, match) => {
+                match.participants.forEach((participant) => {
+                    const teamId = participant.team.id;
+                    const teamName = participant.team.name;
+                    const points = participant.point ?? 0;
+
+                    if (!acc[teamId]) {
+                        acc[teamId] = { name: teamName, points: 0 };
+                    }
+                    acc[teamId].points += points;
+                });
+                return acc;
+            },
+            {}
+        );
+
+        let sortedTeams = Object.entries(teamPoints)
+            .map(([id, { name, points }]) => ({
+                id,
+                name,
+                points,
+            }))
+            .sort((a, b) => b.points - a.points)
+            .map((team, index) => {
+                // Generate color from team name (temporary)
+                const color = team.name.includes("เขียว")
+                    ? "bg-green-300"
+                    : team.name.includes("แดง")
+                        ? "bg-red-300"
+                        : team.name.includes("เหลือง")
+                            ? "bg-yellow-300"
+                            : team.name.includes("น้ำเงิน")
+                                ? "bg-blue-300"
+                                : team.name.includes("ชมพู")
+                                    ? "bg-pink-300"
+                                    : "bg-gray-300";
+
+                // Generate title based on rank
+                const titles = [
+                    "ชนะเลิศอันดับที่ 1",
+                    "รองชนะเลิศอันดับที่ 1",
+                    "รองชนะเลิศอันดับที่ 2",
+                    "รองชนะเลิศอันดับที่ 3",
+                    "รองชนะเลิศอันดับที่ 4",
+                ];
+                const title = `${titles[index] || `อันดับที่ ${index + 1}`}`;
+
+                return {
+                    team: team.name,
+                    rank: index + 1,
+                    title,
+                    score: team.points,
+                    color,
+                };
+            });
+
+        sortedTeams = [4, 2, 1, 3, 5]
+            .map((rank) => sortedTeams.find((team) => team.rank === rank))
+            .filter((team) => team !== undefined);
+
+        setPodiumData(sortedTeams);
+        setLoading(false);
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+                <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
+            </div>
+        );
+    }
 
     return (
         <div>
@@ -57,15 +134,16 @@ export default function BadmintonMenContent() {
             <Card className="mt-4">
                 <CardContent>
                     <Section title="ผลการแข่งขัน">
-                        Coming Soon...
+                        <Podium teams={podiumData} />
+                        <Leaderboard matches={matches} />
                     </Section>
                 </CardContent>
             </Card>
 
-            <Card className='mt-4'>
+            <Card className="mt-4">
                 <CardContent>
                     <Section title="ตารางการแข่งขัน">
-                        Coming Soon...
+                        <MatchSchedule matches={matches} />
                     </Section>
                 </CardContent>
             </Card>

@@ -116,14 +116,7 @@ export default function SportDetail() {
               </p>
               <p className="text-sm text-gray-700">
                 🕐 Date Time:{' '}
-                {new Date(match.date).toLocaleString('th-TH', {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit',
-                })}
+                {match.date}
               </p>
             </div>
             <div
