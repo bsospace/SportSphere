@@ -117,7 +117,7 @@ export class MacthController {
                 teamId: participant.teamId,
                 teamName: participant.team ? participant.team.name : 'Unknown',
                 score: participant.score ?? 0,
-                rank: participant.rank ?? 0,
+                rank: participant.rank !== null && participant.rank !== '0' ? participant.rank : '',
                 points: participant.points ?? 0,
             }));
 
@@ -125,14 +125,16 @@ export class MacthController {
             const mergedScores = match.participants.map((participant) => {
                 const updatedScore = scores.find((s) => s.teamId === participant.teamId);
 
-                // Use provided score or retain existing score
+                // if score is not provided, use the existing score
                 const score = updatedScore?.score ?? participant.score;
 
-                // If rank is not provided, default to 0
-                const rank = updatedScore?.rank ?? null;
+                // if rank is not provided, use the existing rank
+                const rank = updatedScore?.rank !== undefined && updatedScore.rank != 0 && updatedScore.rank !== 0
+                    ? updatedScore.rank
+                    : "";
 
-                // Calculate points only if rank is provided and valid
-                const points = rank !== 0
+                // Calculate points based on the rank
+                const points = rank !== ""
                     ? calculatePoints(match.type as "duel" | "free-for-all", rank)
                     : 0;
 
@@ -151,16 +153,15 @@ export class MacthController {
                 const original = originalScores.find((o) => o.teamId === updated.teamId);
                 return {
                     teamId: updated.teamId,
-            
                     previous: {
                         score: original?.score ?? 0,
-                        rank: original?.rank ?? 0,
+                        rank: original?.rank ?? "",
                         points: original?.points ?? 0,
                         teamName: original?.teamName ?? 'Unknown',
                     },
                     updated: {
                         score: updated.score ?? 0,
-                        rank: updated.rank ?? 0,
+                        rank: updated.rank ?? "",
                         points: updated.points ?? 0,
                         teamName: original?.teamName ?? 'Unknown',
                     },
@@ -178,7 +179,7 @@ export class MacthController {
                 success: true,
                 metadata: {
                     matchId: id,
-                    scoreChanges, 
+                    scoreChanges,
                 },
             };
 
@@ -189,7 +190,7 @@ export class MacthController {
                     teamId: participant.teamId ?? '',
                     score: participant.score ?? 0,
                     points: participant.points ?? 0,
-                    rank: participant.rank !== null ? participant.rank.toString() : '',
+                    rank: participant.rank !== null && participant.rank != 0 ? participant.rank.toString() : '',
                 }))
                 , [auditLog]
             );
