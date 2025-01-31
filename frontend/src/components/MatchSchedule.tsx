@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton"; // Import ShadCN Skeleton
+import { formatDateRange } from "@/app/utils/formatdate-range.util";
 
 interface Team {
     id: string;
@@ -21,6 +22,7 @@ interface Match {
     date: string;
     participants: Participant[];
     type: string | null;
+    completed: Date
 }
 
 interface MatchScheduleProps {
@@ -40,7 +42,7 @@ const MatchSchedule: React.FC<MatchScheduleProps> = ({ matches }) => {
     // Function to get the badge text based on match type and rank
     const getBadgeText = (rank: string | undefined, matchType: string | null) => {
         if (!rank) return null;
-        
+
         if (matchType?.toUpperCase() == "DUEL") {
             switch (rank) {
                 case "1":
@@ -107,7 +109,17 @@ const MatchSchedule: React.FC<MatchScheduleProps> = ({ matches }) => {
                     >
                         {/* Match Info */}
                         <div>
-                            <p className="text-sm text-gray-500">{match.date}</p>
+                            <div className="inline-flex pb-2">
+                                {match?.completed !== null && (
+                                    <span className='px-3 py-1 bg-green-100 text-green-600 text-xs font-medium rounded-full flex items-center gap-1.5 whitespace-nowrap'>
+                                        <span className="relative flex h-2 w-2">
+                                            <span className="absolute inline-flex h-full w-full rounded-full bg-green-400"></span>
+                                        </span>
+                                        <p>จบแล้ว</p>
+                                    </span>
+                                )}
+                            </div>
+                            <p className="text-sm text-gray-500">{formatDateRange(match.date)}</p>
                             <h3 className="text-lg font-medium">
                                 แมชท์ที่ {index + 1} | {match.matchName}
                             </h3>
