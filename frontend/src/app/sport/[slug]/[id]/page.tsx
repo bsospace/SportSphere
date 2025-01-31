@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { Clock, ChevronLeft, Save, Plus, Minus, Flag } from 'lucide-react'
+import { Clock, ChevronLeft, Save, Plus, Minus } from 'lucide-react'
 import { api } from '@/app/utils/api.util'
 import { useParams } from 'next/navigation'
 import { useAuth } from '@/app/hooks/useAuth'
