@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 
 interface Event {
     image?: string;
@@ -88,13 +87,7 @@ const UpcomingEvents = () => {
                     >
                         {/* Event Image (optional) */}
                         {event.image && (
-                            <Image
-                                src={event.image}
-                                alt={event.title}
-                                width={100}
-                                height={100}
-                                className="rounded-lg"
-                            />
+                           <img src={event.image} alt={event.title} className="w-16 h-16 rounded-lg" />
                         )}
                         {/* Event Details */}
                         <div className="flex-1 text-left">
