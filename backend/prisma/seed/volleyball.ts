@@ -1,4 +1,6 @@
 import { PrismaClient } from "@prisma/client";
+import { SetScore } from "../../utils/interface";
+import { InputJsonValue } from "@prisma/client/runtime/library";
 
 const prisma = new PrismaClient();
 
@@ -13,7 +15,12 @@ const volleyballMatches = [
     { id: "VB8", date: "2025-02-02", sportSlug: "VB", homeTeam: "สีชมพู เอราวัณ", awayTeam: "สีน้ำเงิน สุบรรณนที", time: "11:00-11:50", matchName: "สีชมพู เอราวัณ กับ สีน้ำเงิน สุบรรณนที", location: "โรงพลศึกษา 1" },
     { id: "VB9", date: "2025-02-02", sportSlug: "VB", homeTeam: "สีแดง หงส์เพลิง", awayTeam: "สีเขียว นาคา", time: "13:00-13:50", matchName: "สีแดง หงส์เพลิง กับ สีเขียว นาคา", location: "โรงพลศึกษา 1" },
     { id: "VB10", date: "2025-02-02", sportSlug: "VB", homeTeam: "สีเหลือง กิเลนทองคำ", awayTeam: "สีชมพู เอราวัณ", time: "14:00-14:50", matchName: "สีเหลือง กิเลนทองคำ กับ สีชมพู เอราวัณ", location: "โรงพลศึกษา 1" }
-];  
+];
+
+const scoreSet: SetScore[] = [
+    { label: "เซ็ตที่ 1", score: 0, rank: "", remark: "" },
+    { label: "เซ็ตที่ 2", score: 0, rank: "", remark: "" },
+];
 
 async function seedVolleyballMatches() {
     console.log("Seeding volleyball matches...");
@@ -52,8 +59,8 @@ async function seedVolleyballMatches() {
                     sportId: sport.id,
                     participants: {
                         create: [
-                            { teamId: homeTeam.id, rank: null, points: 0, score: 0 },
-                            { teamId: awayTeam.id, rank: null, points: 0, score: 0 },
+                            { teamId: homeTeam.id, rank: null, points: 0, setScores: scoreSet as unknown as InputJsonValue[] },
+                            { teamId: awayTeam.id, rank: null, points: 0, setScores: scoreSet as unknown as InputJsonValue[] },
                         ],
                     },
                     createdAt: new Date(match.date),

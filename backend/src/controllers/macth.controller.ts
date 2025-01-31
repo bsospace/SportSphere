@@ -1,13 +1,12 @@
 import e, { Request, Response } from "express";
 import { MatchService } from "../services/macth.service";
-import { assignRanksAndPoints, calculatePoints } from "../../utils/rank-score.util";
-import { AuditLog } from "../../utils/interface";
+import { assignRanksAndPoints, calculatePoints } from '../../utils/rank-score.util';
+import { AuditLog, SetScore } from "../../utils/interface";
 
 
-interface Score {
+interface SetScoreWithTeamId extends SetScore {
     teamId: string;
-    score: number;
-    rank: string;
+    setScores: number[];
 }
 
 
@@ -21,7 +20,8 @@ export class MacthController {
         this.createMatchWithParticipants = this.createMatchWithParticipants.bind(this);
         this.getMatchById = this.getMatchById.bind(this);
         this.updateMatch = this.updateMatch.bind(this);
-        this.endMatch = this.endMatch.bind(this);
+        this.endMatch = this.endMatch.bind(this); 4
+        this.updateSetScores = this.updateSetScores.bind(this);
     }
 
     /**
@@ -207,7 +207,7 @@ export class MacthController {
             const updatedParticipants = await this.matchService.updateMatchScores(
                 id,
                 mergedScores.map((participant) => ({
-                    teamId: participant.teamId ?? '',
+                    teamId: participant.teamId || '',
                     score: participant.score ?? 0,
                     points: participant.points ?? 0,
                     rank: participant.rank !== null && participant.rank != 0 ? participant.rank.toString() : '',
@@ -228,6 +228,114 @@ export class MacthController {
             return res.status(500).json({ message: "Failed to update match." });
         }
     }
+
+    public async updateSetScores(req: Request, res: Response): Promise<any> {
+        try {
+            const { setScores, ranks }: { setScores: SetScoreWithTeamId[], ranks: { teamId: string; rank?: number }[] } = req.body;
+            const { id } = req.params;
+
+            // ตรวจสอบค่าที่ได้รับมา
+            if (!Array.isArray(setScores) || setScores.length === 0) {
+                return res.status(400).json({ message: "Invalid set scores provided." });
+            }
+
+            // ดึงข้อมูลการแข่งขันจากฐานข้อมูล
+            const match = await this.matchService.getMatchWithParticipants(id);
+            if (!match) {
+                return res.status(404).json({ message: "Match not found." });
+            }
+
+            // บันทึกคะแนนเดิมสำหรับการทำ audit log
+            const originalSetScores = match.participants.map((participant) => ({
+                teamId: participant.teamId,
+                teamName: participant.team ? participant.team.name : 'Unknown',
+                setScores: typeof participant.setScores === 'string'
+                    ? JSON.parse(participant.setScores)
+                    : participant.setScores ?? [],
+            }));
+
+            // อัปเดตคะแนนของแต่ละทีม
+            const mergedSetScores = match.participants.map((participant) => {
+                const updatedSetScores = setScores.find((s) => s.teamId === participant.teamId);
+                const existingRank = ranks.find((r) => r.teamId === participant.teamId);
+                const rankValue = existingRank?.rank !== undefined && !isNaN(Number(existingRank.rank))
+                    ? Number(existingRank.rank)
+                    : null;
+
+                const rank = rankValue !== null ? rankValue.toString() : "";
+
+                return {
+                    teamId: participant.teamId,
+                    setScores: updatedSetScores?.setScores ?? originalSetScores.find((o) => o.teamId === participant.teamId)?.setScores ?? [],
+                    rank: rank,
+                    points: existingRank?.rank !== undefined ? calculatePoints(match.type as "duel" | "free-for-all", existingRank.rank) : 0,
+                };
+            });
+
+            const user = req.user || null;
+
+            // บันทึก log การเปลี่ยนแปลง
+            const setScoreChanges = mergedSetScores.map((updated) => {
+                const original = originalSetScores.find((o) => o.teamId === updated.teamId);
+                return {
+                    teamId: updated.teamId,
+                    previous: {
+                        setScores: original?.setScores ?? [],
+                        teamName: original?.teamName ?? 'Unknown',
+                    },
+                    updated: {
+                        setScores: updated.setScores ?? [],
+                        teamName: original?.teamName ?? 'Unknown',
+                    },
+                };
+            });
+
+            const auditLog: AuditLog = {
+                timestamp: new Date().toISOString(),
+                action: "update",
+                service: "match",
+                email: user?.email,
+                userId: user?.id,
+                ipAddress: req.ip,
+                userAgent: req.get("User-Agent"),
+                success: true,
+                metadata: {
+                    matchId: id,
+                    setScoreChanges,
+                },
+            };
+
+            // อัปเดตข้อมูลในฐานข้อมูล
+            const updatedMatch = await this.matchService.updateMatchSetScores(
+                id,
+                mergedSetScores.map((participant) => ({
+                    teamId: participant.teamId || '',
+                    setScores: participant.setScores,
+                    rank: participant.rank,
+                    points: participant.points,
+                })),
+                [auditLog],
+                match.sportId
+            );
+
+            // ดึงข้อมูลการแข่งขันที่อัปเดตแล้ว
+            const updatedMatchWithParticipants = await this.matchService.getMatchWithParticipants(id);
+            
+
+            return res.json({
+                success: true,
+                message: "Set scores updated successfully.",
+                data: updatedMatchWithParticipants,
+            });
+        } catch (error) {
+            console.error("Error updating set scores:", error);
+            return res.status(500).json({ message: "Failed to update set scores." });
+        }
+    }
+
+
+
+
 
     public async endMatch(req: Request, res: Response): Promise<any> {
         try {
