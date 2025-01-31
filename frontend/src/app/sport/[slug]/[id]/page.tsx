@@ -7,6 +7,8 @@ import { useParams } from 'next/navigation'
 import { useAuth } from '@/app/hooks/useAuth'
 import { Loader2 } from 'lucide-react';
 import { showCustomToast } from '@/components/CustomToast'
+import { formatDateRange } from '@/app/utils/formatdate-range.util'
+import MatchEndConfirmation from '@/components/MatchEndConfirmation'
 
 export default function EditMatchScorePage() {
   const { isAuthenticated, isLoading } = useAuth()
@@ -27,6 +29,7 @@ export default function EditMatchScorePage() {
     location: string
     date: string
     participants: Participant[]
+    completed: Date
   }
 
   const [matchData, setMatchData] = useState<MatchData | null>(null)
@@ -44,6 +47,7 @@ export default function EditMatchScorePage() {
       console.error('Error fetching match data:', error)
     }
   }
+
 
   useEffect(() => {
     if (matchData) {
@@ -86,15 +90,18 @@ export default function EditMatchScorePage() {
     }))
   }
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleString('th-TH', {
+  const formatDate = (timestamp: string) => {
+    const date = new Date(timestamp);
+    return date.toLocaleString('th-TH', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
       hour: '2-digit',
-      minute: '2-digit'
-    })
-  }
+      minute: '2-digit',
+      hour12: false,
+      timeZone: 'Asia/Bangkok'
+    }) + " น.";
+  };
 
   const saveData = async () => {
     if (!matchData || !matchData.participants || matchData.participants.length < 2) {
@@ -124,6 +131,17 @@ export default function EditMatchScorePage() {
     }
   };
 
+  const onEndMatch = async () => {
+    try {
+
+      const response = await api.put(`api/v1/match/${id}/end`);
+      console.log("Data saved successfully:", response.data);
+      fetchMatchData();
+      showCustomToast('success', 'บันทึกข้อมูลสำเร็จ');
+    } catch (error) {
+      console.error("Error saving match data:", error);
+    }
+  }
 
   if (!matchData) {
     return (
@@ -137,22 +155,55 @@ export default function EditMatchScorePage() {
     <div className='min-h-screen bg-gray-50 p-6'>
       <div className='max-w-7xl mx-auto'>
         {/* Header */}
-        <div className='bg-white rounded-lg shadow-sm p-6 mb-6'>
-          <div className='flex items-center justify-between mb-4'>
-            <h1 className='text-2xl font-bold text-gray-900'>
-              {matchData.id} | {matchData.matchName} [{matchData.type.toUpperCase()}]
-            </h1>
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6 mb-6">
+          <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between mb-4">
+            <div className="space-y-2 sm:space-y-0 sm:flex sm:items-center sm:gap-2">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900 break-words sm:break-normal">
+                <span className="block sm:inline">{matchData.id} |</span>{' '}
+                <span className="block sm:inline">{matchData.matchName}</span>{' '}
+                <span className="inline-block mt-1 sm:mt-0">[{matchData.type.toUpperCase()}]</span>
+              </h1>
+
+              <div className="inline-flex">
+                {matchData?.completed !== null ? (
+                  <span className='px-3 py-1 bg-green-100 text-green-600 text-xs font-medium rounded-full flex items-center gap-1.5 whitespace-nowrap'>
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full rounded-full bg-green-400"></span>
+                    </span>
+                    <p>จบแล้ว</p>
+                  </span>
+                ) : (
+                  <span className='px-3 py-1 bg-blue-100 text-blue-600 text-xs font-medium rounded-full flex items-center gap-1.5 whitespace-nowrap'>
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                    </span>
+                    <p>กำลังดำเนินการ</p>
+                  </span>
+                )}
+              </div>
+            </div>
+
             <button
               onClick={() => setShowAuditLogs(!showAuditLogs)}
-              className='flex items-center gap-2 text-gray-600 hover:text-gray-900'
+              className='flex items-center gap-2 text-gray-600 hover:text-gray-900 px-3 py-1.5 rounded-lg hover:bg-gray-50 transition-colors'
             >
-              <Clock size={20} />
-              {showAuditLogs ? 'ซ่อนประวัติ' : 'แสดงประวัติ'}
+              <Clock size={18} />
+              <span className="text-sm">
+                {showAuditLogs ? 'ซ่อนประวัติ' : 'แสดงประวัติ'}
+              </span>
             </button>
           </div>
-          <div className='flex flex-wrap items-center text-gray-600'>
-            <span className='mr-4'>📍 {matchData.location}</span>
-            <span>🕐 {matchData.date}</span>
+
+          <div className='flex flex-col sm:flex-row sm:items-center text-gray-600 gap-2 sm:gap-4'>
+            <div className="flex items-center gap-2">
+              <span className="text-lg">📍</span>
+              <span className="text-sm">{matchData.location}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-lg">🕐</span>
+              <span className="text-sm">{formatDateRange(matchData.date)}</span>
+            </div>
           </div>
         </div>
         <div className={`grid grid-cols-1 ${showAuditLogs ? 'lg:grid-cols-2' : ''} gap-6`}>
@@ -339,6 +390,8 @@ export default function EditMatchScorePage() {
             <Save size={20} />
             บันทึก
           </button>
+          {/* endMatch */}
+          <MatchEndConfirmation onEndMatch={onEndMatch} />
         </div>
       </div>
     </div>
