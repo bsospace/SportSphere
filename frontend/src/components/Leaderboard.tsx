@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion, AnimatePresence } from "framer-motion";
+import { Match } from "@/app/utils/interfaces";
 
-interface Team {
-    id: string;
-    name: string;
-}
+// interface Team {
+//     id: string;
+//     name: string;
+// }
 
-interface Participant {
-    id: string;
-    team: Team;
-    score?: number;
-    points?: number;
-}
+// interface Participant {
+//     id: string;
+//     team: Team;
+//     score?: number;
+//     points?: number;
+// }
 
-interface Match {
-    id: string;
-    participants: Participant[];
-}
+// interface Match {
+//     id: string;
+//     participants: Participant[];
+// }
 
 interface LeaderboardProps {
     matches: Match[];
@@ -32,7 +33,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ matches }) => {
             // Aggregate scores for each team
             const teamPoints = matches.reduce<Record<string, { name: string; totalPoints: number }>>(
                 (acc, match) => {
-                    match.participants.forEach((participant) => {
+                    match.participants.forEach((participant: any) => {
                         const teamId = participant.team.id;
                         const teamName = participant.team.name;
                         const point = participant.points ?? 0;

@@ -14,6 +14,7 @@ import { Loader2 } from 'lucide-react';
 import MatchSchedule from '@/components/MatchSchedule';
 import Leaderboard from '@/components/Leaderboard';
 import LiveBadge from '@/components/LiveBadge';
+import { useAuth } from '../hooks/useAuth';
 
 
 export default function ChairballContent() {
@@ -21,6 +22,8 @@ export default function ChairballContent() {
     const [matches, setMatches] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const { socket, connected } = useSocket();
+    const { isAuthenticated } = useAuth();
+    const [isComplate, setIsComplate] = useState(false);
 
     const fetchData = async () => {
         try {
@@ -52,7 +55,7 @@ export default function ChairballContent() {
     }, [socket]);
 
     useEffect(() => {
-        fetchData();
+        setIsComplate(matches.every(match => match.completed));
 
         const teamPoints = matches.reduce<Record<string, { name: string; points: number }>>(
             (acc, match) => {
@@ -117,7 +120,11 @@ export default function ChairballContent() {
 
         setPodiumData(sortedTeams);
         setLoading(false);
-    }, []);
+    }, [matches]);
+
+    useEffect(() => {
+        fetchData();
+    }, [])
 
     if (loading) {
         return (
@@ -141,7 +148,9 @@ export default function ChairballContent() {
             <Card className="mt-4">
                 <CardContent>
                     <LiveBadge title="ผลการแข่งขัน">
-                        <Podium teams={podiumData} />
+                        {(isComplate || isAuthenticated) && (
+                            <Podium teams={podiumData} />
+                        )}
                         <Leaderboard matches={matches} />
                     </LiveBadge>
                 </CardContent>

@@ -15,12 +15,16 @@ import { Loader2 } from 'lucide-react';
 import MatchSchedule from '@/components/MatchSchedule';
 import Leaderboard from '@/components/Leaderboard';
 import LiveBadge from '@/components/LiveBadge';
+import { useAuth } from '../hooks/useAuth';
+import { match } from 'assert';
 
 export default function BadmintonMixedContent() {
     const [podiumData, setPodiumData] = useState<{ team: string; rank: number; title: string; score: number; color: string; }[]>([]);
     const [matches, setMatches] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const { socket, connected } = useSocket();
+    const { isAuthenticated } = useAuth();
+    const [isComplate, setIsComplate] = useState(false);
 
     const fetchData = async () => {
         try {
@@ -39,7 +43,7 @@ export default function BadmintonMixedContent() {
             socket.onmessage = (event) => {
                 const message = JSON.parse(event.data);
                 if (message.event === 'matchScoresUpdated') {
-                    if(message.data.sport === 'BMX'){
+                    if (message.data.sport === 'BMX') {
                         fetchData();
                     }
                 }
@@ -52,7 +56,7 @@ export default function BadmintonMixedContent() {
     }, [socket]);
 
     useEffect(() => {
-        fetchData();
+        setIsComplate(matches.every(match => match.completed));
 
         const teamPoints = matches.reduce<Record<string, { name: string; points: number }>>(
             (acc, match) => {
@@ -117,7 +121,11 @@ export default function BadmintonMixedContent() {
 
         setPodiumData(sortedTeams);
         setLoading(false);
-    }, []);
+    }, [matches]);
+
+    useEffect(() => {
+        fetchData();
+    }, [])
 
     if (loading) {
         return (
@@ -142,7 +150,9 @@ export default function BadmintonMixedContent() {
             <Card className="mt-4">
                 <CardContent>
                     <LiveBadge title="ผลการแข่งขัน">
-                        <Podium teams={podiumData} />
+                        {(isComplate || isAuthenticated) && (
+                            <Podium teams={podiumData} />
+                        )}
                         <Leaderboard matches={matches} />
                     </LiveBadge>
                 </CardContent>
@@ -181,7 +191,7 @@ export default function BadmintonMixedContent() {
                             </RuleItem>
                             <RuleItem>
                                 ยกเว้นเมื่อได้ 20 คะแนนเท่ากันต้องนับแต้มต่อให้มีคะแนนห่างกัน 2 คะแนน
-                                ฝ่ายใดได้คะแนนนำ 2 คะแนนก่อนถือเป็นผู้ชนะ 
+                                ฝ่ายใดได้คะแนนนำ 2 คะแนนก่อนถือเป็นผู้ชนะ
                             </RuleItem>
                             <RuleItem>
                                 แต่ไม่เกิน 30 คะแนน หมายความว่า หากเล่นมาจนถึง 29 คะแนนเท่ากัน ฝ่ายใดได้ 30 คะแนนก่อนถือเป็นผู้ชนะ

@@ -44,7 +44,7 @@ export default function MatchPage() {
 
     let slug = "valorant";
     // Get slug from query param
-    if (typeof window !== "undefined"){
+    if (typeof window !== "undefined") {
         const urlParams = new URLSearchParams(window.location.search)
         slug = urlParams.get('sport') || 'valorant';
     }
@@ -94,6 +94,7 @@ export default function MatchPage() {
                 backgroundImage: "url('/images/sport-banner.svg')",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
+                backgroundAttachment: "fixed", // ทำให้ background ไม่ขยับตอนเลื่อนลง
             }}
         >
             <h1

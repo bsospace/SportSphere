@@ -3,7 +3,7 @@
 /* eslint-disable-next-line react-hooks/exhaustive-deps */
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { api } from '@/app/utils/api.util';
 import {
     Card,
@@ -15,33 +15,36 @@ import Leaderboard from '@/components/Leaderboard';
 import { Loader2 } from 'lucide-react';
 import { useSocket } from '../hooks/useSocket';
 import LiveBadge from '@/components/LiveBadge';
+import { useAuth } from '@/app/hooks/useAuth';
+
 
 export default function FootballContent() {
     const [podiumData, setPodiumData] = useState<{ team: string; rank: number; title: string; score: number; color: string; }[]>([]);
     const [matches, setMatches] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const { socket, connected } = useSocket();
+    const { isAuthenticated } = useAuth();
+    const [isComplate, setIsComplate] = useState(false);
 
-    const fetchData = async () => {
+    const fetchData = useCallback(async () => {
+        setLoading(true);
         try {
             const response = await api.get('api/v1/match/FB');
-            const data = await response.data.data.matches;
-
-            setMatches(data);
+            setMatches(response.data.data.matches);
         } catch (error) {
             console.error('Error fetching data:', error);
+        } finally {
+            setLoading(false);
         }
-    };
+    }, []);
 
     // Listen for match score updates from WebSocket
     useEffect(() => {
         if (socket) {
             socket.onmessage = (event) => {
                 const message = JSON.parse(event.data);
-                if (message.event === 'matchScoresUpdated') {
-                    if (message.data.sport === 'FB') {
-                        fetchData();
-                    }
+                if (message.event === 'matchScoresUpdated' && message.data.sport === 'FB') {
+                    fetchData();
                 }
             };
 
@@ -53,6 +56,13 @@ export default function FootballContent() {
 
     useEffect(() => {
         fetchData();
+    }, []);
+
+    useEffect(() => {
+        setIsComplate(matches.every(match => match.completed));
+
+        console.log(isComplate);
+        
 
         const teamPoints = matches.reduce<Record<string, { name: string; points: number }>>(
             (acc, match) => {
@@ -114,10 +124,9 @@ export default function FootballContent() {
         sortedTeams = [4, 2, 1, 3, 5]
             .map((rank) => sortedTeams.find((team) => team.rank === rank))
             .filter((team) => team !== undefined);
-
         setPodiumData(sortedTeams);
         setLoading(false);
-    }, []);
+    }, [matches]);
 
     if (loading) {
         return (
@@ -141,7 +150,9 @@ export default function FootballContent() {
             <Card className="mt-4">
                 <CardContent>
                     <LiveBadge title="ผลการแข่งขัน">
-                        <Podium teams={podiumData} />
+                        { (isAuthenticated || isComplate) &&  (
+                            <Podium teams={podiumData} />
+                        )}
                         <Leaderboard matches={matches} />
                     </LiveBadge>
                 </CardContent>
@@ -179,9 +190,6 @@ export default function FootballContent() {
                             </RuleItem>
                         </Subsection>
                         <Subsection title="4. จำนวนผู้เข้าแข่งขัน">
-                            <RuleItem>
-                                แต่ละสีส่งทีมได้ไม่เกิน 1 ทีม และสามารถส่งรายชื่อผู้เล่นได้ทั้งหมด 17 คน
-                            </RuleItem>
                             <RuleItem>
                                 อนุญาตให้มีผู้จัดการทีม/ผู้ฝึกสอน 1 คน เจ้าหน้าที่ทีม 2 คน ผู้เล่นจริงและสำรองรวม 17 คน ห้ามบุคคลอื่นลงสนามหรืออยู่ข้างสนาม
                             </RuleItem>

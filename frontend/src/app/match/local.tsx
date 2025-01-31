@@ -15,12 +15,15 @@ import Leaderboard from '@/components/Leaderboard';
 import { Loader2 } from 'lucide-react';
 import { useSocket } from '../hooks/useSocket';
 import LiveBadge from '@/components/LiveBadge';
+import { useAuth } from '../hooks/useAuth';
 
 export default function LocalContent() {
     const [podiumData, setPodiumData] = useState<{ team: string; rank: number; title: string; score: number; color: string; }[]>([]);
     const [matches, setMatches] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const { socket, connected } = useSocket();
+    const { isAuthenticated } = useAuth();
+    const [isComplate, setIsComplate] = useState(false);
 
     const fetchData = async () => {
         try {
@@ -52,7 +55,7 @@ export default function LocalContent() {
     }, [socket]);
 
     useEffect(() => {
-        fetchData();
+        setIsComplate(matches.every(match => match.completed));
 
         const teamPoints = matches.reduce<Record<string, { name: string; points: number }>>(
             (acc, match) => {
@@ -117,6 +120,10 @@ export default function LocalContent() {
 
         setPodiumData(sortedTeams);
         setLoading(false);
+    }, [matches]);
+
+    useEffect(() => {
+        fetchData();
     }, []);
 
     if (loading) {
@@ -142,7 +149,9 @@ export default function LocalContent() {
             <Card className="mt-4">
                 <CardContent>
                     <LiveBadge title="ผลการแข่งขัน">
-                        <Podium teams={podiumData} />
+                        {(isComplate || isAuthenticated) && (
+                            <Podium teams={podiumData} />
+                        )}
                         <Leaderboard matches={matches} />
                     </LiveBadge>
                 </CardContent>

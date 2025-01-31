@@ -16,6 +16,7 @@ import Navigation from "@/components/Navigation";
 import Image from "next/image";
 import UpcomingEvents from "@/components/UpComingEvent";
 
+
 const variants = {
   hidden: { opacity: 0, height: 0 },
   visible: { opacity: 1, height: "auto" },
