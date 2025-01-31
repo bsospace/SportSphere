@@ -1,6 +1,6 @@
 import { PrismaClient, Match, MatchParticipant } from "@prisma/client";
 import { handleError } from "../../utils/error-handler.util";
-import { AuditLog } from "../../utils/interface";
+import { AuditLog, SetScore } from "../../utils/interface";
 import { InputJsonValue } from "@prisma/client/runtime/library";
 import WebSocket from "ws";
 
@@ -50,6 +50,7 @@ export class MatchService {
                                 score: true,
                                 points: true,
                                 rank: true,
+                                setScores: true,
                                 team: {
                                     select: {
                                         id: true,
@@ -80,6 +81,8 @@ export class MatchService {
                     }
                 },
             });
+
+            console.log(match)
 
             if (!match) {
                 throw handleError(`Match with ID ${id} not found`, 404);
@@ -225,11 +228,17 @@ export class MatchService {
         }
     }
 
-    public async updateEndMatch(matchId: string, auditLog: AuditLog[],sportId: string ,endAt?: Date): Promise<void> {
-        try {
 
-           
-            console.log(sportId)
+    /**
+     * 
+     * @param matchId - The ID of the match.
+     * @param auditLog - Array of audit logs.
+     * @param sportId - The ID of the sport.
+     * @param endAt - The date and time the match ended.
+     */
+
+    public async updateEndMatch(matchId: string, auditLog: AuditLog[], sportId: string, endAt?: Date): Promise<void> {
+        try {
             const sport = await this.prismaClient.sport.findFirst({
                 where: { id: sportId },
             })
@@ -254,6 +263,53 @@ export class MatchService {
             throw new Error("Failed to update match scores.");
         }
     }
+
+    public async updateMatchSetScores(
+        matchId: string,
+        setScores: { teamId: string; setScores: SetScore }[],
+        auditLogs: AuditLog[]
+    ): Promise<MatchParticipant[]> {
+        try {
+            const participants = await this.prismaClient.matchParticipant.findMany({
+                where: { matchId },
+                include: { team: true },
+            });
+
+            if (participants.length === 0) {
+                throw new Error("No participants found for the match.");
+            }
+
+            // Update set scores for all participants
+            for (const setScoreData of setScores) {
+                const participant = participants.find((p) => p.teamId === setScoreData.teamId);
+                if (!participant) {
+                    throw new Error(`Participant with teamId ${setScoreData.teamId} not found in the match.`);
+                }
+
+                await this.prismaClient.matchParticipant.update({
+                    where: { id: participant.id },
+                    data: {
+                        score: null,
+                        setScores: setScoreData.setScores as unknown as InputJsonValue,
+                        auditLogs: auditLogs as unknown as InputJsonValue[],
+                    },
+                });
+            }
+
+            // Retrieve the updated participants for validation
+            const updatedParticipants = await this.prismaClient.matchParticipant.findMany({
+                where: { matchId },
+                include: { team: true },
+            });
+
+            return updatedParticipants;
+        } catch (error) {
+            console.error("Error updating match set scores:", error);
+            throw new Error("Failed to update match set scores.");
+        }
+    }
+
+
 
     /**
  * Hook to handle actions when scores are updated.
