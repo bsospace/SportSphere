@@ -14,6 +14,7 @@ import MatchSchedule from '@/components/MatchSchedule';
 import Leaderboard from '@/components/Leaderboard';
 import { Loader2 } from 'lucide-react';
 import { useSocket } from '../hooks/useSocket';
+import LiveBadge from '@/components/LiveBadge';
 
 export default function FootballContent() {
     const [podiumData, setPodiumData] = useState<{ team: string; rank: number; title: string; score: number; color: string; }[]>([]);
@@ -38,7 +39,7 @@ export default function FootballContent() {
             socket.onmessage = (event) => {
                 const message = JSON.parse(event.data);
                 if (message.event === 'matchScoresUpdated') {
-                    if(message.data.sport === 'FB'){
+                    if (message.data.sport === 'FB') {
                         fetchData();
                     }
                 }
@@ -139,18 +140,18 @@ export default function FootballContent() {
             {/* Podium Section */}
             <Card className="mt-4">
                 <CardContent>
-                    <Section title="ผลการแข่งขัน">
+                    <LiveBadge title="ผลการแข่งขัน">
                         <Podium teams={podiumData} />
                         <Leaderboard matches={matches} />
-                    </Section>
+                    </LiveBadge>
                 </CardContent>
             </Card>
 
             <Card className="mt-4">
                 <CardContent>
-                    <Section title="ตารางการแข่งขัน">
+                    <LiveBadge title="ตารางการแข่งขัน">
                         <MatchSchedule matches={sortedMatches} />
-                    </Section>
+                    </LiveBadge>
                 </CardContent>
             </Card>
 

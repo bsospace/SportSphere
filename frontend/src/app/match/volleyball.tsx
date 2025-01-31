@@ -12,6 +12,7 @@ import MatchSchedule from '@/components/MatchSchedule';
 import Leaderboard from '@/components/Leaderboard';
 import { Loader2 } from 'lucide-react';
 import { useSocket } from '../hooks/useSocket';
+import LiveBadge from '@/components/LiveBadge';
 
 export default function VolleyballContent() {
     const [podiumData, setPodiumData] = useState<{ team: string; rank: number; title: string; score: number; color: string; }[]>([]);
@@ -138,20 +139,18 @@ export default function VolleyballContent() {
             {/* Podium Section */}
             <Card className="mt-4">
                 <CardContent>
-                    <CardContent>
-                        <Section title="ผลการแข่งขัน">
-                            <Podium teams={podiumData} />
-                            <Leaderboard matches={matches} />
-                        </Section>
-                    </CardContent>
+                    <LiveBadge title="ผลการแข่งขัน">
+                        <Podium teams={podiumData} />
+                        <Leaderboard matches={matches} />
+                    </LiveBadge>
                 </CardContent>
             </Card>
 
             <Card className="mt-4">
                 <CardContent>
-                    <Section title="ตารางการแข่งขัน">
+                    <LiveBadge title="ตารางการแข่งขัน">
                         <MatchSchedule matches={sortedMatches} />
-                    </Section>
+                    </LiveBadge>
                 </CardContent>
             </Card>
 

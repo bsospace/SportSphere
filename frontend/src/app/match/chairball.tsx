@@ -5,8 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import {
     Card,
-    CardContent,
-    CardFooter,
+    CardContent
 } from "@/components/ui/card"
 import Podium from '@/components/Podium';
 import { api } from '@/app/utils/api.util';
@@ -14,6 +13,8 @@ import { useSocket } from '../hooks/useSocket';
 import { Loader2 } from 'lucide-react';
 import MatchSchedule from '@/components/MatchSchedule';
 import Leaderboard from '@/components/Leaderboard';
+import LiveBadge from '@/components/LiveBadge';
+
 
 export default function ChairballContent() {
     const [podiumData, setPodiumData] = useState<{ team: string; rank: number; title: string; score: number; color: string; }[]>([]);
@@ -139,18 +140,18 @@ export default function ChairballContent() {
 
             <Card className="mt-4">
                 <CardContent>
-                    <Section title="ผลการแข่งขัน">
+                    <LiveBadge title="ผลการแข่งขัน">
                         <Podium teams={podiumData} />
                         <Leaderboard matches={matches} />
-                    </Section>
+                    </LiveBadge>
                 </CardContent>
             </Card>
 
             <Card className="mt-4">
                 <CardContent>
-                    <Section title="ตารางการแข่งขัน">
+                    <LiveBadge title="ตารางการแข่งขัน">
                         <MatchSchedule matches={sortedMatches} />
-                    </Section>
+                    </LiveBadge>
                 </CardContent>
             </Card>
 
