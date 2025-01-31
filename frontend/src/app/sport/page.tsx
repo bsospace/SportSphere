@@ -50,6 +50,7 @@ export default function Sport() {
     );
   }
 
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
       {/* Header Section */}
@@ -57,10 +58,10 @@ export default function Sport() {
         <h1 className="text-4xl font-bold text-gray-800 mb-4">Select Your Sport</h1>
         <p className="text-gray-600">Choose a sport to explore events and competitions</p>
         <div className="flex flex-wrap justify-center gap-4 mt-4">
-        <button className='flex items-center gap-2 px-4 py-2 bg-white text-black rounded-full hover:bg-gray-200' onClick={() => window.location.href = `/`}>
-          <Home size={20} />
-          Home
-        </button>
+          <button className='flex items-center gap-2 px-4 py-2 bg-white text-black rounded-full hover:bg-gray-200' onClick={() => window.location.href = `/`}>
+            <Home size={20} />
+            Home
+          </button>
         </div>
       </div>
 
@@ -78,12 +79,11 @@ export default function Sport() {
               >
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-4">
-                    <Trophy 
-                      className={`w-8 h-8 ${
-                        isHovered === sport.id 
-                          ? "text-blue-500" 
+                    <Trophy
+                      className={`w-8 h-8 ${isHovered === sport.id
+                          ? "text-blue-500"
                           : "text-gray-400"
-                      } transition-colors duration-300`}
+                        } transition-colors duration-300`}
                     />
                     <div className={`absolute top-0 right-0 w-24 h-24 -mr-8 -mt-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full opacity-${isHovered === sport.id ? '10' : '0'} transition-opacity duration-300`} />
                   </div>
@@ -94,9 +94,8 @@ export default function Sport() {
                     Click to view events
                   </p>
                 </div>
-                <div className={`absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-600 transform origin-left transition-transform duration-300 ${
-                  isHovered === sport.id ? "scale-x-100" : "scale-x-0"
-                }`} />
+                <div className={`absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-600 transform origin-left transition-transform duration-300 ${isHovered === sport.id ? "scale-x-100" : "scale-x-0"
+                  }`} />
               </div>
             ))}
           </div>

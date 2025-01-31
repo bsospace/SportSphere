@@ -126,6 +126,12 @@ export default function BadmintonMixedContent() {
         );
     }
 
+    const sortedMatches = matches?.sort((a: any, b: any) => {
+        const numA = parseInt(a.id.replace(/\D/g, ""), 10);
+        const numB = parseInt(b.id.replace(/\D/g, ""), 10);
+
+        return numA - numB;
+    });
 
     return (
         <div>
@@ -144,7 +150,7 @@ export default function BadmintonMixedContent() {
             <Card className="mt-4">
                 <CardContent>
                     <Section title="ตารางการแข่งขัน">
-                        <MatchSchedule matches={matches} />
+                        <MatchSchedule matches={sortedMatches} />
                     </Section>
                 </CardContent>
             </Card>

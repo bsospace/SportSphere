@@ -36,7 +36,7 @@ export default function VolleyballContent() {
             socket.onmessage = (event) => {
                 const message = JSON.parse(event.data);
                 if (message.event === 'matchScoresUpdated') {
-                    if(message.data.sport === 'VB'){
+                    if (message.data.sport === 'VB') {
                         fetchData();
                     }
                 }
@@ -124,6 +124,12 @@ export default function VolleyballContent() {
         );
     }
 
+    const sortedMatches = matches?.sort((a: any, b: any) => {
+        const numA = parseInt(a.id.replace(/\D/g, ""), 10);
+        const numB = parseInt(b.id.replace(/\D/g, ""), 10);
+
+        return numA - numB;
+    });
 
     return (
         <div>
@@ -132,19 +138,19 @@ export default function VolleyballContent() {
             {/* Podium Section */}
             <Card className="mt-4">
                 <CardContent>
-                <CardContent>
-                    <Section title="ผลการแข่งขัน">
-                        <Podium teams={podiumData} />
-                        <Leaderboard matches={matches} />
-                    </Section>
-                </CardContent>
+                    <CardContent>
+                        <Section title="ผลการแข่งขัน">
+                            <Podium teams={podiumData} />
+                            <Leaderboard matches={matches} />
+                        </Section>
+                    </CardContent>
                 </CardContent>
             </Card>
 
             <Card className="mt-4">
-            <CardContent>
+                <CardContent>
                     <Section title="ตารางการแข่งขัน">
-                        <MatchSchedule matches={matches} />
+                        <MatchSchedule matches={sortedMatches} />
                     </Section>
                 </CardContent>
             </Card>
@@ -152,55 +158,55 @@ export default function VolleyballContent() {
             {/* Rules Section */}
             <Card className="mt-4">
                 <CardContent>
-                <Section title="กติกาการแข่งขันวอลเลย์บอล">
-                    <Subsection title="1. ระเบียบและกติกาการแข่งขัน">
-                        <RuleItem>
-                            การแข่งขันประเภททีมผสม (ชายและหญิง)
-                        </RuleItem>
-                        <RuleItem>
-                            ผู้เล่นในสนามต้องมีทั้งชายและหญิงอย่างน้อย 2 คนต่อทีม
-                        </RuleItem>
-                    </Subsection>
-                    <Subsection title="2. จำนวนผู้เข้าแข่งขัน">
-                        <RuleItem>
-                            แต่ละทีมต้องมีผู้เล่นทั้งหมด 12 คน แบ่งเป็นผู้เล่นตัวจริง 6 คนและตัวสำรอง 6 คน
-                        </RuleItem>
-                        <RuleItem>
-                            สามารถเปลี่ยนตัวผู้เล่นเข้าออกได้ไม่เกิน 6 ครั้งต่อเซ็ต
-                        </RuleItem>
-                    </Subsection>
-                    <Subsection title="3. วิธีการจัดการแข่งขัน">
-                        <RuleItem>ใช้ระบบแพ้คัดออก</RuleItem>
-                        <RuleItem>
-                            แข่งขัน 3 เซ็ต (Best of 3) เซ็ตละ 25 แต้ม โดยทีมที่ชนะ 2 ใน 3 เซ็ตถือเป็นผู้ชนะ
-                        </RuleItem>
-                        <RuleItem>
-                            ในกรณีเซ็ตสุดท้าย (เซ็ตที่ 3) เล่นถึง 15 แต้ม โดยต้องชนะห่างอย่างน้อย 2 แต้ม
-                        </RuleItem>
-                    </Subsection>
-                    <Subsection title="4. ชุดการแข่งขัน">
-                        <RuleItem>
-                            ชุดแข่งต้องแสดงสีของทีมชัดเจนและมีหมายเลขติดที่เสื้อ (หมายเลข 1-99)
-                        </RuleItem>
-                        <RuleItem>
-                            ผู้เล่นต้องสวมรองเท้ากีฬาหุ้มส้นที่เหมาะสมสำหรับการเล่นวอลเลย์บอล
-                        </RuleItem>
-                    </Subsection>
-                    <Subsection title="5. ข้อปฏิบัติในการแข่งขัน">
-                        <RuleItem>
-                            ผู้เล่นทุกคนต้องยอมรับคำตัดสินของกรรมการและปฏิบัติตามกติกาอย่างเคร่งครัด
-                        </RuleItem>
-                        <RuleItem>
-                            หากทีมใดไม่พร้อมแข่งขันหรือไม่ลงแข่งขันตามเวลาที่กำหนดโดยไม่มีเหตุอันสมควร จะถูกปรับแพ้ทันที
-                        </RuleItem>
-                        <RuleItem>ผู้เล่นต้องประพฤติดีและแสดงน้ำใจนักกีฬา</RuleItem>
-                    </Subsection>
-                    <Subsection title="6. กรรมการตัดสินและเจ้าหน้าที่">
-                        <RuleItem>
-                            การตัดสินให้อยู่ในดุลยพินิจของคณะกรรมการจัดการแข่งขัน และถือเป็นที่สิ้นสุด
-                        </RuleItem>
-                    </Subsection>
-                </Section>
+                    <Section title="กติกาการแข่งขันวอลเลย์บอล">
+                        <Subsection title="1. ระเบียบและกติกาการแข่งขัน">
+                            <RuleItem>
+                                การแข่งขันประเภททีมผสม (ชายและหญิง)
+                            </RuleItem>
+                            <RuleItem>
+                                ผู้เล่นในสนามต้องมีทั้งชายและหญิงอย่างน้อย 2 คนต่อทีม
+                            </RuleItem>
+                        </Subsection>
+                        <Subsection title="2. จำนวนผู้เข้าแข่งขัน">
+                            <RuleItem>
+                                แต่ละทีมต้องมีผู้เล่นทั้งหมด 12 คน แบ่งเป็นผู้เล่นตัวจริง 6 คนและตัวสำรอง 6 คน
+                            </RuleItem>
+                            <RuleItem>
+                                สามารถเปลี่ยนตัวผู้เล่นเข้าออกได้ไม่เกิน 6 ครั้งต่อเซ็ต
+                            </RuleItem>
+                        </Subsection>
+                        <Subsection title="3. วิธีการจัดการแข่งขัน">
+                            <RuleItem>ใช้ระบบแพ้คัดออก</RuleItem>
+                            <RuleItem>
+                                แข่งขัน 3 เซ็ต (Best of 3) เซ็ตละ 25 แต้ม โดยทีมที่ชนะ 2 ใน 3 เซ็ตถือเป็นผู้ชนะ
+                            </RuleItem>
+                            <RuleItem>
+                                ในกรณีเซ็ตสุดท้าย (เซ็ตที่ 3) เล่นถึง 15 แต้ม โดยต้องชนะห่างอย่างน้อย 2 แต้ม
+                            </RuleItem>
+                        </Subsection>
+                        <Subsection title="4. ชุดการแข่งขัน">
+                            <RuleItem>
+                                ชุดแข่งต้องแสดงสีของทีมชัดเจนและมีหมายเลขติดที่เสื้อ (หมายเลข 1-99)
+                            </RuleItem>
+                            <RuleItem>
+                                ผู้เล่นต้องสวมรองเท้ากีฬาหุ้มส้นที่เหมาะสมสำหรับการเล่นวอลเลย์บอล
+                            </RuleItem>
+                        </Subsection>
+                        <Subsection title="5. ข้อปฏิบัติในการแข่งขัน">
+                            <RuleItem>
+                                ผู้เล่นทุกคนต้องยอมรับคำตัดสินของกรรมการและปฏิบัติตามกติกาอย่างเคร่งครัด
+                            </RuleItem>
+                            <RuleItem>
+                                หากทีมใดไม่พร้อมแข่งขันหรือไม่ลงแข่งขันตามเวลาที่กำหนดโดยไม่มีเหตุอันสมควร จะถูกปรับแพ้ทันที
+                            </RuleItem>
+                            <RuleItem>ผู้เล่นต้องประพฤติดีและแสดงน้ำใจนักกีฬา</RuleItem>
+                        </Subsection>
+                        <Subsection title="6. กรรมการตัดสินและเจ้าหน้าที่">
+                            <RuleItem>
+                                การตัดสินให้อยู่ในดุลยพินิจของคณะกรรมการจัดการแข่งขัน และถือเป็นที่สิ้นสุด
+                            </RuleItem>
+                        </Subsection>
+                    </Section>
                 </CardContent>
             </Card>
         </div>

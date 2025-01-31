@@ -55,6 +55,14 @@ export default function SportDetail() {
 
   const { sport, matches } = data.data;
 
+
+  const sortedMatches = matches?.sort((a: any, b: any) => {
+    const numA = parseInt(a.id.replace(/\D/g, ""), 10);
+    const numB = parseInt(b.id.replace(/\D/g, ""), 10);
+
+    return numA - numB;
+  });
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
       {/* Header Section */}
@@ -64,20 +72,20 @@ export default function SportDetail() {
           Browse through the matches and events under {sport.name}
         </p>
         <div className="flex flex-wrap justify-center gap-4 mt-4">
-        <button className='flex items-center gap-2 px-4 py-2 bg-white text-black rounded-full hover:bg-gray-200' onClick={() => window.location.href = `/sport`}>
-          <Trophy size={20} />
-          Back to Sports
-        </button>
-        <button className='flex items-center gap-2 px-4 py-2 bg-white text-black rounded-full hover:bg-gray-200' onClick={() => window.location.href = `/`}>
-          <Home size={20} />
-          Home
-        </button>
+          <button className='flex items-center gap-2 px-4 py-2 bg-white text-black rounded-full hover:bg-gray-200' onClick={() => window.location.href = `/sport`}>
+            <Trophy size={20} />
+            Back to Sports
+          </button>
+          <button className='flex items-center gap-2 px-4 py-2 bg-white text-black rounded-full hover:bg-gray-200' onClick={() => window.location.href = `/`}>
+            <Home size={20} />
+            Home
+          </button>
         </div>
       </div>
 
       {/* Matches Grid */}
       <div className="max-w-4xl mx-auto">
-        {matches.map((match: any) => (
+        {sortedMatches?.map((match: any) => (
           <div
             key={match.id}
             onClick={() => router.push(`/sport/${slug}/${match.id}`)}
