@@ -6,7 +6,7 @@
             "tags": ["football", "basketball", "volleyball", "chairball", "badminton"],
             "link": "https://ifgames.bsospace.com/match",
             "linkLabel": "ดูตารางการแข่งขัน",
-            "image": ""
+            "image": "/images/sport/international_sport.png"
         },
         {
             "time": "2 กุมภาพันธ์ 2568 | 10:00 - 15:00 น.",
@@ -14,7 +14,7 @@
             "tags": ["football", "basketball", "volleyball", "chairball", "badminton"],
             "link": "https://ifgames.bsospace.com/match",
             "linkLabel": "ดูตารางการแข่งขัน",
-            "image": ""
+            "image": "/images/sport/international_sport.png"
         },
         {
             "time": "2 กุมภาพันธ์ 2568 | 15:00 - 20:00 น.",
@@ -22,7 +22,7 @@
             "tags": ["parade", "กีฬาพื้นบ้าน", "american cheer", "คทากร"],
             "link": "https://ifgames.bsospace.com/match",
             "linkLabel": "ดูตารางการแข่งขัน",
-            "image": ""
+            "image": "/images/sport/local_sport.png"
         }
     ]
 }
