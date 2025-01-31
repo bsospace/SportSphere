@@ -1,6 +1,6 @@
 import e, { Request, Response } from "express";
 import { MatchService } from "../services/macth.service";
-import { assignRanksAndPoints, calculatePoints } from "../../utils/rank-score.util";
+import { assignRanksAndPoints, calculatePoints } from '../../utils/rank-score.util';
 import { AuditLog, SetScore } from "../../utils/interface";
 
 
@@ -20,7 +20,7 @@ export class MacthController {
         this.createMatchWithParticipants = this.createMatchWithParticipants.bind(this);
         this.getMatchById = this.getMatchById.bind(this);
         this.updateMatch = this.updateMatch.bind(this);
-        this.endMatch = this.endMatch.bind(this);4
+        this.endMatch = this.endMatch.bind(this); 4
         this.updateSetScores = this.updateSetScores.bind(this);
     }
 
@@ -207,7 +207,7 @@ export class MacthController {
             const updatedParticipants = await this.matchService.updateMatchScores(
                 id,
                 mergedScores.map((participant) => ({
-                    teamId: participant.teamId ?? '',
+                    teamId: participant.teamId || '',
                     score: participant.score ?? 0,
                     points: participant.points ?? 0,
                     rank: participant.rank !== null && participant.rank != 0 ? participant.rank.toString() : '',
@@ -231,42 +231,50 @@ export class MacthController {
 
     public async updateSetScores(req: Request, res: Response): Promise<any> {
         try {
-            const { setScores }: { setScores: SetScoreWithTeamId[] } = req.body;
+            const { setScores, ranks }: { setScores: SetScoreWithTeamId[], ranks: { teamId: string; rank?: number }[] } = req.body;
             const { id } = req.params;
-    
-            // Validate the request body for set scores
+
+            // ตรวจสอบค่าที่ได้รับมา
             if (!Array.isArray(setScores) || setScores.length === 0) {
                 return res.status(400).json({ message: "Invalid set scores provided." });
             }
-    
-            // Fetch the match details along with participants
+
+            // ดึงข้อมูลการแข่งขันจากฐานข้อมูล
             const match = await this.matchService.getMatchWithParticipants(id);
-    
             if (!match) {
                 return res.status(404).json({ message: "Match not found." });
             }
-    
-            // Capture original set scores for audit log comparison
+
+            // บันทึกคะแนนเดิมสำหรับการทำ audit log
             const originalSetScores = match.participants.map((participant) => ({
                 teamId: participant.teamId,
                 teamName: participant.team ? participant.team.name : 'Unknown',
-                setScores: typeof participant.setScores === 'string' 
-                    ? JSON.parse(participant.setScores) 
+                setScores: typeof participant.setScores === 'string'
+                    ? JSON.parse(participant.setScores)
                     : participant.setScores ?? [],
             }));
-    
-            // Merge the provided set scores with existing participant data
+
+            // อัปเดตคะแนนของแต่ละทีม
             const mergedSetScores = match.participants.map((participant) => {
                 const updatedSetScores = setScores.find((s) => s.teamId === participant.teamId);
+                const existingRank = ranks.find((r) => r.teamId === participant.teamId);
+                const rankValue = existingRank?.rank !== undefined && !isNaN(Number(existingRank.rank))
+                    ? Number(existingRank.rank)
+                    : null;
+
+                const rank = rankValue !== null ? rankValue.toString() : "";
+
                 return {
                     teamId: participant.teamId,
                     setScores: updatedSetScores?.setScores ?? originalSetScores.find((o) => o.teamId === participant.teamId)?.setScores ?? [],
+                    rank: rank,
+                    points: existingRank?.rank !== undefined ? calculatePoints(match.type as "duel" | "free-for-all", existingRank.rank) : 0,
                 };
             });
-    
+
             const user = req.user || null;
-    
-            // Generate audit log with detailed set score changes
+
+            // บันทึก log การเปลี่ยนแปลง
             const setScoreChanges = mergedSetScores.map((updated) => {
                 const original = originalSetScores.find((o) => o.teamId === updated.teamId);
                 return {
@@ -281,7 +289,7 @@ export class MacthController {
                     },
                 };
             });
-    
+
             const auditLog: AuditLog = {
                 timestamp: new Date().toISOString(),
                 action: "update",
@@ -296,20 +304,24 @@ export class MacthController {
                     setScoreChanges,
                 },
             };
-    
-            // Update the participants' set scores in the database
+
+            // อัปเดตข้อมูลในฐานข้อมูล
             const updatedMatch = await this.matchService.updateMatchSetScores(
                 id,
                 mergedSetScores.map((participant) => ({
-                    teamId: participant.teamId ?? '',
-                    setScores: participant.setScores as SetScore,
+                    teamId: participant.teamId || '',
+                    setScores: participant.setScores,
+                    rank: participant.rank,
+                    points: participant.points,
                 })),
-                [auditLog]
+                [auditLog],
+                match.sportId
             );
 
-            // return updated match
+            // ดึงข้อมูลการแข่งขันที่อัปเดตแล้ว
             const updatedMatchWithParticipants = await this.matchService.getMatchWithParticipants(id);
-    
+            
+
             return res.json({
                 success: true,
                 message: "Set scores updated successfully.",
@@ -320,6 +332,7 @@ export class MacthController {
             return res.status(500).json({ message: "Failed to update set scores." });
         }
     }
+
 
 
 
