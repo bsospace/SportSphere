@@ -90,25 +90,18 @@ export default function EditMatchScorePage() {
     }))
   }
 
-  const formatDate = (dateString: string) => {
-    // Split date and time range
-    const [datePart, timeRange] = dateString.split(" ");
-
-    // Extract start time from range
-    const startTime = timeRange.split("-")[0]; // "14:00"
-
-    // Construct valid date-time string
-    const validDateString = `${datePart}T${startTime}:00`;
-
-    // Format the date in Thai locale
-    return new Date(validDateString).toLocaleString('th-TH', {
+  const formatDate = (timestamp: string) => {
+    const date = new Date(timestamp);
+    return date.toLocaleString('th-TH', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
-    });
-  }
+      hour12: false,
+      timeZone: 'Asia/Bangkok'
+    }) + " น.";
+  };
 
   const saveData = async () => {
     if (!matchData || !matchData.participants || matchData.participants.length < 2) {
