@@ -41,12 +41,18 @@ export default function EditMatchScorePage() {
     completed: Date
   }
 
+  interface Rank {
+     teamId: string
+     rank?: string 
+  }
+
   const [matchData, setMatchData] = useState<MatchData | null>(null)
   const [teamScores, setTeamScores] = useState<Record<string, number>>({})
   const [teamRanks, setTeamRanks] = useState<Record<string, number>>({})
   const [showAuditLogs, setShowAuditLogs] = useState(false)
   const { slug, id } = useParams() as { slug: string; id: string }
-
+  const [rankSetScore, setRankSetScore] = useState<Rank[]>([]);
+    
   const fetchMatchData = async () => {
     try {
       const response = await api.get(`api/v1/match/${slug}/${id}`)
@@ -92,36 +98,25 @@ export default function EditMatchScorePage() {
     }))
   }
 
+
   const handleRankChange = (teamId: string, value: number) => {
-    setTeamRanks(prev => ({
+    const hasSetScores =
+      matchData?.participants.some(
+        (participant) => participant.setScores && participant.setScores.length > 0
+      ) || false;
+  
+    if (hasSetScores) {
+      setRankSetScore((prev) => [
+        ...prev.filter((rank) => rank.teamId !== teamId),
+        { teamId, rank: value.toString() },
+      ]);
+    }
+  
+    setTeamRanks((prev) => ({
       ...prev,
-      [teamId]: value
-    }))
-  }
-
-  const handleRankChangeForSetScore = (teamId: string, setIndex: number, value: number) => {
-    setMatchData(prevMatchData => {
-      if (!prevMatchData) return prevMatchData;
-
-      const updatedParticipants = prevMatchData.participants.map(participant => {
-        if (participant.team.id !== teamId) return participant;
-
-        // Clone the setScores array to modify safely
-        const updatedSetScores = participant.setScores ? [...participant.setScores] : [];
-
-        if (updatedSetScores[setIndex]) {
-          updatedSetScores[setIndex] = {
-            ...updatedSetScores[setIndex],
-            rank: value.toString(),
-          };
-        }
-
-        return { ...participant, setScores: updatedSetScores };
-      });
-
-      return { ...prevMatchData, participants: updatedParticipants };
-    });
-  }
+      [teamId]: value,
+    }));
+  };
 
   const formatDate = (timestamp: string) => {
     const date = new Date(timestamp);
@@ -150,6 +145,7 @@ export default function EditMatchScorePage() {
       id: matchData.id,
       ...(hasSetScores
         ? {
+          ranks:rankSetScore,
           setScores: matchData.participants.map(participant => ({
             teamId: participant.team.id.toString(),
             setScores: participant.setScores?.map(set => ({
@@ -315,7 +311,7 @@ export default function EditMatchScorePage() {
                               {/* Score Controls */}
                               <div className=" w-full flex items-center gap-3 mt-2  justify-center ">
                                 <button
-                                  onClick={() => handleRankChangeForSetScore(participant.team.id, i, (setScore.score || 0) - 1)}
+                                  onClick={() => participant.setScores && handleSetScoreChange(participant.team.id, i, participant.setScores[i].score - 1)}
                                   className="p-2 bg-gray-200 hover:bg-gray-300 rounded-full transition"
                                 >
                                   <Minus size={16} className="text-gray-700" />
@@ -323,12 +319,12 @@ export default function EditMatchScorePage() {
                                 <input
                                   type="number"
                                   value={setScore.score || 0}
-                                  onChange={e => handleRankChangeForSetScore(participant.team.id, i, parseInt(e.target.value))}
+                                  onChange={()=> handleSetScoreChange(participant.team.id, i,Math.max(1, setScore.score - 1))}
                                   className="w-14 text-center text-lg font-semibold p-2 border rounded-lg bg-white shadow-inner"
                                   min="0"
                                 />
                                 <button
-                                  onClick={() => handleRankChangeForSetScore(participant.team.id, i, (setScore.score || 0) + 1)}
+                                  onClick={() => participant.setScores && handleSetScoreChange(participant.team.id, i, participant.setScores[i].score + 1)}
                                   className="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-full transition"
                                 >
                                   <Plus size={16} />
