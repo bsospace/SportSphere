@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { api } from '../../utils/api.util';
 import { useAuth } from '@/app/hooks/useAuth';
 import { Loader2, Trophy, Home } from 'lucide-react';
+import { formatDateRange } from '@/app/utils/formatdate-range.util';
 
 export default function SportDetail() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -116,7 +117,7 @@ export default function SportDetail() {
               </p>
               <p className="text-sm text-gray-700">
                 🕐 Date Time:{' '}
-                {match.date}
+                {formatDateRange(match.date)}
               </p>
             </div>
             <div
