@@ -82,12 +82,8 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ matches }) => {
             <AnimatePresence>
                 {isLoading || sortedTeams.length === 0 ? (
                     Array.from({ length: 5 }).map((_, index) => (
-                        <motion.div
+                        <div
                             key={`skeleton-${index}`}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.3, delay: index * 0.1 }}
                             className="flex items-center justify-between px-4 py-2 rounded-lg bg-gray-100"
                         >
                             <div className="flex items-center gap-4">
@@ -95,7 +91,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ matches }) => {
                                 <Skeleton className="w-24 h-5 rounded" />
                             </div>
                             <Skeleton className="w-12 h-5 rounded" />
-                        </motion.div>
+                        </div>
                     ))
                 ) : (
                     sortedTeams.map((team, index) => (
