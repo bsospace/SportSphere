@@ -19,7 +19,7 @@ export class MatchService {
             const sport = await this.prismaClient.sport.findUnique({
                 where: { slug: sportSlug },
             });
-            
+
             // Check if the sport exists
             if (!sport) {
                 throw handleError(`Sport with slug ${sportSlug} not found`, 404);
@@ -219,6 +219,36 @@ export class MatchService {
             await this.triggerScoreUpdateHook(participants[0].match.sport.slug);
 
             return updatedParticipants;
+        } catch (error) {
+            console.error("Error updating match scores:", error);
+            throw new Error("Failed to update match scores.");
+        }
+    }
+
+    public async updateEndMatch(matchId: string, auditLog: AuditLog[],sportId: string ,endAt?: Date): Promise<void> {
+        try {
+
+           
+            console.log(sportId)
+            const sport = await this.prismaClient.sport.findFirst({
+                where: { id: sportId },
+            })
+
+            console.log(sport)
+            // make match is ended
+            await this.prismaClient.match.update({
+                where: { id: matchId },
+                data: {
+                    completed: endAt || null,
+                    auditLogs: auditLog as unknown as InputJsonValue[],
+                },
+            });
+
+            if (!sport?.slug) {
+                throw new Error("Sport slug not found.");
+            }
+
+            await this.triggerScoreUpdateHook(sport?.slug);
         } catch (error) {
             console.error("Error updating match scores:", error);
             throw new Error("Failed to update match scores.");
