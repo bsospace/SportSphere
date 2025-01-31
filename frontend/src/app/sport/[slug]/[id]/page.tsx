@@ -284,8 +284,10 @@ export default function EditMatchScorePage() {
                         :
                         <select value={teamRanks[participant.team.id] || 0} onChange={e => handleRankChange(participant.team.id, parseInt(e.target.value))} className='w-full p-2 border rounded'>
                           <option value={""}>--</option>
-                          {matchData.participants.map((participant, index) => (
-                            <option key={index} value={participant.rank || index + 1}>{index + 1}</option>
+                          {matchData.participants.map((_, index) => (
+                            <option key={index} value={index + 1}>
+                              {index + 1}
+                            </option>
                           ))}
                         </select>
                       }
