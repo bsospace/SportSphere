@@ -1,13 +1,12 @@
 import e, { Request, Response } from "express";
 import { MatchService } from "../services/macth.service";
 import { assignRanksAndPoints, calculatePoints } from "../../utils/rank-score.util";
-import { AuditLog } from "../../utils/interface";
+import { AuditLog, SetScore } from "../../utils/interface";
 
 
-interface Score {
+interface SetScoreWithTeamId extends SetScore {
     teamId: string;
-    score: number;
-    rank: string;
+    setScores: number[];
 }
 
 
@@ -21,7 +20,8 @@ export class MacthController {
         this.createMatchWithParticipants = this.createMatchWithParticipants.bind(this);
         this.getMatchById = this.getMatchById.bind(this);
         this.updateMatch = this.updateMatch.bind(this);
-        this.endMatch = this.endMatch.bind(this);
+        this.endMatch = this.endMatch.bind(this);4
+        this.updateSetScores = this.updateSetScores.bind(this);
     }
 
     /**
@@ -228,6 +228,101 @@ export class MacthController {
             return res.status(500).json({ message: "Failed to update match." });
         }
     }
+
+    public async updateSetScores(req: Request, res: Response): Promise<any> {
+        try {
+            const { setScores }: { setScores: SetScoreWithTeamId[] } = req.body;
+            const { id } = req.params;
+    
+            // Validate the request body for set scores
+            if (!Array.isArray(setScores) || setScores.length === 0) {
+                return res.status(400).json({ message: "Invalid set scores provided." });
+            }
+    
+            // Fetch the match details along with participants
+            const match = await this.matchService.getMatchWithParticipants(id);
+    
+            if (!match) {
+                return res.status(404).json({ message: "Match not found." });
+            }
+    
+            // Capture original set scores for audit log comparison
+            const originalSetScores = match.participants.map((participant) => ({
+                teamId: participant.teamId,
+                teamName: participant.team ? participant.team.name : 'Unknown',
+                setScores: typeof participant.setScores === 'string' 
+                    ? JSON.parse(participant.setScores) 
+                    : participant.setScores ?? [],
+            }));
+    
+            // Merge the provided set scores with existing participant data
+            const mergedSetScores = match.participants.map((participant) => {
+                const updatedSetScores = setScores.find((s) => s.teamId === participant.teamId);
+                return {
+                    teamId: participant.teamId,
+                    setScores: updatedSetScores?.setScores ?? originalSetScores.find((o) => o.teamId === participant.teamId)?.setScores ?? [],
+                };
+            });
+    
+            const user = req.user || null;
+    
+            // Generate audit log with detailed set score changes
+            const setScoreChanges = mergedSetScores.map((updated) => {
+                const original = originalSetScores.find((o) => o.teamId === updated.teamId);
+                return {
+                    teamId: updated.teamId,
+                    previous: {
+                        setScores: original?.setScores ?? [],
+                        teamName: original?.teamName ?? 'Unknown',
+                    },
+                    updated: {
+                        setScores: updated.setScores ?? [],
+                        teamName: original?.teamName ?? 'Unknown',
+                    },
+                };
+            });
+    
+            const auditLog: AuditLog = {
+                timestamp: new Date().toISOString(),
+                action: "update",
+                service: "match",
+                email: user?.email,
+                userId: user?.id,
+                ipAddress: req.ip,
+                userAgent: req.get("User-Agent"),
+                success: true,
+                metadata: {
+                    matchId: id,
+                    setScoreChanges,
+                },
+            };
+    
+            // Update the participants' set scores in the database
+            const updatedMatch = await this.matchService.updateMatchSetScores(
+                id,
+                mergedSetScores.map((participant) => ({
+                    teamId: participant.teamId ?? '',
+                    setScores: participant.setScores as SetScore,
+                })),
+                [auditLog]
+            );
+
+            // return updated match
+            const updatedMatchWithParticipants = await this.matchService.getMatchWithParticipants(id);
+    
+            return res.json({
+                success: true,
+                message: "Set scores updated successfully.",
+                data: updatedMatchWithParticipants,
+            });
+        } catch (error) {
+            console.error("Error updating set scores:", error);
+            return res.status(500).json({ message: "Failed to update set scores." });
+        }
+    }
+
+
+
 
     public async endMatch(req: Request, res: Response): Promise<any> {
         try {
