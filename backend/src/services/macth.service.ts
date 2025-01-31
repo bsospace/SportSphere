@@ -82,8 +82,6 @@ export class MatchService {
                 },
             });
 
-            console.log(match)
-
             if (!match) {
                 throw handleError(`Match with ID ${id} not found`, 404);
             }
@@ -266,14 +264,23 @@ export class MatchService {
 
     public async updateMatchSetScores(
         matchId: string,
-        setScores: { teamId: string; setScores: SetScore }[],
-        auditLogs: AuditLog[]
+        setScores: { teamId: string; setScores: SetScore,rank?: string,points?: number }[],
+        auditLogs: AuditLog[],
+        sportId: string
     ): Promise<MatchParticipant[]> {
         try {
             const participants = await this.prismaClient.matchParticipant.findMany({
                 where: { matchId },
                 include: { team: true },
             });
+
+            const sport = await this.prismaClient.sport.findFirst({
+                where: { id: sportId },
+            });
+
+            if(!sport?.slug) {
+                throw new Error("Sport slug not found.");
+            }
 
             if (participants.length === 0) {
                 throw new Error("No participants found for the match.");
@@ -285,12 +292,15 @@ export class MatchService {
                 if (!participant) {
                     throw new Error(`Participant with teamId ${setScoreData.teamId} not found in the match.`);
                 }
+                
 
                 await this.prismaClient.matchParticipant.update({
                     where: { id: participant.id },
                     data: {
                         score: null,
                         setScores: setScoreData.setScores as unknown as InputJsonValue,
+                        rank: setScoreData.rank,
+                        points: setScoreData.points,
                         auditLogs: auditLogs as unknown as InputJsonValue[],
                     },
                 });
@@ -301,6 +311,9 @@ export class MatchService {
                 where: { matchId },
                 include: { team: true },
             });
+
+            
+            await this.triggerScoreUpdateHook(sport?.slug);
 
             return updatedParticipants;
         } catch (error) {
