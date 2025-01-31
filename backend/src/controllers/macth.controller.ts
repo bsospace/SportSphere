@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import e, { Request, Response } from "express";
 import { MatchService } from "../services/macth.service";
 import { assignRanksAndPoints, calculatePoints } from "../../utils/rank-score.util";
 import { AuditLog } from "../../utils/interface";
@@ -21,6 +21,7 @@ export class MacthController {
         this.createMatchWithParticipants = this.createMatchWithParticipants.bind(this);
         this.getMatchById = this.getMatchById.bind(this);
         this.updateMatch = this.updateMatch.bind(this);
+        this.endMatch = this.endMatch.bind(this);
     }
 
     /**
@@ -225,6 +226,95 @@ export class MacthController {
         } catch (error) {
             console.error("Error updating match:", error);
             return res.status(500).json({ message: "Failed to update match." });
+        }
+    }
+
+    public async endMatch(req: Request, res: Response): Promise<any> {
+        try {
+
+            const { id } = req.params;
+            const user = req.user || null;
+
+            // validate the request body
+            if (!id) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Failed to end match',
+                    error: 'Invalid match ID provided',
+                });
+            }
+
+            // find existing match
+            const existingMatch = await this.matchService.getMatchById(id);
+            if (!existingMatch) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Failed to end match',
+                    error: 'Match not found',
+                });
+            }
+
+            const existingAuditLogs: AuditLog[] = ((existingMatch.auditLogs ?? []) as unknown as AuditLog[]).filter(log => log !== null);
+
+            if (existingMatch.completed) {
+                // Create audit log
+                const auditLog: AuditLog = {
+                    timestamp: new Date().toISOString(),
+                    action: "make match not ended",
+                    service: "match",
+                    email: user?.email,
+                    userId: user?.id,
+                    ipAddress: req.ip,
+                    userAgent: req.get("User-Agent"),
+                    success: true,
+                    metadata: {
+                        matchId: id,
+                    },
+                };
+
+                // Append new audit log to existing logs
+                const updatedLogs = [...existingAuditLogs, auditLog];
+
+                // End the match
+                const match = await this.matchService.updateEndMatch(id, updatedLogs, existingMatch.sportId);
+
+                return res.status(200).json({
+                    success: true,
+                    message: "Match is now marked as not ended",
+                    data: match,
+                });
+            }
+
+            // If match is not ended, end it now
+            const auditLog: AuditLog = {
+                timestamp: new Date().toISOString(),
+                action: "end match",
+                service: "match",
+                email: user?.email,
+                userId: user?.id,
+                ipAddress: req.ip,
+                userAgent: req.get("User-Agent"),
+                success: true,
+                metadata: {
+                    matchId: id,
+                },
+            };
+
+            // Append new audit log
+            const updatedLogs = [...existingAuditLogs, auditLog];
+
+            // End the match with a completed timestamp
+            const match = await this.matchService.updateEndMatch(id, updatedLogs, existingMatch.sportId, new Date());
+
+            return res.status(200).json({
+                success: true,
+                message: "Match ended successfully",
+                data: match,
+            });
+
+        } catch (error) {
+            console.error("Error ending match:", error);
+            return res.status(500).json({ message: "Failed to end match." });
         }
     }
 }

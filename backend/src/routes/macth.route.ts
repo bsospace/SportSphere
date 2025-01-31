@@ -32,5 +32,6 @@ const matchController = new MacthController(
 router.get('/match/:sportSlug', matchController.getMacthBySportSlug);
 router.get('/match/:sportSlug/:id', matchController.getMatchById);
 router.put('/match/:id/edit', authMiddleware.authenticate,matchController.updateMatch);
+router.put('/match/:id/end', authMiddleware.authenticate,matchController.endMatch);
 
 export { router as matchRouter };
