@@ -105,7 +105,7 @@ const UpcomingEvents = () => {
                             {/* Location */}
                             <p className="text-sm text-gray-600">{event.location}</p>
                             {/* Tags */}
-                            <div className="flex gap-2 mt-2">
+                            <div className="flex gap-2 mt-2 flex-wrap">
                                 {event.tags.map((tag, i) => (
                                     <span
                                         key={i}
