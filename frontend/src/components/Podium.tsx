@@ -1,5 +1,5 @@
 import React from "react";
-import { Trophy, Crown, Star, Medal } from "lucide-react";
+import {Star, Medal } from "lucide-react";
 import { motion } from "framer-motion"; // Import Framer Motion
 
 const Podium = ({ teams, isLoading }) => {
