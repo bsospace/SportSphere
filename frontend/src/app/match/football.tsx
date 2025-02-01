@@ -61,15 +61,14 @@ export default function FootballContent() {
     useEffect(() => {
         setIsComplate(matches.every(match => match.completed));
 
-        console.log(isComplate);
-        
-
         const teamPoints = matches.reduce<Record<string, { name: string; points: number }>>(
             (acc, match) => {
                 match.participants.forEach((participant) => {
                     const teamId = participant.team.id;
                     const teamName = participant.team.name;
                     const points = participant.point ?? 0;
+                    console.log(participant);
+                    
 
                     if (!acc[teamId]) {
                         acc[teamId] = { name: teamName, points: 0 };
@@ -121,9 +120,17 @@ export default function FootballContent() {
                 };
             });
 
-        sortedTeams = [4, 2, 1, 3, 5]
-            .map((rank) => sortedTeams.find((team) => team.rank === rank))
-            .filter((team) => team !== undefined);
+        // จัดอันดับใหม่โดยให้ทีมที่มีคะแนนเท่ากันอยู่ในตำแหน่งเดียวกัน
+        let rank = 1;
+        sortedTeams = sortedTeams.map((team, index, arr) => {
+            if (index > 0 && team.score === arr[index - 1].score) {
+                team.rank = arr[index - 1].rank; // ใช้อันดับเดียวกับทีมก่อนหน้า
+            } else {
+                team.rank = index + 1;
+            }
+            return team;
+        });
+
         setPodiumData(sortedTeams);
         setLoading(false);
     }, [matches]);
@@ -150,7 +157,7 @@ export default function FootballContent() {
             <Card className="mt-4">
                 <CardContent>
                     <LiveBadge title="ผลการแข่งขัน">
-                        { (isAuthenticated || isComplate) &&  (
+                        {(isAuthenticated || isComplate) && (
                             <Podium teams={podiumData} />
                         )}
                         <Leaderboard matches={matches} />
