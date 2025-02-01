@@ -11,6 +11,33 @@ export class MatchService {
         this.prismaClient = prismaClient;
     }
 
+    public async getAllMatches() {
+        try {
+            return await this.prismaClient.match.findMany({
+                select: {
+                    id: true,
+                    participants: {
+                        select: {
+                            id: true,
+                            score: true,
+                            points: true,
+                            rank: true,
+                            team: {
+                                select: {
+                                    id: true,
+                                    name: true
+                                }
+                            }
+                        }
+                    },
+                    date: true,
+                }
+            });
+        } catch (error) {
+            console.error("Error fetching matches:", error);
+            throw new Error("Failed to fetch matches.");
+        }
+    }
 
     public async getMacthBySportSlug(sportSlug: string, audit?: string) {
         try {
@@ -264,7 +291,7 @@ export class MatchService {
 
     public async updateMatchSetScores(
         matchId: string,
-        setScores: { teamId: string; setScores: SetScore,rank?: string,points?: number }[],
+        setScores: { teamId: string; setScores: SetScore, rank?: string, points?: number }[],
         auditLogs: AuditLog[],
         sportId: string
     ): Promise<MatchParticipant[]> {
@@ -278,7 +305,7 @@ export class MatchService {
                 where: { id: sportId },
             });
 
-            if(!sport?.slug) {
+            if (!sport?.slug) {
                 throw new Error("Sport slug not found.");
             }
 
@@ -292,7 +319,7 @@ export class MatchService {
                 if (!participant) {
                     throw new Error(`Participant with teamId ${setScoreData.teamId} not found in the match.`);
                 }
-                
+
 
                 await this.prismaClient.matchParticipant.update({
                     where: { id: participant.id },
@@ -312,7 +339,7 @@ export class MatchService {
                 include: { team: true },
             });
 
-            
+
             await this.triggerScoreUpdateHook(sport?.slug);
 
             return updatedParticipants;
