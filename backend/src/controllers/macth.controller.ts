@@ -22,6 +22,7 @@ export class MacthController {
         this.updateMatch = this.updateMatch.bind(this);
         this.endMatch = this.endMatch.bind(this); 4
         this.updateSetScores = this.updateSetScores.bind(this);
+        this.getAllMatches = this.getAllMatches.bind(this);
     }
 
     /**
@@ -90,6 +91,29 @@ export class MacthController {
             console.error("Error fetching match:", error);
             return res.status(500).json({ message: "Failed to fetch match." });
 
+        }
+    }
+
+
+    /**
+     * Gat all matches
+     * @param req - Request
+     * @param res - Response
+     */
+
+    public async getAllMatches(req: Request, res: Response): Promise<any> {
+        try {
+            const matches = await this.matchService.getAllMatches();
+            return res.status(200).json({
+                success: true,
+                message: 'Matches fetched successfully',
+                data: { 
+                    matches,
+                 },
+            });
+        } catch (error) {
+            console.error("Error fetching matches:", error);
+            return res.status(500).json({ message: "Failed to fetch matches." });
         }
     }
 
@@ -320,7 +344,7 @@ export class MacthController {
 
             // ดึงข้อมูลการแข่งขันที่อัปเดตแล้ว
             const updatedMatchWithParticipants = await this.matchService.getMatchWithParticipants(id);
-            
+
 
             return res.json({
                 success: true,

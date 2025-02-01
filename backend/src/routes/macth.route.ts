@@ -31,8 +31,8 @@ const matchController = new MacthController(
 // Bind the controller methods to the route
 router.get('/match/:sportSlug', matchController.getMacthBySportSlug);
 router.get('/match/:sportSlug/:id', matchController.getMatchById);
-router.put('/match/:id/edit', authMiddleware.authenticate,matchController.updateMatch);
-router.put('/match/:id/end', authMiddleware.authenticate,matchController.endMatch);
-router.put('/match/:id/edit-set-score', authMiddleware.authenticate,matchController.updateSetScores);
-
+router.put('/match/:id/edit', authMiddleware.authenticate, matchController.updateMatch);
+router.put('/match/:id/end', authMiddleware.authenticate, matchController.endMatch);
+router.put('/match/:id/edit-set-score', authMiddleware.authenticate, matchController.updateSetScores);
+router.get('/match', matchController.getAllMatches);
 export { router as matchRouter };
