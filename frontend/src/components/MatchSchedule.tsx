@@ -48,7 +48,7 @@ const MatchSchedule: React.FC<MatchScheduleProps> = ({ matches }) => {
     };
 
     return (
-        <div className="bg-white shadow-lg rounded-xl p-6">
+        <div className="bg-white shadow-lg rounded-xl md:p-6">
             {isLoading ? (
                 // Skeleton Loading
                 Array.from({ length: 3 }).map((_, index) => (
@@ -96,14 +96,14 @@ const MatchSchedule: React.FC<MatchScheduleProps> = ({ matches }) => {
                                         {formatDateRange(match.date)}
                                     </p>
                                 </div>
-                                <p className="text-sm text-gray-600 flex items-center gap-2">
-                                    <MapPin size={16} className="text-gray-400" />
-                                    {match.location ?? "Location not specified"}
-                                </p>
                             </div>
                             <h4 className="mt-2 text-xl font-semibold text-gray-900">
                                 {match.matchName}
                             </h4>
+                                <p className="text-sm mt-4 text-gray-600 flex items-center gap-2">
+                                    <MapPin size={16} className="text-gray-400" />
+                                    {match.location ?? "Location not specified"}
+                                </p>
                         </div>
 
                         {/* Participants */}
@@ -122,15 +122,23 @@ const MatchSchedule: React.FC<MatchScheduleProps> = ({ matches }) => {
                             ).map((participant: MatchParticipant) => (
                                 <div
                                     key={participant.id}
-                                    className="flex items-center justify-between bg-gray-100/50 hover:bg-gray-100 transition-colors p-3 rounded-lg"
+                                    className="md:flex md:flex-row flex flex-col items-center justify-between bg-gray-100/50 hover:bg-gray-100 transition-colors p-3 rounded-lg"
                                 >
                                     <div className="flex items-center gap-3">
                                         <span className="text-sm font-medium text-gray-800">
                                             {participant.team?.name}
                                         </span>
+                                        <div>
+                                        {/* Badge for Rank */}
+                                        {participant.rank && (
+                                            <span className="bg-blue-100 text-blue-800 px-2 py-1 text-xs rounded font-semibold">
+                                                {getBadgeText(participant.rank, match.type)}
+                                            </span>
+                                        )}
                                     </div>
-                                    <div className="text-sm font-bold text-gray-700">
-                                        {participant.score != null ? participant.score : 
+                                    </div>
+                                    <div className="text-sm m-4 font-bold text-gray-700">
+                                        {participant.score != null ? participant.score :
                                             Array.isArray(participant.setScores)
                                                 ? participant.setScores.map((set, index) => (
                                                     set.score !== 0 && ( // ตรวจสอบว่า set.score ไม่เป็น 0

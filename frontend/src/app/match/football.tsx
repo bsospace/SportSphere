@@ -121,7 +121,6 @@ export default function FootballContent() {
             });
 
         // จัดอันดับใหม่โดยให้ทีมที่มีคะแนนเท่ากันอยู่ในตำแหน่งเดียวกัน
-        let rank = 1;
         sortedTeams = sortedTeams.map((team, index, arr) => {
             if (index > 0 && team.score === arr[index - 1].score) {
                 team.rank = arr[index - 1].rank; // ใช้อันดับเดียวกับทีมก่อนหน้า
