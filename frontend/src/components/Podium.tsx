@@ -38,8 +38,8 @@ const Podium = ({ teams, isLoading }) => {
     const getRankIcon = (rank) => {
         const iconSize = "w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8";
         switch (rank) {
-            case 1: return <Crown className={`${iconSize} text-yellow-600`} />;
-            case 2: return <Trophy className={`${iconSize} text-gray-600`} />;
+            case 1: return <Medal className={`${iconSize} text-yellow-600`} />;
+            case 2: return <Medal className={`${iconSize} text-gray-600`} />;
             case 3: return <Medal className={`${iconSize} text-orange-600`} />;
             default: return <Star className={`${iconSize} text-blue-600`} />;
         }
@@ -103,8 +103,8 @@ const Podium = ({ teams, isLoading }) => {
     flex items-center justify-center mt-1 sm:mt-3 
     text-[10px] sm:text-xs md:text-sm font-bold 
     rounded-md shadow-md border border-gray-200 text-gray-800">
-    {team.score} pts
-</div>
+                                    {team.score} pts
+                                </div>
 
 
                             </motion.div>
