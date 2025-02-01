@@ -117,7 +117,7 @@ export default function ValorantContent() {
             <Card>
                 <CardContent>
                     <Section title="ผลการแข่งขัน">
-                        <Podium teams={sortedTeams} />
+                        <Podium teams={sortedTeams} isLoading={false} />
                         <Button onClick={() => router.push("/match/valorant")}>ดูผลการแข่งขัน Valorant แบบละเอียด</Button>
                     </Section>
                 </CardContent>

@@ -155,7 +155,7 @@ export default function RovContent() {
             <Card>
                 <CardContent>
                     <Section title="ผลการแข่งขัน">
-                        <Podium teams={sortedTeams} />
+                        <Podium teams={sortedTeams} isLoading={false} />
                     </Section>
                 </CardContent>
                 <CardFooter>

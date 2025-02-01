@@ -24,7 +24,7 @@ export default function BadmintonMenContent() {
     const [loading, setLoading] = useState(true);
     const { socket } = useSocket();
     const { isAuthenticated } = useAuth();
-     const [isComplate, setIsComplate] = useState(false);
+    const [isComplate, setIsComplate] = useState(false);
 
     const fetchData = async () => {
         try {
@@ -56,14 +56,16 @@ export default function BadmintonMenContent() {
     }, [socket]);
 
     useEffect(() => {
+        // Check if all matches are completed
         setIsComplate(matches.every(match => match.completed));
 
+        // Aggregate points for each team
         const teamPoints = matches.reduce<Record<string, { name: string; points: number }>>(
             (acc, match) => {
-                match.participants.forEach((participant: any) => {
-                    const teamId = participant.team.id;
-                    const teamName = participant.team.name;
-                    const points = participant.point ?? 0;
+                match.participants.forEach((participant) => {
+                    const teamId = participant.team?.id ?? "unknown";
+                    const teamName = participant.team?.name ?? "Unknown";
+                    const points = participant.points ?? 0;
 
                     if (!acc[teamId]) {
                         acc[teamId] = { name: teamName, points: 0 };
@@ -75,15 +77,16 @@ export default function BadmintonMenContent() {
             {}
         );
 
+        // Sort teams based on points (descending order)
         let sortedTeams = Object.entries(teamPoints)
             .map(([id, { name, points }]) => ({
                 id,
                 name,
                 points,
             }))
-            .sort((a, b) => b.points - a.points)
+            .sort((a, b) => b.points - a.points) // Highest points first
             .map((team, index) => {
-                // Generate color from team name (temporary)
+                // Assign colors based on team names
                 const color = team.name.includes("เขียว")
                     ? "bg-green-300"
                     : team.name.includes("แดง")
@@ -96,7 +99,7 @@ export default function BadmintonMenContent() {
                                     ? "bg-pink-300"
                                     : "bg-gray-300";
 
-                // Generate title based on rank
+                // Assign ranking titles
                 const titles = [
                     "ชนะเลิศอันดับที่ 1",
                     "รองชนะเลิศอันดับที่ 1",
@@ -104,7 +107,7 @@ export default function BadmintonMenContent() {
                     "รองชนะเลิศอันดับที่ 3",
                     "รองชนะเลิศอันดับที่ 4",
                 ];
-                const title = `${titles[index] || `อันดับที่ ${index + 1}`}`;
+                const title = titles[index] || `อันดับที่ ${index + 1}`;
 
                 return {
                     team: team.name,
@@ -115,10 +118,15 @@ export default function BadmintonMenContent() {
                 };
             });
 
-        sortedTeams = [4, 2, 1, 3, 5]
-            .map((rank) => sortedTeams.find((team) => team.rank === rank))
-            .filter((team) => team !== undefined);
+        // Ensure rank consistency for teams with equal points
+        sortedTeams = sortedTeams.map((team, index, arr) => {
+            if (index > 0 && team.score === arr[index - 1].score) {
+                team.rank = arr[index - 1].rank;
+            }
+            return team;
+        });
 
+        // Update state
         setPodiumData(sortedTeams);
         setLoading(false);
     }, [matches]);
@@ -150,7 +158,7 @@ export default function BadmintonMenContent() {
                 <CardContent>
                     <LiveBadge title="ผลการแข่งขัน">
                         {(isComplate || isAuthenticated) && (
-                            <Podium teams={podiumData} />
+                            <Podium teams={podiumData} isLoading={loading} />
                         )}
                         <Leaderboard matches={matches} />
                     </LiveBadge>
