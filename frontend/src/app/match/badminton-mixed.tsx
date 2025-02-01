@@ -17,10 +17,11 @@ import Leaderboard from '@/components/Leaderboard';
 import LiveBadge from '@/components/LiveBadge';
 import { useAuth } from '../hooks/useAuth';
 import { match } from 'assert';
+import { Match } from '../utils/interfaces';
 
 export default function BadmintonMixedContent() {
     const [podiumData, setPodiumData] = useState<{ team: string; rank: number; title: string; score: number; color: string; }[]>([]);
-    const [matches, setMatches] = useState<any[]>([]);
+    const [matches, setMatches] = useState<Match[]>([]);
     const [loading, setLoading] = useState(true);
     const { socket, connected } = useSocket();
     const { isAuthenticated } = useAuth();
@@ -56,15 +57,17 @@ export default function BadmintonMixedContent() {
     }, [socket]);
 
     useEffect(() => {
+        // Check if all matches are completed
         setIsComplate(matches.every(match => match.completed));
-
+    
+        // Aggregate points for each team
         const teamPoints = matches.reduce<Record<string, { name: string; points: number }>>(
             (acc, match) => {
                 match.participants.forEach((participant) => {
-                    const teamId = participant.team.id;
-                    const teamName = participant.team.name;
-                    const points = participant.point ?? 0;
-
+                    const teamId = participant.team?.id ?? "unknown";
+                    const teamName = participant.team?.name ?? "Unknown";
+                    const points = participant.points ?? 0;
+    
                     if (!acc[teamId]) {
                         acc[teamId] = { name: teamName, points: 0 };
                     }
@@ -74,16 +77,17 @@ export default function BadmintonMixedContent() {
             },
             {}
         );
-
+    
+        // Sort teams based on points (descending order)
         let sortedTeams = Object.entries(teamPoints)
             .map(([id, { name, points }]) => ({
                 id,
                 name,
                 points,
             }))
-            .sort((a, b) => b.points - a.points)
+            .sort((a, b) => b.points - a.points) // Highest points first
             .map((team, index) => {
-                // Generate color from team name (temporary)
+                // Assign colors based on team names
                 const color = team.name.includes("เขียว")
                     ? "bg-green-300"
                     : team.name.includes("แดง")
@@ -95,8 +99,8 @@ export default function BadmintonMixedContent() {
                                 : team.name.includes("ชมพู")
                                     ? "bg-pink-300"
                                     : "bg-gray-300";
-
-                // Generate title based on rank
+    
+                // Assign ranking titles
                 const titles = [
                     "ชนะเลิศอันดับที่ 1",
                     "รองชนะเลิศอันดับที่ 1",
@@ -104,8 +108,8 @@ export default function BadmintonMixedContent() {
                     "รองชนะเลิศอันดับที่ 3",
                     "รองชนะเลิศอันดับที่ 4",
                 ];
-                const title = `${titles[index] || `อันดับที่ ${index + 1}`}`;
-
+                const title = titles[index] || `อันดับที่ ${index + 1}`;
+    
                 return {
                     team: team.name,
                     rank: index + 1,
@@ -114,11 +118,16 @@ export default function BadmintonMixedContent() {
                     color,
                 };
             });
-
-        sortedTeams = [4, 2, 1, 3, 5]
-            .map((rank) => sortedTeams.find((team) => team.rank === rank))
-            .filter((team) => team !== undefined);
-
+    
+        // Ensure rank consistency for teams with equal points
+        sortedTeams = sortedTeams.map((team, index, arr) => {
+            if (index > 0 && team.score === arr[index - 1].score) {
+                team.rank = arr[index - 1].rank;
+            }
+            return team;
+        });
+    
+        // Update state
         setPodiumData(sortedTeams);
         setLoading(false);
     }, [matches]);
@@ -151,7 +160,7 @@ export default function BadmintonMixedContent() {
                 <CardContent>
                     <LiveBadge title="ผลการแข่งขัน">
                         {(isComplate || isAuthenticated) && (
-                            <Podium teams={podiumData} />
+                            <Podium teams={podiumData} isLoading={loading} />
                         )}
                         <Leaderboard matches={matches} />
                     </LiveBadge>
