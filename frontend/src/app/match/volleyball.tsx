@@ -35,6 +35,22 @@ export default function VolleyballContent() {
         }
     };
 
+       // Listen for match score updates from WebSocket
+    useEffect(() => {
+        if (socket) {
+            socket.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+                if (message.event === 'matchScoresUpdated' && message.data.sport === 'VB') {
+                    fetchData();
+                }
+            };
+
+            return () => {
+                socket.onmessage = null;
+            };
+        }
+    }, [socket]);
+
     // Listen for match score updates from WebSocket
     useEffect(() => {
         // Check if all matches are completed
