@@ -3,7 +3,7 @@
 /* eslint-disable-next-line react-hooks/exhaustive-deps */
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { api } from '@/app/utils/api.util';
 import {
     Card,
@@ -14,12 +14,17 @@ import MatchSchedule from '@/components/MatchSchedule';
 import Leaderboard from '@/components/Leaderboard';
 import { Loader2 } from 'lucide-react';
 import { useSocket } from '../hooks/useSocket';
+import LiveBadge from '@/components/LiveBadge';
+import { useAuth } from '@/app/hooks/useAuth';
+
 
 export default function FootballContent() {
     const [podiumData, setPodiumData] = useState<{ team: string; rank: number; title: string; score: number; color: string; }[]>([]);
     const [matches, setMatches] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const { socket, connected } = useSocket();
+    const { isAuthenticated } = useAuth();
+    const [isComplate, setIsComplate] = useState(false);
 
     const fetchData = async () => {
         try {
@@ -37,10 +42,8 @@ export default function FootballContent() {
         if (socket) {
             socket.onmessage = (event) => {
                 const message = JSON.parse(event.data);
-                if (message.event === 'matchScoresUpdated') {
-                    if(message.data.sport === 'FB'){
-                        fetchData();
-                    }
+                if (message.event === 'matchScoresUpdated' && message.data.sport === 'FB') {
+                    fetchData();
                 }
             };
 
@@ -52,6 +55,10 @@ export default function FootballContent() {
 
     useEffect(() => {
         fetchData();
+    }, []);
+
+    useEffect(() => {
+        setIsComplate(matches.every(match => match.completed));
 
         const teamPoints = matches.reduce<Record<string, { name: string; points: number }>>(
             (acc, match) => {
@@ -59,6 +66,8 @@ export default function FootballContent() {
                     const teamId = participant.team.id;
                     const teamName = participant.team.name;
                     const points = participant.point ?? 0;
+                    console.log(participant);
+                    
 
                     if (!acc[teamId]) {
                         acc[teamId] = { name: teamName, points: 0 };
@@ -110,13 +119,19 @@ export default function FootballContent() {
                 };
             });
 
-        sortedTeams = [4, 2, 1, 3, 5]
-            .map((rank) => sortedTeams.find((team) => team.rank === rank))
-            .filter((team) => team !== undefined);
+        // จัดอันดับใหม่โดยให้ทีมที่มีคะแนนเท่ากันอยู่ในตำแหน่งเดียวกัน
+        sortedTeams = sortedTeams.map((team, index, arr) => {
+            if (index > 0 && team.score === arr[index - 1].score) {
+                team.rank = arr[index - 1].rank; // ใช้อันดับเดียวกับทีมก่อนหน้า
+            } else {
+                team.rank = index + 1;
+            }
+            return team;
+        });
 
         setPodiumData(sortedTeams);
         setLoading(false);
-    }, []);
+    }, [matches]);
 
     if (loading) {
         return (
@@ -139,18 +154,20 @@ export default function FootballContent() {
             {/* Podium Section */}
             <Card className="mt-4">
                 <CardContent>
-                    <Section title="ผลการแข่งขัน">
-                        <Podium teams={podiumData} />
+                    <LiveBadge title="ผลการแข่งขัน">
+                        {(isAuthenticated || isComplate) && (
+                            <Podium teams={podiumData} />
+                        )}
                         <Leaderboard matches={matches} />
-                    </Section>
+                    </LiveBadge>
                 </CardContent>
             </Card>
 
             <Card className="mt-4">
                 <CardContent>
-                    <Section title="ตารางการแข่งขัน">
+                    <LiveBadge title="ตารางการแข่งขัน">
                         <MatchSchedule matches={sortedMatches} />
-                    </Section>
+                    </LiveBadge>
                 </CardContent>
             </Card>
 
@@ -178,9 +195,6 @@ export default function FootballContent() {
                             </RuleItem>
                         </Subsection>
                         <Subsection title="4. จำนวนผู้เข้าแข่งขัน">
-                            <RuleItem>
-                                แต่ละสีส่งทีมได้ไม่เกิน 1 ทีม และสามารถส่งรายชื่อผู้เล่นได้ทั้งหมด 17 คน
-                            </RuleItem>
                             <RuleItem>
                                 อนุญาตให้มีผู้จัดการทีม/ผู้ฝึกสอน 1 คน เจ้าหน้าที่ทีม 2 คน ผู้เล่นจริงและสำรองรวม 17 คน ห้ามบุคคลอื่นลงสนามหรืออยู่ข้างสนาม
                             </RuleItem>

@@ -1,23 +1,25 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion, AnimatePresence } from "framer-motion";
+import { Match } from "@/app/utils/interfaces";
 
-interface Team {
-    id: string;
-    name: string;
-}
+// interface Team {
+//     id: string;
+//     name: string;
+// }
 
-interface Participant {
-    id: string;
-    team: Team;
-    score?: number;
-    points?: number;
-}
+// interface Participant {
+//     id: string;
+//     team: Team;
+//     score?: number;
+//     points?: number;
+// }
 
-interface Match {
-    id: string;
-    participants: Participant[];
-}
+// interface Match {
+//     id: string;
+//     participants: Participant[];
+// }
 
 interface LeaderboardProps {
     matches: Match[];
@@ -32,7 +34,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ matches }) => {
             // Aggregate scores for each team
             const teamPoints = matches.reduce<Record<string, { name: string; totalPoints: number }>>(
                 (acc, match) => {
-                    match.participants.forEach((participant) => {
+                    match.participants.forEach((participant: any) => {
                         const teamId = participant.team.id;
                         const teamName = participant.team.name;
                         const point = participant.points ?? 0;
@@ -62,7 +64,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ matches }) => {
     const getRowColor = (index: number, teamName: string) => {
         // Determine color based on team name
         let teamColor = "bg-gray-300"; // Default color for teams not matching specific colors
-    
+
         if (teamName.includes("เขียว")) {
             teamColor = "bg-green-300";
         } else if (teamName.includes("แดง")) {
@@ -82,12 +84,8 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ matches }) => {
             <AnimatePresence>
                 {isLoading || sortedTeams.length === 0 ? (
                     Array.from({ length: 5 }).map((_, index) => (
-                        <motion.div
+                        <div
                             key={`skeleton-${index}`}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.3, delay: index * 0.1 }}
                             className="flex items-center justify-between px-4 py-2 rounded-lg bg-gray-100"
                         >
                             <div className="flex items-center gap-4">
@@ -95,7 +93,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ matches }) => {
                                 <Skeleton className="w-24 h-5 rounded" />
                             </div>
                             <Skeleton className="w-12 h-5 rounded" />
-                        </motion.div>
+                        </div>
                     ))
                 ) : (
                     sortedTeams.map((team, index) => (

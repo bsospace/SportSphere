@@ -12,12 +12,16 @@ import MatchSchedule from '@/components/MatchSchedule';
 import Leaderboard from '@/components/Leaderboard';
 import { Loader2 } from 'lucide-react';
 import { useSocket } from '../hooks/useSocket';
+import LiveBadge from '@/components/LiveBadge';
+import { useAuth } from '../hooks/useAuth';
 
 export default function VolleyballContent() {
     const [podiumData, setPodiumData] = useState<{ team: string; rank: number; title: string; score: number; color: string; }[]>([]);
     const [matches, setMatches] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const { socket, connected } = useSocket();
+    const { isAuthenticated } = useAuth();
+    const [isComplate, setIsComplate] = useState(false);
 
     const fetchData = async () => {
         try {
@@ -49,7 +53,7 @@ export default function VolleyballContent() {
     }, [socket]);
 
     useEffect(() => {
-        fetchData();
+        setIsComplate(matches.every(match => match.completed));
 
         const teamPoints = matches.reduce<Record<string, { name: string; points: number }>>(
             (acc, match) => {
@@ -114,7 +118,11 @@ export default function VolleyballContent() {
 
         setPodiumData(sortedTeams);
         setLoading(false);
-    }, []);
+    }, [matches]);
+
+    useEffect(() => {
+        fetchData();
+    }, [])
 
     if (loading) {
         return (
@@ -138,20 +146,20 @@ export default function VolleyballContent() {
             {/* Podium Section */}
             <Card className="mt-4">
                 <CardContent>
-                    <CardContent>
-                        <Section title="ผลการแข่งขัน">
+                    <LiveBadge title="ผลการแข่งขัน">
+                        {(isComplate || isAuthenticated) && (
                             <Podium teams={podiumData} />
-                            <Leaderboard matches={matches} />
-                        </Section>
-                    </CardContent>
+                        )}
+                        <Leaderboard matches={matches} />
+                    </LiveBadge>
                 </CardContent>
             </Card>
 
             <Card className="mt-4">
                 <CardContent>
-                    <Section title="ตารางการแข่งขัน">
+                    <LiveBadge title="ตารางการแข่งขัน">
                         <MatchSchedule matches={sortedMatches} />
-                    </Section>
+                    </LiveBadge>
                 </CardContent>
             </Card>
 

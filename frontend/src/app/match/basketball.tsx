@@ -14,12 +14,16 @@ import { useSocket } from '../hooks/useSocket';
 import { Loader2 } from 'lucide-react';
 import MatchSchedule from '@/components/MatchSchedule';
 import Leaderboard from '@/components/Leaderboard';
+import LiveBadge from '@/components/LiveBadge';
+import { useAuth } from '../hooks/useAuth';
 
 export default function BasketballContent() {
     const [podiumData, setPodiumData] = useState<{ team: string; rank: number; title: string; score: number; color: string; }[]>([]);
     const [matches, setMatches] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const { socket, connected } = useSocket();
+    const { isAuthenticated } = useAuth();
+    const [isComplate, setIsComplate] = useState(false);
 
     const fetchData = async () => {
         try {
@@ -38,7 +42,7 @@ export default function BasketballContent() {
             socket.onmessage = (event) => {
                 const message = JSON.parse(event.data);
                 if (message.event === 'matchScoresUpdated') {
-                    if(message.data.sport === 'BK'){
+                    if (message.data.sport === 'BK') {
                         fetchData();
                     }
                 }
@@ -51,7 +55,7 @@ export default function BasketballContent() {
     }, [socket]);
 
     useEffect(() => {
-        fetchData();
+        setIsComplate(matches.every(match => match.completed));
 
         const teamPoints = matches.reduce<Record<string, { name: string; points: number }>>(
             (acc, match) => {
@@ -116,7 +120,11 @@ export default function BasketballContent() {
 
         setPodiumData(sortedTeams);
         setLoading(false);
-    }, []);
+    }, [matches]);
+
+    useEffect(() => {
+        fetchData();
+    })
 
     if (loading) {
         return (
@@ -140,18 +148,18 @@ export default function BasketballContent() {
             {/* Podium Section */}
             <Card className="mt-4">
                 <CardContent>
-                    <Section title="ผลการแข่งขัน">
-                        <Podium teams={podiumData} />
+                    <LiveBadge title="ผลการแข่งขัน">
+                        {(isComplate || isAuthenticated) && <Podium teams={podiumData} />}
                         <Leaderboard matches={matches} />
-                    </Section>
+                    </LiveBadge>
                 </CardContent>
             </Card>
 
             <Card className="mt-4">
                 <CardContent>
-                    <Section title="ตารางการแข่งขัน">
+                    <LiveBadge title="ตารางการแข่งขัน">
                         <MatchSchedule matches={sortedMatches} />
-                    </Section>
+                    </LiveBadge>
                 </CardContent>
             </Card>
 

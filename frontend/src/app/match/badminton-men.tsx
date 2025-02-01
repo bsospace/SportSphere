@@ -2,8 +2,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useEffect, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
 import {
     Card,
     CardContent,
@@ -15,12 +13,18 @@ import { useSocket } from '../hooks/useSocket';
 import { Loader2 } from 'lucide-react';
 import MatchSchedule from '@/components/MatchSchedule';
 import Leaderboard from '@/components/Leaderboard';
+import LiveBadge from '@/components/LiveBadge';
+import { Match } from '../utils/interfaces';
+import { useAuth } from '../hooks/useAuth';
+
 
 export default function BadmintonMenContent() {
     const [podiumData, setPodiumData] = useState<{ team: string; rank: number; title: string; score: number; color: string; }[]>([]);
-    const [matches, setMatches] = useState<any[]>([]);
+    const [matches, setMatches] = useState<Match[]>([]);
     const [loading, setLoading] = useState(true);
     const { socket } = useSocket();
+    const { isAuthenticated } = useAuth();
+     const [isComplate, setIsComplate] = useState(false);
 
     const fetchData = async () => {
         try {
@@ -39,7 +43,7 @@ export default function BadmintonMenContent() {
             socket.onmessage = (event) => {
                 const message = JSON.parse(event.data);
                 if (message.event === 'matchScoresUpdated') {
-                    if(message.data.sport === 'BMM'){
+                    if (message.data.sport === 'BMM') {
                         fetchData();
                     }
                 }
@@ -52,11 +56,11 @@ export default function BadmintonMenContent() {
     }, [socket]);
 
     useEffect(() => {
-        fetchData();
+        setIsComplate(matches.every(match => match.completed));
 
         const teamPoints = matches.reduce<Record<string, { name: string; points: number }>>(
             (acc, match) => {
-                match.participants.forEach((participant) => {
+                match.participants.forEach((participant: any) => {
                     const teamId = participant.team.id;
                     const teamName = participant.team.name;
                     const points = participant.point ?? 0;
@@ -117,7 +121,11 @@ export default function BadmintonMenContent() {
 
         setPodiumData(sortedTeams);
         setLoading(false);
-    }, []);
+    }, [matches]);
+
+    useEffect(() => {
+        fetchData();
+    }, [])
 
     if (loading) {
         return (
@@ -140,21 +148,23 @@ export default function BadmintonMenContent() {
 
             <Card className="mt-4">
                 <CardContent>
-                    <Section title="ผลการแข่งขัน">
-                        <Podium teams={podiumData} />
+                    <LiveBadge title="ผลการแข่งขัน">
+                        {(isComplate || isAuthenticated) && (
+                            <Podium teams={podiumData} />
+                        )}
                         <Leaderboard matches={matches} />
-                    </Section>
+                    </LiveBadge>
                 </CardContent>
             </Card>
 
             <Card className="mt-4">
                 <CardContent>
-                    <Section title="ตารางการแข่งขัน">
+                    <LiveBadge title="ตารางการแข่งขัน">
                         <MatchSchedule matches={sortedMatches} />
-                    </Section>
+                    </LiveBadge>
                 </CardContent>
             </Card>
-            
+
             <Card className='mt-4'>
                 <CardContent>
                     <Section title="กติกาการแข่งขันแบดมินตันคู่ชาย">
@@ -180,7 +190,7 @@ export default function BadmintonMenContent() {
                             </RuleItem>
                             <RuleItem>
                                 ยกเว้นเมื่อได้ 20 คะแนนเท่ากันต้องนับแต้มต่อให้มีคะแนนห่างกัน 2 คะแนน
-                                ฝ่ายใดได้คะแนนนำ 2 คะแนนก่อนถือเป็นผู้ชนะ 
+                                ฝ่ายใดได้คะแนนนำ 2 คะแนนก่อนถือเป็นผู้ชนะ
                             </RuleItem>
                             <RuleItem>
                                 แต่ไม่เกิน 30 คะแนน หมายความว่า หากเล่นมาจนถึง 29 คะแนนเท่ากัน ฝ่ายใดได้ 30 คะแนนก่อนถือเป็นผู้ชนะ
