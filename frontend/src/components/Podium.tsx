@@ -98,19 +98,17 @@ const Podium = ({ teams, isLoading }) => {
                                 </div>
 
                                 {/* Score Box */}
-                                <div className="bg-white bg-opacity-90 backdrop-blur-sm 
-    w-12 h-8 sm:w-16 sm:h-12 md:w-20 md:h-16 
-    flex items-center justify-center mt-1 sm:mt-3 
-    text-[10px] sm:text-xs md:text-sm font-bold 
-    rounded-md shadow-md border border-gray-200 text-gray-800">
-                                    {team.score} pts
+                                <div className="bg-white bg-opacity-90 backdrop-blur-sm w-12 h-8 sm:w-16 sm:h-12 md:w-20 md:h-16 flex items-center justify-center mt-1 sm:mt-3 text-[10px] sm:text-xs md:text-sm font-bold rounded-md shadow-md border border-gray-200 text-gray-800">
+                                    {team.score == 0 || team.score ? `${team.score} pts` : ""}
                                 </div>
-
-
                             </motion.div>
                         ))}
                     </div>
                 )}
+            </div>
+            <div className="pb-5">
+                {/* description */}
+                <p>*คิดจากคะแนนรวมของทุกชนิดกีฬา</p>
             </div>
         </div>
     );
