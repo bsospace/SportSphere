@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface SetScore {
     label: string;  // ชื่อของเซต เช่น "set1", "set2"
     score: number;  // คะแนนที่ได้ในเซตนั้น
