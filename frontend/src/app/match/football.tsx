@@ -26,17 +26,16 @@ export default function FootballContent() {
     const { isAuthenticated } = useAuth();
     const [isComplate, setIsComplate] = useState(false);
 
-    const fetchData = useCallback(async () => {
-        setLoading(true);
+    const fetchData = async () => {
         try {
             const response = await api.get('api/v1/match/FB');
-            setMatches(response.data.data.matches);
+            const data = await response.data.data.matches;
+
+            setMatches(data);
         } catch (error) {
             console.error('Error fetching data:', error);
-        } finally {
-            setLoading(false);
         }
-    }, []);
+    };
 
     // Listen for match score updates from WebSocket
     useEffect(() => {
