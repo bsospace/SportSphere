@@ -29,15 +29,17 @@ const Podium = ({ teams, isLoading }) => {
     };
 
     const getRankText = (rank) => {
-        const suffix = rank === 1 ? "st" : rank === 2 ? "nd" : rank === 3 ? "rd" : "th";
-        return rankCounts[rank] > 1 ? `Joint ${rank}${suffix} Place` : `${rank}${suffix} Place`;
+        const rankSuffix = ["", "ที่ 1", "ที่ 2", "ที่ 3"];
+        const suffix = rankSuffix[rank] || `ที่ ${rank}`;
+
+        return rankCounts[rank] > 1 ? `อันดับร่วม${suffix}` : `อันดับ${suffix}`;
     };
 
     const getRankIcon = (rank) => {
         const iconSize = "w-4 h-4 sm:w-6 sm:h-6 md:w-8 md:h-8";
         switch (rank) {
-            case 1: return <Crown className={`${iconSize} text-yellow-600`} />;
-            case 2: return <Trophy className={`${iconSize} text-gray-600`} />;
+            case 1: return <Medal className={`${iconSize} text-yellow-600`} />;
+            case 2: return <Medal className={`${iconSize} text-gray-600`} />;
             case 3: return <Medal className={`${iconSize} text-orange-600`} />;
             default: return <Star className={`${iconSize} text-blue-600`} />;
         }
@@ -96,18 +98,17 @@ const Podium = ({ teams, isLoading }) => {
                                 </div>
 
                                 {/* Score Box */}
-                                <div className="bg-white bg-opacity-90 backdrop-blur-sm w-14 h-10 sm:w-20 sm:h-16 md:w-24 md:h-20 flex items-center justify-center mt-2 sm:mt-4 text-sm sm:text-xl md:text-2xl font-bold rounded-lg shadow-lg border border-gray-200 text-gray-800">
-                                    {team.score}
+                                <div className="bg-white bg-opacity-90 backdrop-blur-sm w-12 h-8 sm:w-16 sm:h-12 md:w-20 md:h-16 flex items-center justify-center mt-1 sm:mt-3 text-[10px] sm:text-xs md:text-sm font-bold rounded-md shadow-md border border-gray-200 text-gray-800">
+                                    {team.score == 0 || team.score ? `${team.score} pts` : ""}
                                 </div>
-
-                                {/* Title */}
-                                <p className="mt-2 sm:mt-3 text-xs sm:text-sm md:text-base lg:text-lg font-medium text-gray-700 text-center">
-                                    {team.title}
-                                </p>
                             </motion.div>
                         ))}
                     </div>
                 )}
+            </div>
+            <div className="pb-5">
+                {/* description */}
+                <p>*คิดจากคะแนนรวมของทุกชนิดกีฬา</p>
             </div>
         </div>
     );
