@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import React, { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion, AnimatePresence } from "framer-motion";
@@ -64,7 +65,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ matches }) => {
     const getRowColor = (index: number, teamName: string) => {
         // Determine color based on team name
         let teamColor = "bg-gray-300"; // Default color for teams not matching specific colors
-
+    
         if (teamName.includes("เขียว")) {
             teamColor = "bg-green-300";
         } else if (teamName.includes("แดง")) {
