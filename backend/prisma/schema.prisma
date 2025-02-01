@@ -65,7 +65,8 @@ model MatchParticipant {
   team        Team?     @relation(fields: [teamId], references: [id])
   rank        String?
   points      Int?      @default(0)
-  score       Int?       @default(0)
+  score       Int?
+  setScores   Json?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   auditLogs     Json[]

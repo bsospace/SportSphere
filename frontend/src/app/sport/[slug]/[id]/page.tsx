@@ -12,6 +12,14 @@ import MatchEndConfirmation from '@/components/MatchEndConfirmation'
 
 export default function EditMatchScorePage() {
   const { isAuthenticated, isLoading } = useAuth()
+
+  interface SetScore {
+    label: string;
+    score: number;
+    rank?: string;
+    remark?: string;
+  }
+
   interface Participant {
     team: {
       id: string
@@ -20,6 +28,7 @@ export default function EditMatchScorePage() {
     score?: number
     rank?: number
     auditLogs: string[]
+    setScores?: SetScore[]
   }
 
   interface MatchData {
@@ -32,12 +41,18 @@ export default function EditMatchScorePage() {
     completed: Date
   }
 
+  interface Rank {
+     teamId: string
+     rank?: string 
+  }
+
   const [matchData, setMatchData] = useState<MatchData | null>(null)
   const [teamScores, setTeamScores] = useState<Record<string, number>>({})
   const [teamRanks, setTeamRanks] = useState<Record<string, number>>({})
   const [showAuditLogs, setShowAuditLogs] = useState(false)
   const { slug, id } = useParams() as { slug: string; id: string }
-
+  const [rankSetScore, setRankSetScore] = useState<Rank[]>([]);
+    
   const fetchMatchData = async () => {
     try {
       const response = await api.get(`api/v1/match/${slug}/${id}`)
@@ -83,12 +98,25 @@ export default function EditMatchScorePage() {
     }))
   }
 
+
   const handleRankChange = (teamId: string, value: number) => {
-    setTeamRanks(prev => ({
+    const hasSetScores =
+      matchData?.participants.some(
+        (participant) => participant.setScores && participant.setScores.length > 0
+      ) || false;
+  
+    if (hasSetScores) {
+      setRankSetScore((prev) => [
+        ...prev.filter((rank) => rank.teamId !== teamId),
+        { teamId, rank: value.toString() },
+      ]);
+    }
+  
+    setTeamRanks((prev) => ({
       ...prev,
-      [teamId]: value
-    }))
-  }
+      [teamId]: value,
+    }));
+  };
 
   const formatDate = (timestamp: string) => {
     const date = new Date(timestamp);
@@ -109,20 +137,39 @@ export default function EditMatchScorePage() {
       return;
     }
 
+    // Check if any participant has setScores
+    const hasSetScores = matchData.participants.some(participant => participant.setScores && participant.setScores.length > 0);
+
+    // Prepare Data
     const formatData = {
       id: matchData.id,
-      scores: matchData.participants.map((participant) => {
-        const teamId = participant.team.id.toString();
-        return {
-          teamId,
-          score: teamScores[teamId] || 0,
-          rank: teamRanks[teamId] || 0,
-        };
-      }),
+      ...(hasSetScores
+        ? {
+          ranks:rankSetScore,
+          setScores: matchData.participants.map(participant => ({
+            teamId: participant.team.id.toString(),
+            setScores: participant.setScores?.map(set => ({
+              label: set.label,
+              score: set.score,
+              rank: set.rank || "",
+              remark: set.remark || "",
+            })) || [],
+          })),
+        }
+        : {
+          scores: matchData.participants.map(participant => ({
+            teamId: participant.team.id.toString(),
+            score: teamScores[participant.team.id] || 0,
+            rank: teamRanks[participant.team.id] || 0,
+          })),
+        }),
     };
 
+    // Determine API endpoint
+    const apiEndpoint = hasSetScores ? `api/v1/match/${id}/edit-set-score` : `api/v1/match/${id}/edit`;
+
     try {
-      const response = await api.put(`api/v1/match/${id}/edit`, formatData);
+      const response = await api.put(apiEndpoint, formatData);
       console.log("Data saved successfully:", response.data);
       fetchMatchData();
       showCustomToast('success', 'บันทึกข้อมูลสำเร็จ');
@@ -130,6 +177,31 @@ export default function EditMatchScorePage() {
       console.error("Error saving match data:", error);
     }
   };
+
+
+  const handleSetScoreChange = (teamId: string, setIndex: number, newScore: number) => {
+    setMatchData((prevMatchData) => {
+      if (!prevMatchData) return prevMatchData;
+
+      return {
+        ...prevMatchData,
+        participants: prevMatchData.participants.map((participant) => {
+          if (participant.team.id !== teamId) return participant;
+
+          const updatedSetScores = participant.setScores ? [...participant.setScores] : [];
+          if (updatedSetScores[setIndex]) {
+            updatedSetScores[setIndex] = {
+              ...updatedSetScores[setIndex],
+              score: Math.max(0, newScore),
+            };
+          }
+
+          return { ...participant, setScores: updatedSetScores };
+        }),
+      };
+    });
+  };
+
 
   const onEndMatch = async () => {
     try {
@@ -206,95 +278,119 @@ export default function EditMatchScorePage() {
             </div>
           </div>
         </div>
+
         <div className={`grid grid-cols-1 ${showAuditLogs ? 'lg:grid-cols-2' : ''} gap-6`}>
           {/* Score Editor */}
-          <div className='bg-white rounded-lg shadow-sm p-6'>
-            <h2 className='text-lg font-semibold mb-4'>แก้ไขคะแนน</h2>
-            <div className='flex flex-wrap gap-4'>
-              {matchData.participants.map(participant => (
-                <div
-                  key={participant.team.id}
-                  className={`mb-6 p-4 ${showAuditLogs ? 'w-full' : 'max-w-[350px]'} bg-gray-50 rounded-lg`}
-                >
-                  <h3 className='font-medium text-gray-900 mb-3'>
-                    {participant.team.name}
-                  </h3>
-                  <div className='space-y-4'>
-                    <div>
-                      <label className='block text-sm text-gray-600 mb-1'>
-                        คะแนน
-                      </label>
-                      <div className='flex items-center gap-2'>
-                        <button
-                          onClick={() =>
-                            handleScoreChange(
-                              participant.team.id,
-                              (teamScores[participant.team.id] || 0) - 1
-                            )
-                          }
-                          className='p-2 rounded bg-gray-100 hover:bg-gray-200 text-gray-600'
-                        >
-                          <Minus size={16} />
-                        </button>
-                        <input
-                          type='number'
-                          value={teamScores[participant.team.id] || 0}
-                          onChange={e =>
-                            handleScoreChange(
-                              participant.team.id,
-                              parseInt(e.target.value)
-                            )
-                          }
-                          className='flex-1 p-2 border rounded text-center'
-                          min='0'
-                        />
-                        <button
-                          onClick={() =>
-                            handleScoreChange(
-                              participant.team.id,
-                              (teamScores[participant.team.id] || 0) + 1
-                            )
-                          }
-                          className='p-2 rounded bg-gray-100 hover:bg-gray-200 text-gray-600'
-                        >
-                          <Plus size={16} />
-                        </button>
-                      </div>
+          <div className='bg-white rounded-lg p-4'>
+            <h2 className='text-lg flex font-semibold mb-4'>แก้ไขคะแนน</h2>
+            <div className='md:flex flex flex-col gap-4 '>
+              <div className="md:flex md:flex-row md:max-w-[500px] gap-5 flex flex-col">
+                {matchData.participants.map(participant => (
+                  <div
+                    key={participant.team.id}
+                    className="mb-6 md:p-6 w-full  rounded-2xl bg-gray-100 p-4"
+                  >
+                    {/* Team Name */}
+                    <div className="flex justify-between items-center">
+                      <h3 className="text-lg font-bold text-gray-900">{participant.team.name}</h3>
                     </div>
-                    <div>
-                      <label className='block text-sm text-gray-600 mb-1'>
-                        ผลการแข่งขัน
-                      </label>
-                      {matchData.participants.length == 2 ?
-                        <select
-                          value={teamRanks[participant.team.id] || 0}
-                          onChange={e =>
-                            handleRankChange(
-                              participant.team.id,
-                              parseInt(e.target.value)
-                            )
-                          }
-                          className='w-full p-2 border rounded'
-                        >
-                          <option value={""}>--</option>
-                          <option value={1}>ชนะ</option>
-                          <option value={2}>แพ้</option>
-                          <option value={3}>เสมอ</option>
-                        </select>
-                        :
-                        <select value={teamRanks[participant.team.id] || 0} onChange={e => handleRankChange(participant.team.id, parseInt(e.target.value))} className='w-full p-2 border rounded'>
-                          <option value={""}>--</option>
-                          {matchData.participants.map((_, index) => (
-                            <option key={index} value={index + 1}>
-                              {index + 1}
-                            </option>
+
+                    {/* Set Scores Section */}
+                    {participant?.setScores != null && participant?.setScores.length > 0 ? (
+                      <>
+                        <div className="mt-4 mb-4 flex-col gap-4 w-full">
+
+                          {participant?.setScores && participant?.setScores.map((setScore, i) => (
+                            <div
+                              key={i}
+                              className="p-4 flex flex-col items-center justify-center "
+                            >
+                              {/* Set Label */}
+                              <span className="text-sm font-medium ">{setScore.label}</span>
+
+                              {/* Score Controls */}
+                              <div className=" w-full flex items-center gap-3 mt-2  justify-center ">
+                                <button
+                                  onClick={() => participant.setScores && handleSetScoreChange(participant.team.id, i, participant.setScores[i].score - 1)}
+                                  className="p-2 bg-gray-200 hover:bg-gray-300 rounded-full transition"
+                                >
+                                  <Minus size={16} className="text-gray-700" />
+                                </button>
+                                <input
+                                  type="number"
+                                  value={setScore.score || 0}
+                                  onChange={()=> handleSetScoreChange(participant.team.id, i,Math.max(1, setScore.score - 1))}
+                                  className="w-14 text-center text-lg font-semibold p-2 border rounded-lg bg-white shadow-inner"
+                                  min="0"
+                                />
+                                <button
+                                  onClick={() => participant.setScores && handleSetScoreChange(participant.team.id, i, participant.setScores[i].score + 1)}
+                                  className="p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-full transition"
+                                >
+                                  <Plus size={16} />
+                                </button>
+                              </div>
+                            </div>
                           ))}
-                        </select>
-                      }
+                          <hr />
+                        </div>
+                      </>
+                    ) : (
+                      // Standard Score Input for sports without sets
+                      <>
+                        <div className="mt-4 w-full md:max-w-[400px] mb-4">
+                          <label className="block text-sm text-gray-600 mb-1">คะแนน</label>
+                          <div className="flex items-center gap-3 w-full justify-center">
+                            <button
+                              onClick={() => handleScoreChange(participant.team.id, (teamScores[participant.team.id] || 0) - 1)}
+                              className="p-3 bg-gray-200 hover:bg-gray-300 rounded-full transition"
+                            >
+                              <Minus size={16} className="text-gray-700" />
+                            </button>
+                            <input
+                              type="number"
+                              value={teamScores[participant.team.id] || 0}
+                              onChange={e => handleScoreChange(participant.team.id, parseInt(e.target.value))}
+                              className="w-20 text-center text-lg font-semibold p-2 border rounded-lg bg-white shadow-inner"
+                              min="0"
+                            />
+                            <button
+                              onClick={() => handleScoreChange(participant.team.id, (teamScores[participant.team.id] || 0) + 1)}
+                              className="p-3 bg-blue-500 hover:bg-blue-600 text-white rounded-full transition"
+                            >
+                              <Plus size={16} />
+                            </button>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                    {/* Ranking Selection */}
+                    <div className="mt-6">
+                      <label className="block text-sm text-gray-600 mb-2">ผลการแข่งขัน</label>
+                      <select
+                        value={teamRanks[participant.team.id] || 0}
+                        onChange={e => handleRankChange(participant.team.id, parseInt(e.target.value))}
+                        className="w-full p-3 border rounded-lg text-gray-900 bg-gray-50 focus:ring focus:ring-blue-300"
+                      >
+                        <option value={""}>--</option>
+                        {matchData.participants.length === 2 ? (
+                          <>
+                            <option value={1}>🏆 ชนะ</option>
+                            <option value={2}>❌ แพ้</option>
+                            <option value={3}>🤝 เสมอ</option>
+                          </>
+                        ) : (
+                          matchData.participants.map((_, index) => (
+                            <option key={index} value={index + 1}>
+                              🥇 อันดับ {index + 1}
+                            </option>
+                          ))
+                        )}
+                      </select>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
 
