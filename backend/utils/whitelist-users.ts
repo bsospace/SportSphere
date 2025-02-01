@@ -45,6 +45,7 @@ export const WhiteListUsers = [
     "66160361@go.buu.ac.th",
     "66160080@go.buu.ac.th",
     "66160097@go.buu.ac.th",
-    "66160387@go.buu.ac.th"
+    "66160387@go.buu.ac.th",
+    "66160161@go.buu.ac.th"
   ];
   
