@@ -1,14 +1,6 @@
 {
     "events": [
         {
-            "time": "1 กุมภาพันธ์ 2568 | 13:00 - 19:00 น.",
-            "title": "แข่งขันกีฬาสากลวันที่ 1",
-            "tags": ["football", "basketball", "volleyball", "chairball", "badminton"],
-            "link": "https://ifgames.bsospace.com/match",
-            "linkLabel": "ดูตารางการแข่งขัน",
-            "image": "/images/sport/international_sport.png"
-        },
-        {
             "time": "2 กุมภาพันธ์ 2568 | 10:00 - 15:00 น.",
             "title": "แข่งขันกีฬาสากลวันที่ 2",
             "tags": ["football", "basketball", "volleyball", "chairball", "badminton"],
