@@ -106,10 +106,6 @@ const Podium = ({ teams, isLoading }) => {
                     </div>
                 )}
             </div>
-            <div className="pb-5">
-                {/* description */}
-                <p>*คิดจากคะแนนรวมของทุกชนิดกีฬา</p>
-            </div>
         </div>
     );
 };

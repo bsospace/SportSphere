@@ -43,7 +43,7 @@ export default function HomePage() {
   const [podiumData, setPodiumData] = useState<{ team: string; rank: number; title: string; score: number; color: string; }[]>([]);
   const [matches, setMatches] = useState<Match[]>([]);
   const { socket } = useSocket();
-  
+
 
   const handleSearchForStudent = async () => {
     if (!userNumber.trim()) {
@@ -111,25 +111,25 @@ export default function HomePage() {
     }
   };
 
- // Listen for match score updates from WebSocket
- useEffect(() => {
-  if (socket) {
+  // Listen for match score updates from WebSocket
+  useEffect(() => {
+    if (socket) {
       socket.onmessage = (event) => {
-          const message = JSON.parse(event.data);
-          if (message.event === 'matchScoresUpdated') {
-            fetchMatch();
-          }
+        const message = JSON.parse(event.data);
+        if (message.event === 'matchScoresUpdated') {
+          fetchMatch();
+        }
       };
 
       return () => {
-          socket.onmessage = null;
+        socket.onmessage = null;
       };
-  }
-}, [socket]);
+    }
+  }, [socket]);
 
-useEffect(() => {
-  fetchMatch()
-},[])
+  useEffect(() => {
+    fetchMatch()
+  }, [])
 
   useEffect(() => {
 
@@ -221,6 +221,10 @@ useEffect(() => {
         <Navigation />
         <UpcomingEvents />
         <Podium teams={podiumData} isLoading={loading} />
+        <div className="pb-5 text-sm text-red-500">
+          {/* description */}
+          <p>*คิดจากคะแนนรวมของทุกชนิดกีฬา</p>
+        </div>
       </div>
 
       <div className="w-full flex flex-col items-center justify-center md:min-h-screen mt-12">
